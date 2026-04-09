@@ -1,0 +1,62 @@
+---
+// Ghost Relay - Gateway Interface v1.2
+---
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GHOST RELAY | Soon Secured</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;600&display=swap');
+        body { font-family: 'Inter', sans-serif; background-color: #000; }
+        .app-card {
+            background: #000;
+            border: 1px solid #333;
+            border-radius: 24px;
+        }
+    </style>
+</head>
+<body class="text-[#00ff41] flex flex-col items-center justify-center min-h-screen p-6 overflow-hidden relative">
+
+    <div class="fixed top-[-10%] right-[-10%] w-96 h-96 opacity-10 pointer-events-none">
+        <img src="/radar.png" alt="" class="w-full h-full object-contain animate-pulse" />
+    </div>
+
+    <div class="max-w-md w-full z-10">
+        
+        <div class="flex justify-center mb-10">
+            <div class="relative">
+                <div class="absolute inset-0 bg-[#00ff41] blur-3xl opacity-20 rounded-full"></div>
+                <img src="/logo.png" alt="Soon Secured Messenger" class="h-40 w-40 relative z-10 drop-shadow-[0_0_15px_rgba(0,255,65,0.4)]" />
+            </div>
+        </div>
+
+        <header class="text-center mb-12">
+            <h1 class="text-white text-4xl font-bold tracking-tight mb-2 uppercase italic">Ghost <span class="text-[#00ff41]">Relay</span></h1>
+            <p class="text-xs tracking-[0.4em] opacity-50 uppercase font-light">Stateless Anonymity Network</p>
+        </header>
+
+        <div class="space-y-4">
+            <button class="app-card w-full p-5 flex items-center justify-between group hover:border-[#00ff41] transition-all">
+                <span class="text-white font-semibold uppercase tracking-widest text-sm">Download APK</span>
+                <img src="/arrow.png" class="h-6 opacity-80 group-hover:opacity-100 group-hover:translate-x-1 transition-all" />
+            </button>
+
+            <button class="app-card w-full p-5 flex items-center justify-between group hover:border-[#00ff41] transition-all">
+                <span class="text-white font-semibold uppercase tracking-widest text-sm">Technical White Paper</span>
+                <div class="w-2 h-2 rounded-full bg-[#00ff41] opacity-50"></div>
+            </button>
+        </div>
+
+        <footer class="mt-16 text-center">
+            <p class="text-[9px] uppercase tracking-[0.3em] opacity-30 mb-4">"Visibility is a choice. We choose none."</p>
+            <div class="flex justify-center gap-6 opacity-20">
+                <img src="/radar.png" class="h-4 grayscale" />
+                <img src="/logo.png" class="h-4 grayscale" />
+            </div>
+        </footer>
+    </div>
+
+</body>
+</html>
