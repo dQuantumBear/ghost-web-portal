@@ -1,65 +1,141 @@
 ---
-// Ghost Relay - Gateway v1.4 (Final Launch Build)
+// SecureMessenger - Sovereign Build v7.6
 ---
+<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>SECURE MESSENGER | Ghost Relay Gateway</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SecureMessenger | Sovereign E2EE Chat</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap');
-        body { font-family: 'Inter', sans-serif; background-color: #000; color: #00ff41; }
-        .glass-card {
-            background: rgba(10, 10, 10, 0.8);
-            border: 1px solid rgba(0, 255, 65, 0.2);
-            border-radius: 20px;
-            backdrop-filter: blur(10px);
+        :root {
+            --bg-black: #000000;
+            --ghost-dark-green: #004D00;
+            --ghost-neon-green: #27AE60;
+            --ghost-white: #FFFFFF;
         }
-        /* Custom constrained sizes to prevent "giant" icons */
-        .logo-constrained { width: 120px !important; height: 120px !important; }
-        .radar-constrained { width: 220px !important; height: 220px !important; }
+
+        body {
+            background-color: var(--bg-black);
+            color: var(--ghost-white);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        header {
+            padding: 40px 20px;
+            text-align: center;
+            background: linear-gradient(to bottom, var(--ghost-dark-green), var(--bg-black));
+        }
+
+        .logo {
+            max-width: 120px;
+            height: auto;
+            filter: drop-shadow(0 0 10px var(--ghost-neon-green));
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        section {
+            margin-bottom: 40px;
+            padding: 30px;
+            border-radius: 24px;
+            border: 1px solid rgba(39, 174, 96, 0.3);
+        }
+
+        .hero-section {
+            text-align: center;
+            border: none;
+        }
+
+        h1 {
+            color: var(--ghost-neon-green);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 2.5em;
+        }
+
+        h2 {
+            color: var(--ghost-neon-green);
+            border-bottom: 1px solid var(--ghost-dark-green);
+            padding-bottom: 10px;
+        }
+
+        .protocol-box {
+            background-color: var(--ghost-dark-green);
+            padding: 25px;
+            border-left: 4px solid var(--ghost-neon-green);
+        }
+
+        .support-section {
+            text-align: center;
+            background: rgba(0, 77, 0, 0.2);
+        }
+
+        .bear-img {
+            max-width: 180px;
+            border-radius: 50%;
+            border: 2px solid var(--ghost-neon-green);
+            margin-bottom: 20px;
+        }
+
+        .highlight {
+            color: var(--ghost-neon-green);
+            font-weight: bold;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px;
+            font-size: 0.8em;
+            color: #555;
+        }
     </style>
 </head>
-<body class="flex flex-col items-center justify-center min-h-screen p-6 overflow-hidden relative">
+<body>
 
-    <div class="fixed top-[-40px] right-[-40px] opacity-10 pointer-events-none z-0">
-        <img src="/radar.png" alt="" class="radar-constrained animate-pulse object-contain" />
-    </div>
+    <header>
+        <img src="glass_logo.png" alt="SecureMessenger Logo" class="logo">
+        <h1>SecureMessenger</h1>
+        <p>Built by One. Powered by You.</p>
+    </header>
 
-    <div class="max-w-md w-full z-10 text-center">
+    <div class="container">
         
-        <div class="relative inline-block mb-10">
-            <div class="absolute inset-0 bg-[#00ff41] blur-3xl opacity-10 rounded-full"></div>
-            <img src="/logo.png" alt="Secure Messenger Logo" class="logo-constrained relative z-10 mx-auto" />
-        </div>
+        <section class="hero-section">
+            <h2>The Ghost Protocol</h2>
+            <p>Welcome to the era of <span class="highlight">Physical Sovereignty</span>. SecureMessenger is not just another app—it is a blind relay architecture designed to ensure that your identity and your data remain your own property.</p>
+        </section>
 
-        <header class="mb-12">
-            <h1 class="text-white text-3xl font-bold tracking-tight mb-2 uppercase italic">
-                Secure <span class="text-[#00ff41]">Messenger</span>
-            </h1>
-            <p class="text-[10px] tracking-[0.4em] opacity-40 uppercase font-light">Powered by Ghost Relay Protocol</p>
-        </header>
+        <section class="protocol-box">
+            <h2>Why "Ghost"?</h2>
+            <p>Our unique <b>GHOST Protocol</b> means that once your messages are delivered, they vanish from the network. We use hardware-backed encryption keys that never leave your device. On our servers, you are not a name or a phone number—you are a temporary routing hash.</p>
+            <ul>
+                <li>Zero Metadata Harvesting</li>
+                <li>Anonymous Routing IDs</li>
+                <li>Forensic-Grade Local Deletion</li>
+            </ul>
+        </section>
 
-        <div class="space-y-4">
-            <a href="#" class="glass-card w-full p-5 flex items-center justify-between group hover:border-[#00ff41]/60 transition-all block">
-                <span class="text-white font-medium uppercase tracking-widest text-[10px]">Download Android APK</span>
-                <img src="/arrow.png" class="h-4 opacity-70 group-hover:translate-x-1 transition-all" />
-            </a>
+        <section class="support-section">
+            <img src="bear_panic.png" alt="Support dQuantumBear" class="bear-img">
+            <h2>Built by One, Powered by You</h2>
+            <p>SecureMessenger is a project developed by <b>one (1) individual</b> with zero (0) support from Big Tech or billionaire funding. I have zero (0) interest in your data—only one (1) interest in Your Privacy.</p>
+            <p>This code is powered by Honey and Honey only. The Jar is thankful and so am I!!!</p>
+            <p class="highlight">— dQuantumBear</p>
+        </section>
 
-            <a href="#" class="glass-card w-full p-5 flex items-center justify-between group hover:border-[#00ff41]/60 transition-all block">
-                <span class="text-white font-medium uppercase tracking-widest text-[10px]">Technical White Paper</span>
-                <div class="w-1.5 h-1.5 rounded-full bg-[#00ff41] animate-pulse"></div>
-            </a>
-        </div>
-
-        <footer class="mt-20 opacity-30">
-            <p class="text-[9px] uppercase tracking-[0.3em] mb-4 italic">"Visibility is a choice. We choose none."</p>
-            <div class="text-[8px] uppercase tracking-widest">
-                Node: Operational | v1.0-Universal
-            </div>
-        </footer>
     </div>
+
+    <footer>
+        &copy; 2026 SecureMessenger Project. Sovereign Build v7.6
+    </footer>
 
 </body>
 </html>
