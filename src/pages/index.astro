@@ -1,5 +1,5 @@
 ---
-// GHOST RELAY LANDING PAGE v8.2.1 - Sovereign Refinement
+// GHOST RELAY LANDING PAGE v8.2.2 - Sovereign Refinement (Menu Integration)
 ---
 <!DOCTYPE html>
 <html lang="en">
@@ -27,15 +27,63 @@
             overflow-x: hidden;
         }
 
-        .under-construction-stamp {
+        /* AI-FIX: Secure Menu Navigation (v8.2.2) */
+        .menu-container {
             position: absolute;
-            top: 10px;
-            right: 10px;
-            width: 120px;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+
+        .menu-icon {
+            width: 50px;
             height: auto;
-            transform: rotate(5deg);
-            z-index: 100;
-            filter: drop-shadow(2px 2px 5px rgba(0,0,0,0.7));
+            cursor: pointer;
+            filter: drop-shadow(0 0 5px var(--ghost-neon-green));
+            transition: 0.3s;
+        }
+
+        .menu-icon:hover {
+            transform: scale(1.1);
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            right: 0;
+            top: 100%;
+            background-color: var(--bg-black);
+            min-width: 240px;
+            border: 2px solid var(--ghost-neon-green);
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(39, 174, 96, 0.4);
+            padding: 10px 0;
+            z-index: 1001;
+        }
+
+        .menu-container:hover .dropdown-content {
+            display: block;
+        }
+
+        .dropdown-content a {
+            color: var(--ghost-white);
+            padding: 12px 20px;
+            text-decoration: none;
+            display: block;
+            font-size: 0.9em;
+            text-transform: uppercase;
+            font-weight: bold;
+            transition: 0.2s;
+            border-bottom: 1px solid rgba(39, 174, 96, 0.1);
+        }
+
+        .dropdown-content a:last-child {
+            border-bottom: none;
+        }
+
+        .dropdown-content a:hover {
+            background-color: var(--ghost-dark-green);
+            color: var(--ghost-neon-green);
         }
 
         header {
@@ -67,7 +115,7 @@
             margin-top: 5px;
         }
 
-        /* NEW: Button Styling */
+        /* Button Styling */
         .ghost-btn {
             display: inline-block;
             padding: 12px 24px;
@@ -133,8 +181,8 @@
         @media (max-width: 480px) {
             .ghost-line { font-size: 1.05em; }
             h1 { font-size: 1.6em; }
-            .under-construction-stamp { width: 80px; }
             .download-soon-img { max-width: 60%; }
+            .dropdown-content { right: -10px; min-width: 200px; }
         }
 
         .support-box {
@@ -173,14 +221,24 @@
 </head>
 <body>
 
-    <img src="/under_construction.png" alt="Under Construction" class="under-construction-stamp">
+    <!-- AI-FIX: Floating Navigation Menu (Replaced Under Construction Stamp) -->
+    <div class="menu-container">
+        <img src="/menu_icon.png" alt="Menu" class="menu-icon">
+        <div class="dropdown-content">
+            <a href="https://glokta1991.github.io/legal-docs/privacy.html" target="_blank">Privacy Policy</a>
+            <a href="https://glokta1991.github.io/legal-docs/terms.html" target="_blank">Terms of Service</a>
+            <a href="https://glokta1991.github.io/legal-docs/manifesto.html" target="_blank">Manifesto</a>
+            <a href="https://glokta1991.github.io/legal-docs/transparency_report.html" target="_blank">Transparency Report</a>
+            <a href="https://glokta1991.github.io/legal-docs/impressum.html" target="_blank">Impressum</a>
+        </div>
+    </div>
 
     <header>
         <img src="/glass_logo.png" alt="Secure Messenger Logo" class="logo">
         <h1>Secure Messenger</h1>
-        <p class="tagline">Sovereign Build v8.2.1 | Zero-Knowledge Architecture</p>
+        <p class="tagline">Sovereign Build v8.2.2 | Zero-Knowledge Architecture</p>
         
-        <!-- NEW: White Paper Gateway & Relocated Credits -->
+        <!-- White Paper Gateway & Relocated Credits -->
         <div>
             <a href="https://glokta1991.github.io/legal-docs/white_paper.html" class="ghost-btn">READ WHITE PAPER</a>
             <div style="margin-top: 15px; font-size: 0.85em; color: var(--ghost-cream); opacity: 0.8;">
@@ -191,7 +249,7 @@
     </header>
 
     <div class="container">
-        
+
         <span class="ghost-line">To me, you are a Ghost.</span>
 
         <section>
@@ -232,7 +290,7 @@
             <img src="/bear_panic.png" alt="dQuantumBear" class="bear-img">
             <h2>Built by One, Powered by You</h2>
             <p>
-                Secure Messenger is a project developed by <b>one (1) individual</b> with zero (0) support from Big Tech or billionaire funding. 
+                Secure Messenger is a project developed by <b>one (1) individual</b> with zero (0) support from Big Tech or billionaire funding.
             </p>
             <p>
                 I have zero (0) interest in your data—only one (1) interest in <span class="highlight">Your Privacy</span>. This code is powered by Honey and Honey only. The Jar is thankful and so am I!!!
