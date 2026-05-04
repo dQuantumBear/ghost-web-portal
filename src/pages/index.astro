@@ -1,5 +1,5 @@
 ---
-// GHOST RELAY LANDING PAGE v8.2.8 - Sovereign Content Hardening
+// GHOST RELAY LANDING PAGE v8.3.5 - Final Identity & Link Hardening
 ---
 <!DOCTYPE html>
 <html lang="en">
@@ -29,6 +29,7 @@
             overflow-x: hidden;
         }
 
+        /* AI-FIX: Secure Menu Navigation (v8.2.2) */
         .menu-container {
             position: absolute;
             top: 20px;
@@ -110,6 +111,7 @@
             margin-top: 5px;
         }
 
+        /* Button Styling */
         .ghost-btn {
             display: inline-block;
             padding: 12px 24px;
@@ -215,13 +217,15 @@
 </head>
 <body>
 
+    <!-- AI-FIX: Floating Navigation Menu -->
     <div class="menu-container">
         <img src="/menu_icon.png" alt="Menu" class="menu-icon">
         <div class="dropdown-content">
             <a href="https://glokta1991.github.io/legal-docs/privacy.html" target="_blank">Privacy Policy</a>
             <a href="https://glokta1991.github.io/legal-docs/terms.html" target="_blank">Terms of Service</a>
             <a href="https://glokta1991.github.io/legal-docs/manifesto.html" target="_blank">Manifesto</a>
-            <a href="https://glokta1991.github.io/legal-docs/transparency.html" target="_blank">Transparency Report</a>
+            <a href="https://glokta1991.github.io/legal-docs/white_paper.html" target="_blank">White Paper</a>
+            <a href="https://glokta1991.github.io/legal-docs/transparency_report.html" target="_blank">Transparency Report</a>
             <a href="#cookie-policy">Cookie Policy</a>
             <a href="#impressum">Impressum</a>
         </div>
@@ -230,7 +234,7 @@
     <header>
         <img src="/glass_logo.png" alt="Secure Messenger Logo" class="logo">
         <h1>Secure Messenger</h1>
-        <p class="tagline">Sovereign Build v10.8.2 | The Architecture of Nescience</p>
+        <p class="tagline">Sovereign Build v10.8.2 | The Architecture of Privacy</p>
         
         <div>
             <a href="https://glokta1991.github.io/legal-docs/white_paper.html" class="ghost-btn">EXPLORE THE ARCHITECTURE</a>
@@ -247,27 +251,27 @@
 
         <section>
             <p>
-                Most "secure" apps still know who you are. They have your phone number, they see your contacts, and they track when you’re online. SecureMessenger is different. We built a system that is physically and mathematically incapable of watching you.
+                Most "secure" apps still know who you are. They have your phone number, they see your contacts, and they track when you’re online. SecureMessenger is different. I built a system that is physically and mathematically incapable of watching you.
             </p>
         </section>
 
         <section>
             <h2>1. Identity Without a Trace (The 12-Word Vault)</h2>
-            <p><b>The Advantage:</b> Unlike Signal, Telegram, or WhatsApp, we require zero personal data.</p>
+            <p><b>The Advantage:</b> Unlike Signal, Telegram, or WhatsApp, I require zero personal data.</p>
             <ul>
                 <li><span class="highlight">No Phone Numbers:</span> No SIM cards, no SMS verification, no "Phone Number Leaks."</li>
                 <li><span class="highlight">No Emails:</span> Your identity is a private 12-word cryptographic seed generated on your device.</li>
-                <li><span class="highlight">You are the Key:</span> We don't store passwords. If you have your 12 words, you have your account. If you lose them, the data vanishes forever. This is true ownership.</li>
+                <li><span class="highlight">You are the Key:</span> I don't store passwords. If you have your 12 words, you have your account. If you lose them, the data vanishes forever. This is true ownership.</li>
             </ul>
         </section>
 
         <section>
-            <h2>2. The Blind Relay: What We Can’t See, We Can’t Give Away</h2>
-            <p><b>The Advantage:</b> Traditional servers log your IP address and connection times. Our "Blind Relay" doctrine makes the server a mere conduit.</p>
+            <h2>2. The Blind Relay: What I Can’t See, I Can’t Give Away</h2>
+            <p><b>The Advantage:</b> Traditional servers log your IP address and connection times. My "Blind Relay" doctrine makes the server a mere conduit.</p>
             <ul>
                 <li><span class="highlight">Instant IP Discard:</span> The moment you connect, your IP address is processed in volatile RAM and instantly overwritten. No logs. No history. No trail.</li>
-                <li><span class="highlight">RAM-to-RAM Delivery:</span> Messages move from your device's memory to the recipient's memory. Once delivered, they are purged from our relay.</li>
-                <li><span class="highlight">Zero Knowledge:</span> Because of our "Scorched Metadata" standard, the server doesn't even know the name or type of the file you sent. To us, everything is just unreadable noise.</li>
+                <li><span class="highlight">RAM-to-RAM Delivery:</span> Messages move from your device's memory to the recipient's memory. Once delivered, they are purged from my relay.</li>
+                <li><span class="highlight">Zero Knowledge:</span> Because of my "Scorched Metadata" standard, the server doesn't even know the name or type of the file you sent. To me, everything is just unreadable noise.</li>
             </ul>
         </section>
 
@@ -275,7 +279,7 @@
             <h2>3. Forensic Shredding: Beyond Simple Deletion</h2>
             <p><b>The Advantage:</b> On most phones, "deleted" messages stay on the storage chip, waiting for recovery software to find them.</p>
             <ul>
-                <li><span class="highlight">Active Decay:</span> When you delete a message in SecureMessenger, we don't just "hide" it. We trigger a forensic-grade overwrite, replacing your data with random noise before purging it from the silicon.</li>
+                <li><span class="highlight">Active Decay:</span> When I delete a message in SecureMessenger, I don't just "hide" it. I trigger a forensic-grade overwrite, replacing your data with random noise before purging it from the silicon.</li>
                 <li><span class="highlight">Hardware-Anchored Security:</span> Your encryption keys are "trapped" inside your phone’s Hardware Secure Element (TEE). Even if your phone is lost or stolen, your data remains an unbreakable vault.</li>
             </ul>
         </section>
@@ -295,7 +299,7 @@
             <p><b>The Advantage:</b> Security shouldn't fail if the phone is taken from your hand.</p>
             <ul>
                 <li><span class="highlight">The Panic PIN:</span> If forced to unlock your phone, enter your secondary "Panic PIN." This instantly nukes all keys, contacts, and messages.</li>
-                <li><span class="highlight">The 503 Alibi:</span> After a Panic Wipe, the app displays a generic "Network Error (503)" instead of an empty screen. This provides a plausible technical excuse for why the app won't open during an inspection.</li>
+                <li><span class="highlight">The 503 Alibi:</span> After a Panic Wipe, I display a generic "Network Error (503)" instead of an empty screen. This provides a plausible technical excuse for why the app won't open during an inspection.</li>
                 <li><span class="highlight">Screen Shield:</span> The app is invisible to the "Task Switcher" and blocks all screenshots or screen-recording attempts automatically.</li>
             </ul>
         </section>
@@ -304,10 +308,13 @@
             <img src="/bear_panic.png" alt="dQuantumBear" class="bear-img">
             <h2>Built by One. Powered by You.</h2>
             <p>
-                SecureMessenger is developed by a single engineer with zero support from Big Tech, venture capital, or billionaire interests.
+                Secure Messenger is a project developed, designed and financed by One (1) individual with zero support from Big Tech, venture capital, or billionaire interests.
             </p>
             <p>
                 This project is fueled by the community. The Jar is thankful, and so am I.
+            </p>
+            <p>
+                If you want to additionally support me my PayPal is <span class="highlight">nexus.mnemonic@gmail.com</span>
             </p>
             <p class="highlight">— dQuantumBear</p>
         </section>
