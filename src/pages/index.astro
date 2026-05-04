@@ -1,5 +1,5 @@
 ---
-// GHOST RELAY LANDING PAGE v8.2.8 - Sovereign Content Update
+// GHOST RELAY LANDING PAGE v8.2.8 - Sovereign Content Hardening
 ---
 <!DOCTYPE html>
 <html lang="en">
@@ -16,9 +16,7 @@
             --ghost-cream: #FFFDD0;
         }
 
-        html {
-            scroll-behavior: smooth;
-        }
+        html { scroll-behavior: smooth; }
 
         body {
             background-color: var(--bg-black);
@@ -31,7 +29,6 @@
             overflow-x: hidden;
         }
 
-        /* AI-FIX: Secure Menu Navigation (v8.2.2) */
         .menu-container {
             position: absolute;
             top: 20px;
@@ -47,9 +44,7 @@
             transition: 0.3s;
         }
 
-        .menu-icon:hover {
-            transform: scale(1.1);
-        }
+        .menu-icon:hover { transform: scale(1.1); }
 
         .dropdown-content {
             display: none;
@@ -65,9 +60,7 @@
             z-index: 1001;
         }
 
-        .menu-container:hover .dropdown-content {
-            display: block;
-        }
+        .menu-container:hover .dropdown-content { display: block; }
 
         .dropdown-content a {
             color: var(--ghost-white);
@@ -81,9 +74,7 @@
             border-bottom: 1px solid rgba(39, 174, 96, 0.1);
         }
 
-        .dropdown-content a:last-child {
-            border-bottom: none;
-        }
+        .dropdown-content a:last-child { border-bottom: none; }
 
         .dropdown-content a:hover {
             background-color: var(--ghost-dark-green);
@@ -119,7 +110,6 @@
             margin-top: 5px;
         }
 
-        /* Button Styling */
         .ghost-btn {
             display: inline-block;
             padding: 12px 24px;
@@ -225,7 +215,6 @@
 </head>
 <body>
 
-    <!-- AI-FIX: Floating Navigation Menu -->
     <div class="menu-container">
         <img src="/menu_icon.png" alt="Menu" class="menu-icon">
         <div class="dropdown-content">
@@ -243,7 +232,6 @@
         <h1>Secure Messenger</h1>
         <p class="tagline">Sovereign Build v10.8.2 | The Architecture of Nescience</p>
         
-        <!-- White Paper Gateway & Relocated Credits -->
         <div>
             <a href="https://glokta1991.github.io/legal-docs/white_paper.html" class="ghost-btn">EXPLORE THE ARCHITECTURE</a>
             <div style="margin-top: 15px; font-size: 0.85em; color: var(--ghost-cream); opacity: 0.8;">
@@ -255,56 +243,71 @@
 
     <div class="container">
 
-        <span class="ghost-line">To me, you are a Ghost.</span>
+        <span class="ghost-line">"To me, you are a Ghost."</span>
 
         <section>
-            <h2>The Blind Relay: What I Can’t See, I Can’t Give Away</h2>
             <p>
-                Privacy is not a commodity—it is your property. SecureMessenger is built on a Stateless Foundation. By utilizing a zero-visibility relay, the infrastructure is physically and mathematically incapable of seeing your data. I utilize the industry-standard <span class="highlight">Signal Encryption Protocol</span> to ensure that every packet—text, images, high-res videos, and documents—is sealed before it ever leaves your device.
-            </p>
-            <p>
-                The <b>Ghost Protocol</b> ensures I never harvest metadata. I do not know who you talk to, when you talk to them, or your physical location. My system acts as a technical intermediary: a blind conduit where your digital footprint vanishes instantly upon delivery.
+                Most "secure" apps still know who you are. They have your phone number, they see your contacts, and they track when you’re online. SecureMessenger is different. We built a system that is physically and mathematically incapable of watching you.
             </p>
         </section>
 
         <section>
-            <h2>Zero Visibility: The IP-Discard Protocol</h2>
-            <p>Your physical location is your secret. While the internet requires a connection to reach my relay, the architecture is engineered to <span class="highlight">discard incoming IP addresses instantly.</span> I do not store, log, or maintain connection metadata, ensuring your real-world identity is never part of any permanent record.</p>
+            <h2>1. Identity Without a Trace (The 12-Word Vault)</h2>
+            <p><b>The Advantage:</b> Unlike Signal, Telegram, or WhatsApp, we require zero personal data.</p>
+            <ul>
+                <li><span class="highlight">No Phone Numbers:</span> No SIM cards, no SMS verification, no "Phone Number Leaks."</li>
+                <li><span class="highlight">No Emails:</span> Your identity is a private 12-word cryptographic seed generated on your device.</li>
+                <li><span class="highlight">You are the Key:</span> We don't store passwords. If you have your 12 words, you have your account. If you lose them, the data vanishes forever. This is true ownership.</li>
+            </ul>
         </section>
 
         <section>
-            <h2>The Handshake: Consent-First Trust</h2>
-            <p>Discovery is a vulnerability. I have eradicated static character-string IDs in favor of the <b>Sovereign Handshake</b>. In standard apps, anyone with your phone number can find you. Here, users establish trust via temporary <b>6-digit Invite Codes</b> that expire after 24 hours. Your presence, online status, and avatar are cryptographically locked until you actively accept a connection request. You stay invisible until you choose to be seen.</p>
+            <h2>2. The Blind Relay: What We Can’t See, We Can’t Give Away</h2>
+            <p><b>The Advantage:</b> Traditional servers log your IP address and connection times. Our "Blind Relay" doctrine makes the server a mere conduit.</p>
+            <ul>
+                <li><span class="highlight">Instant IP Discard:</span> The moment you connect, your IP address is processed in volatile RAM and instantly overwritten. No logs. No history. No trail.</li>
+                <li><span class="highlight">RAM-to-RAM Delivery:</span> Messages move from your device's memory to the recipient's memory. Once delivered, they are purged from our relay.</li>
+                <li><span class="highlight">Zero Knowledge:</span> Because of our "Scorched Metadata" standard, the server doesn't even know the name or type of the file you sent. To us, everything is just unreadable noise.</li>
+            </ul>
         </section>
 
         <section>
-            <h2>Scorched Metadata Architecture</h2>
-            <p>The server must be blind. I implement the <b>Scorched Metadata</b> standard: critical markers such as filenames, media keys, and types are encrypted inside the Signal message envelope. The relay sees only random noise and an opaque routing hash. Your media remains your secret, even to the infrastructure provider.</p>
+            <h2>3. Forensic Shredding: Beyond Simple Deletion</h2>
+            <p><b>The Advantage:</b> On most phones, "deleted" messages stay on the storage chip, waiting for recovery software to find them.</p>
+            <ul>
+                <li><span class="highlight">Active Decay:</span> When you delete a message in SecureMessenger, we don't just "hide" it. We trigger a forensic-grade overwrite, replacing your data with random noise before purging it from the silicon.</li>
+                <li><span class="highlight">Hardware-Anchored Security:</span> Your encryption keys are "trapped" inside your phone’s Hardware Secure Element (TEE). Even if your phone is lost or stolen, your data remains an unbreakable vault.</li>
+            </ul>
         </section>
 
         <section>
-            <h2>The 12-Word Silicon Vault</h2>
-            <p>Identity is sovereign. Registration requires <b>Zero Personal Data</b>—no emails, no phone numbers, no tracking. Upon entry, you are issued a <b>BIP39 Mnemonic Seed</b>. This 12-word phrase is the only master key to your vault. I do not store passwords and cannot reset accounts. If the seed is lost, the data is permanently incinerated. This is total digital sovereignty compared to cloud-based messengers.</p>
+            <h2>4. The Sovereign Handshake: Invisible by Default</h2>
+            <p><b>The Advantage:</b> Stop "Discovery Probing." In other apps, anyone with your number can find you. Here, you are invisible until you choose to be seen.</p>
+            <ul>
+                <li><span class="highlight">24-Hour Invites:</span> Connect using temporary 6-digit codes that expire.</li>
+                <li><span class="highlight">Ghost Mode:</span> Stay invisible even while active. Your "Online" status is your business, not your contacts'.</li>
+                <li><span class="highlight">Silent Block:</span> Declining an invite doesn't just block a user—it drops their data at the kernel level. They won't even know they've been ignored.</li>
+            </ul>
         </section>
 
         <section>
-            <h2>Active Decay: Forensic Shredding</h2>
-            <p>Standard deletion is a forensic liability. SecureMessenger implements <b>Active Decay</b>: an automated protocol that overwrites records with high-entropy random bytes before physical deletion. This ensures that no magnetic traces remain on the silicon for recovery software to discover—a level of protection most "secure" apps ignore.</p>
-        </section>
-
-        <section>
-            <h2>Physical Sovereignty & Alibi</h2>
-            <p>Your data is protected even under physical duress. With <b>Biometric Lock</b> and <b>Secure RAM isolation</b>, decrypted media never touches your system gallery or unencrypted cloud backups. In a crisis, enter your <b>Panic PIN</b> instead of your password. This instantly nukes all local identities and Signal keys while simulating a generic "Connection Error" to provide a plausible technical alibi.</p>
+            <h2>5. Physical Sovereignty: Your Alibi in a Crisis</h2>
+            <p><b>The Advantage:</b> Security shouldn't fail if the phone is taken from your hand.</p>
+            <ul>
+                <li><span class="highlight">The Panic PIN:</span> If forced to unlock your phone, enter your secondary "Panic PIN." This instantly nukes all keys, contacts, and messages.</li>
+                <li><span class="highlight">The 503 Alibi:</span> After a Panic Wipe, the app displays a generic "Network Error (503)" instead of an empty screen. This provides a plausible technical excuse for why the app won't open during an inspection.</li>
+                <li><span class="highlight">Screen Shield:</span> The app is invisible to the "Task Switcher" and blocks all screenshots or screen-recording attempts automatically.</li>
+            </ul>
         </section>
 
         <section class="support-box">
             <img src="/bear_panic.png" alt="dQuantumBear" class="bear-img">
-            <h2>Built by One, Powered by You</h2>
+            <h2>Built by One. Powered by You.</h2>
             <p>
-                Secure Messenger is developed by <b>one (1) individual</b> with zero (0) support from Big Tech or billionaire interest.
+                SecureMessenger is developed by a single engineer with zero support from Big Tech, venture capital, or billionaire interests.
             </p>
             <p>
-                This code is powered by Honey and Honey only. The Jar is thankful and so am I.
+                This project is fueled by the community. The Jar is thankful, and so am I.
             </p>
             <p class="highlight">— dQuantumBear</p>
         </section>
@@ -313,7 +316,7 @@
 
         <section style="text-align: center; border: none; background: transparent;">
             <div style="font-size: 0.9em; margin-bottom: 10px;">
-                <span class="highlight">NO EMAILS</span> &bull; <span class="highlight">NO PHONE NUMBERS</span> &bull; <span class="highlight">ZERO SURVEILLANCE</span>
+                <span class="highlight">NO PHONE NUMBERS</span> &bull; <span class="highlight">NO METADATA</span> &bull; <span class="highlight">NO SURVEILLANCE</span>
             </div>
             <div class="highlight" style="font-size: 1.1em; letter-spacing: 1px;">
                 COMPLETE PHYSICAL SOVEREIGNTY
@@ -323,7 +326,7 @@
         <section id="cookie-policy" style="font-size: 0.85em; line-height: 1.6;">
             <h2>Cookie Transparency Policy</h2>
             <p><b>Status: Zero-Tracking Architecture</b></p>
-            <p>SecureMessenger is engineered for <b>Stateless Privacy</b>. I do not track user behavior, utilize Google Analytics, or deploy marketing pixels. While my code is cookie-free, I utilize <b>Cloudflare</b> for DDoS protection; you may occasionally see a strictly necessary security cookie (e.g., <code>__cf_bm</code>) used solely for bot protection. This is exempt from consent under <b>§ 25 para. 2 TDDDG</b>.</p>
+            <p>SecureMessenger is engineered for Stateless Privacy. I do not track user behavior, utilize Google Analytics, or deploy marketing pixels. While my code is cookie-free, I utilize Cloudflare for DDoS protection; you may occasionally see a strictly necessary security cookie (e.g., <code>__cf_bm</code>) used solely for bot protection. This is exempt from consent under <b>§ 25 para. 2 TDDDG</b>.</p>
         </section>
 
         <section id="impressum" style="font-size: 0.75em; opacity: 0.6; line-height: 1.6; border-top: 1px solid var(--ghost-dark-green); padding-top: 20px;">
