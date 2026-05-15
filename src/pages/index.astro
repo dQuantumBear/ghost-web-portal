@@ -353,7 +353,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h2>Cookie Transparency Policy</h2>
-                <button class="close-modal" onclick="closeCookieModal()">×</button>
+                <button class="close-modal" id="closeCookieModalBtn">×</button>
             </div>
             <div class="modal-body">
                 <p><b>Status: Zero-Tracking Architecture</b></p>
@@ -368,7 +368,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h2>Impressum</h2>
-                <button class="close-modal" onclick="closeImpressumModal()">×</button>
+                <button class="close-modal" id="closeImpressumModalBtn">×</button>
             </div>
             <div class="modal-body">
                 <p><b>Inhalte gemäß §5 DDG</b></p>
@@ -376,7 +376,7 @@
                 <p>c/o IP-Management #9966<br>Ludwig-Erhard-Straße 18<br>20459 Hamburg</p>
                 <p><b>Kontaktdaten:</b><br>E-Mail: securemessenger0@gmail.com<br>Telefon: 00491749385199</p>
                 <p>Quelle: Impressum-Privatschutz</p>
-                <button class="accept-btn" onclick="closeImpressumModal()">✓ CLOSE</button>
+                <button id="closeImpressumAcceptBtn" class="accept-btn">✓ CLOSE</button>
             </div>
         </div>
     </div>
@@ -514,15 +514,20 @@
         const cookiePolicyLink = document.getElementById('cookiePolicyLink');
         const impressumLink = document.getElementById('impressumLink');
         
+        // Get close buttons
+        const closeCookieBtn = document.getElementById('closeCookieModalBtn');
+        const closeImpressumBtn = document.getElementById('closeImpressumModalBtn');
+        const closeImpressumAcceptBtn = document.getElementById('closeImpressumAcceptBtn');
+        
         // Cookie Policy functions
         function openCookieModal() {
             cookieModal.style.display = 'flex';
-            document.body.style.overflow = 'hidden'; // Prevent scrolling behind modal
+            document.body.style.overflow = 'hidden';
         }
         
         function closeCookieModal() {
             cookieModal.style.display = 'none';
-            document.body.style.overflow = ''; // Restore scrolling
+            document.body.style.overflow = '';
         }
         
         // Impressum functions
@@ -536,23 +541,40 @@
             document.body.style.overflow = '';
         }
         
-        // Event listeners for menu items
-        cookiePolicyLink.addEventListener('click', function(e) {
-            e.preventDefault();
-            openCookieModal();
-        });
+        // Event listeners for menu links
+        if (cookiePolicyLink) {
+            cookiePolicyLink.addEventListener('click', function(e) {
+                e.preventDefault();
+                openCookieModal();
+            });
+        }
         
-        impressumLink.addEventListener('click', function(e) {
-            e.preventDefault();
-            openImpressumModal();
-        });
+        if (impressumLink) {
+            impressumLink.addEventListener('click', function(e) {
+                e.preventDefault();
+                openImpressumModal();
+            });
+        }
+        
+        // Event listeners for close buttons
+        if (closeCookieBtn) {
+            closeCookieBtn.addEventListener('click', closeCookieModal);
+        }
+        
+        if (closeImpressumBtn) {
+            closeImpressumBtn.addEventListener('click', closeImpressumModal);
+        }
+        
+        if (closeImpressumAcceptBtn) {
+            closeImpressumAcceptBtn.addEventListener('click', closeImpressumModal);
+        }
         
         // Accept cookie button functionality
         const acceptCookieBtn = document.getElementById('acceptCookieBtn');
         if (acceptCookieBtn) {
             acceptCookieBtn.addEventListener('click', function() {
                 closeCookieModal();
-                // Optional: Store acceptance in localStorage
+                // Store acceptance in localStorage
                 localStorage.setItem('cookiePolicyAccepted', 'true');
                 // Show a brief confirmation message
                 const confirmation = document.createElement('div');
