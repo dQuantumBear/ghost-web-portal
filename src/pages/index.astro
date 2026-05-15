@@ -11,6 +11,8 @@
             --ghost-neon-green: #27AE60;
             --ghost-white: #FFFFFF;
             --ghost-cream: #FFFDD0;
+            --ghost-red: #FF0000;
+            --ghost-dark-red: #8B0000;
         }
 
         html { scroll-behavior: smooth; }
@@ -209,7 +211,57 @@
             max-width: 120px;
             height: auto;
             margin-bottom: 15px;
-            filter: drop-shadow(0 0 10px var(--ghost-neon-green));
+            /* RED TO GREEN PULSING GLOW ANIMATION */
+            animation: redToGreenGlow 3s ease-in-out infinite;
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+            animation: redToGreenGlowFast 1.5s ease-in-out infinite;
+        }
+
+        /* Main animation: Red to Green pulsing glow */
+        @keyframes redToGreenGlow {
+            0% {
+                filter: drop-shadow(0 0 5px #FF0000) drop-shadow(0 0 10px #FF0000);
+                opacity: 1;
+            }
+            25% {
+                filter: drop-shadow(0 0 15px #FF4500) drop-shadow(0 0 25px #FF4500);
+                opacity: 0.95;
+            }
+            50% {
+                filter: drop-shadow(0 0 20px #27AE60) drop-shadow(0 0 35px #27AE60);
+                opacity: 1;
+            }
+            75% {
+                filter: drop-shadow(0 0 15px #00FF00) drop-shadow(0 0 25px #00FF00);
+                opacity: 0.95;
+            }
+            100% {
+                filter: drop-shadow(0 0 5px #FF0000) drop-shadow(0 0 10px #FF0000);
+                opacity: 1;
+            }
+        }
+
+        /* Faster animation on hover for interactive feel */
+        @keyframes redToGreenGlowFast {
+            0% {
+                filter: drop-shadow(0 0 8px #FF0000) drop-shadow(0 0 15px #FF0000);
+            }
+            25% {
+                filter: drop-shadow(0 0 20px #FF4500) drop-shadow(0 0 35px #FF4500);
+            }
+            50% {
+                filter: drop-shadow(0 0 25px #27AE60) drop-shadow(0 0 45px #27AE60);
+            }
+            75% {
+                filter: drop-shadow(0 0 20px #00FF00) drop-shadow(0 0 35px #00FF00);
+            }
+            100% {
+                filter: drop-shadow(0 0 8px #FF0000) drop-shadow(0 0 15px #FF0000);
+            }
         }
 
         h1 {
@@ -306,11 +358,12 @@
         }
 
         @media (max-width: 480px) {
-            .ghost-line { font-size: 1.05em; }
+            .ghost-line { font-size: 1.05em; white-space: normal; }
             h1 { font-size: 1.6em; }
             .download-soon-img { max-width: 60%; }
             .dropdown-content { right: -10px; min-width: 200px; }
             .modal-content { width: 95%; }
+            .logo { max-width: 80px; }
         }
 
         .support-box {
@@ -423,60 +476,68 @@
 
     <div class="container">
 
-        <span class="ghost-line">"To me, you are a Ghost."</span>
+        <!-- NEW GHOST LINE TEXT -->
+        <span class="ghost-line">"To you, I am a conduit. To the world, you are a Ghost."</span>
 
+        <!-- NEW INTRO SECTION -->
         <section>
             <p>
-                Most "secure" apps still know who you are. They have your phone number, they see your contacts, and they track when you’re online. SecureMessenger is different. I built a system that is physically and mathematically incapable of watching you.
+                Most "secure" apps still track your identity. They hold your phone number, sync your contacts, and log your patterns. SecureMessenger is different. This is a system engineered to be physically and mathematically incapable of watching you.
             </p>
         </section>
 
+        <!-- NEW SECTION 1: Identity Sovereignty -->
         <section>
-            <h2>1. Identity Without a Trace (The 12-Word Vault)</h2>
-            <p><b>The Advantage:</b> Unlike Signal, Telegram, or WhatsApp, I require zero personal data.</p>
+            <h2>1. Identity Sovereignty (The 12-Word Master Key)</h2>
+            <p><b>The Advantage:</b> Unlike Signal or WhatsApp, SecureMessenger requires zero personal data.</p>
             <ul>
-                <li><span class="highlight">No Phone Numbers:</span> No SIM cards, no SMS verification, no "Phone Number Leaks."</li>
-                <li><span class="highlight">No Emails:</span> Your identity is a private 12-word cryptographic seed generated on your device.</li>
-                <li><span class="highlight">You are the Key:</span> I don't store passwords. If you have your 12 words, you have your account. If you lose them, the data vanishes forever. This is true ownership.</li>
+                <li><span class="highlight">Zero Identifiers:</span> No phone numbers, no SIM cards, and no email addresses.</li>
+                <li><span class="highlight">Local Generation:</span> Your identity is a private 12-word cryptographic seed generated entirely on your device.</li>
+                <li><span class="highlight">Total Ownership:</span> I do not store passwords. If you hold your 12 words, you hold your data. If you lose them, your account is unreachable forever.</li>
             </ul>
         </section>
 
+        <!-- NEW SECTION 2: The Blind Relay -->
         <section>
-            <h2>2. The Blind Relay: What I Can’t See, I Can’t Give Away</h2>
-            <p><b>The Advantage:</b> Traditional servers log your IP address and connection times. My "Blind Relay" doctrine makes the server a mere conduit.</p>
+            <h2>2. The Blind Relay: Passing Through the Shadows</h2>
+            <p><b>The Advantage:</b> Traditional servers log IP addresses and timestamps. My "Blind Relay" doctrine makes the server a mere conduit.</p>
             <ul>
-                <li><span class="highlight">Instant IP Discard:</span> The moment you connect, your IP address is processed in volatile RAM and instantly overwritten. No logs. No history. No trail.</li>
-                <li><span class="highlight">RAM-to-RAM Delivery:</span> Messages move from your device's memory to the recipient's memory. Once delivered, they are purged from my relay.</li>
-                <li><span class="highlight">Zero Knowledge:</span> Because of my "Scorched Metadata" standard, the server doesn't even know the name or type of the file you sent. To me, everything is just unreadable noise.</li>
+                <li><span class="highlight">IP Volatility:</span> Your IP address is processed in volatile RAM and instantly overwritten. No history. No trail.</li>
+                <li><span class="highlight">RAM-to-RAM Relay:</span> Messages exist on the server only until they reach the recipient's device, then they are purged instantly.</li>
+                <li><span class="highlight">Full-Spectrum Media Encryption:</span> Avatars, GIFs, Voice Notes, and Documents are encrypted locally before upload. To the cloud, your data is unrecognizable noise.</li>
             </ul>
         </section>
 
+        <!-- NEW SECTION 3: Forensic Shredding -->
         <section>
-            <h2>3. Forensic Shredding: Beyond Simple Deletion</h2>
-            <p><b>The Advantage:</b> On most phones, "deleted" messages stay on the storage chip, waiting for recovery software to find them.</p>
+            <h2>3. Forensic Shredding: User-Commanded Destruction</h2>
+            <p><b>The Advantage:</b> Standard "deletion" leaves traces on your phone's storage. SecureMessenger gives you a digital shredder.</p>
             <ul>
-                <li><span class="highlight">Active Decay:</span> When I delete a message in SecureMessenger, I don't just "hide" it. I trigger a forensic-grade overwrite, replacing your data with random noise before purging it from the silicon.</li>
-                <li><span class="highlight">Hardware-Anchored Security:</span> Your encryption keys are "trapped" inside your phone’s Hardware Secure Element (TEE). Even if your phone is lost or stolen, your data remains an unbreakable vault.</li>
+                <li><span class="highlight">Absolute Sovereignty:</span> I never automatically delete your data. You are the sole authority.</li>
+                <li><span class="highlight">Overwriting Protocol:</span> When you choose to delete a message or contact, my shredder overwrites the data with high-entropy noise before removal to defeat forensic recovery tools.</li>
+                <li><span class="highlight">Hardware Armor:</span> Your cryptographic keys are isolated inside your phone's Hardware Secure Element (TEE), remaining safe even if the physical device is compromised.</li>
             </ul>
         </section>
 
+        <!-- NEW SECTION 4: The Sovereign Handshake -->
         <section>
             <h2>4. The Sovereign Handshake: Invisible by Default</h2>
-            <p><b>The Advantage:</b> Stop "Discovery Probing." In other apps, anyone with your number can find you. Here, you are invisible until you choose to be seen.</p>
+            <p><b>The Advantage:</b> Stop discovery probing. In SecureMessenger, you are invisible until you choose to be seen.</p>
             <ul>
-                <li><span class="highlight">24-Hour Invites:</span> Connect using temporary 6-digit codes that expire.</li>
-                <li><span class="highlight">Ghost Mode:</span> Stay invisible even while active. Your "Online" status is your business, not your contacts'.</li>
-                <li><span class="highlight">Silent Block:</span> Declining an invite doesn't just block a user—it drops their data at the kernel level. They won't even know they've been ignored.</li>
+                <li><span class="highlight">24-Hour Invites:</span> Add contacts using one-time, temporary 6-digit codes.</li>
+                <li><span class="highlight">Authoritative Stealth:</span> Ghost Mode freezes your status as "Offline" at the server level, allowing you to operate while remaining in the shadows.</li>
+                <li><span class="highlight">Quarantine Shield:</span> Blocking a user drops their data at the network border. They won't even know they've been quarantined.</li>
             </ul>
         </section>
 
+        <!-- NEW SECTION 5: Physical Sovereignty -->
         <section>
             <h2>5. Physical Sovereignty: Your Alibi in a Crisis</h2>
-            <p><b>The Advantage:</b> Security shouldn't fail if the phone is taken from your hand.</p>
+            <p><b>The Advantage:</b> Security must hold even if your device is seized.</p>
             <ul>
-                <li><span class="highlight">The Panic PIN:</span> If forced to unlock your phone, enter your secondary "Panic PIN." This instantly nukes all keys, contacts, and messages.</li>
-                <li><span class="highlight">The 503 Alibi:</span> After a Panic Wipe, I display a generic "Network Error (503)" instead of an empty screen. This provides a plausible technical excuse for why the app won't open during an inspection.</li>
-                <li><span class="highlight">Screen Shield:</span> The app is invisible to the "Task Switcher" and blocks all screenshots or screen-recording attempts automatically.</li>
+                <li><span class="highlight">The Panic PIN:</span> A secondary password for high-pressure situations. Entering it triggers an immediate, irreversible "Nuclear Wipe" of all keys, contacts, and messages.</li>
+                <li><span class="highlight">The 503 Alibi:</span> After a Panic Wipe, the app displays a generic "Network Error (503)" to provide a plausible technical excuse for why it will not open.</li>
+                <li><span class="highlight">Screen Armor:</span> The app remains invisible to the task switcher and natively blocks all screenshot and screen-recording attempts.</li>
             </ul>
         </section>
 
