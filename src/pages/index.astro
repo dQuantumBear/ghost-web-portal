@@ -254,12 +254,22 @@
             padding: 20px;
         }
 
+        /* UPDATED: All sections now have the beautiful glow effect */
         section {
             background-color: rgba(0, 77, 0, 0.1);
             margin-bottom: 30px;
             padding: 25px;
             border-radius: 20px;
             border: 1px solid rgba(39, 174, 96, 0.3);
+            transition: all 0.3s ease;
+            /* THE BEAUTIFUL GLOW EFFECT FROM MODALS */
+            box-shadow: 0 0 20px rgba(39, 174, 96, 0.3);
+        }
+
+        /* Enhanced glow on hover for interactive feel */
+        section:hover {
+            box-shadow: 0 0 30px rgba(39, 174, 96, 0.5);
+            border-color: rgba(39, 174, 96, 0.6);
         }
 
         h2 {
@@ -288,6 +298,11 @@
             margin: 0 auto 30px auto;
             border-radius: 12px;
             box-shadow: 0 0 15px rgba(39, 174, 96, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .download-soon-img:hover {
+            box-shadow: 0 0 25px rgba(39, 174, 96, 0.7);
         }
 
         @media (max-width: 480px) {
@@ -308,11 +323,22 @@
             border-radius: 50%;
             border: 2px solid var(--ghost-neon-green);
             margin-bottom: 20px;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 15px rgba(39, 174, 96, 0.3);
+        }
+
+        .bear-img:hover {
+            box-shadow: 0 0 25px rgba(39, 174, 96, 0.6);
         }
 
         .bottom-bear {
             max-width: 60px;
             margin-top: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .bottom-bear:hover {
+            filter: drop-shadow(0 0 8px var(--ghost-neon-green));
         }
 
         .highlight { color: var(--ghost-neon-green); font-weight: bold; }
