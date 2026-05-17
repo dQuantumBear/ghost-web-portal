@@ -283,19 +283,6 @@
             50% { border-color: var(--ghost-neon-green); }
         }
 
-        /* For mobile responsiveness */
-        @media (max-width: 480px) {
-            .typewriter-text {
-                white-space: normal;
-                word-wrap: break-word;
-                border-right: none;
-            }
-            .typewriter-container {
-                display: block;
-                width: 100%;
-            }
-        }
-
         h1 {
             color: var(--ghost-cream);
             text-transform: uppercase;
@@ -308,7 +295,6 @@
             flex-wrap: wrap;
         }
 
-        /* Static text before animation */
         .static-prefix {
             display: inline-block;
         }
@@ -357,7 +343,6 @@
             padding: 20px;
         }
 
-        /* UPDATED: All sections now have the beautiful glow effect */
         section {
             background-color: rgba(0, 77, 0, 0.1);
             margin-bottom: 30px;
@@ -382,7 +367,6 @@
             }
         }
 
-        /* Staggered fade-in for sections */
         section:nth-child(1) { --order: 1; }
         section:nth-child(2) { --order: 2; }
         section:nth-child(3) { --order: 3; }
@@ -391,7 +375,6 @@
         section:nth-child(6) { --order: 6; }
         section:nth-child(7) { --order: 7; }
 
-        /* Enhanced glow on hover for interactive feel */
         section:hover {
             box-shadow: 0 0 30px rgba(39, 174, 96, 0.5);
             border-color: rgba(39, 174, 96, 0.6);
@@ -418,6 +401,22 @@
             animation: fadeIn 0.5s ease-in 2.3s forwards;
         }
 
+        /* AI-FIX: Proportional Download Button (v10.8.3) */
+        .download-soon-img {
+            display: block;
+            margin: 50px auto;
+            max-width: 320px; /* Perfectly sized for 800px container (approx 40%) */
+            width: 90%;
+            height: auto;
+            filter: drop-shadow(0 0 15px rgba(39, 174, 96, 0.4));
+            transition: transform 0.3s ease, filter 0.3s ease;
+        }
+
+        .download-soon-img:hover {
+            transform: scale(1.05);
+            filter: drop-shadow(0 0 25px rgba(39, 174, 96, 0.6));
+        }
+
         @media (max-width: 480px) {
             .ghost-line { font-size: 1.05em; white-space: normal; }
             h1 { font-size: 1.6em; flex-direction: column; }
@@ -426,7 +425,7 @@
                 word-wrap: break-word;
                 border-right: none;
             }
-            .download-soon-img { max-width: 60%; }
+            .download-soon-img { max-width: 80%; margin: 30px auto; }
             .dropdown-content { right: -10px; min-width: 200px; }
             .modal-content { width: 95%; }
             .logo { max-width: 80px; }
@@ -498,7 +497,7 @@
         </div>
     </div>
 
-    <!-- MODAL FOR COOKIE POLICY (FLOATING WINDOW) -->
+    <!-- MODAL FOR COOKIE POLICY -->
     <div id="cookieModal" class="modal-overlay">
         <div class="modal-content">
             <div class="modal-header">
@@ -507,13 +506,13 @@
             </div>
             <div class="modal-body">
                 <p><b>Status: Zero-Tracking Architecture</b></p>
-                <p>SecureMessenger is engineered for Stateless Privacy. I do not track user behavior, utilize Google Analytics, or deploy marketing pixels. While my code is cookie-free, I utilize Cloudflare for DDoS protection; you may occasionally see a strictly necessary security cookie (e.g., <code>__cf_bm</code>) used solely for bot protection. This is exempt from consent under <b>§ 25 para. 2 TDDDG</b>.</p>
+                <p>SecureMessenger is engineered for Stateless Privacy. I do not track user behavior, utilize Google Analytics, or deploy marketing pixels. While my code is cookie-free, I utilize Cloudflare for DDoS protection; you may occasionally see a strictly necessary security cookie used solely for bot protection. This is exempt from consent under <b>§ 25 para. 2 TDDDG</b>.</p>
                 <button id="acceptCookieBtn" class="accept-btn">✓ I ACCEPT THE COOKIE POLICY</button>
             </div>
         </div>
     </div>
 
-    <!-- MODAL FOR IMPRESSUM (FLOATING WINDOW) -->
+    <!-- MODAL FOR IMPRESSUM -->
     <div id="impressumModal" class="modal-overlay">
         <div class="modal-content">
             <div class="modal-header">
@@ -539,7 +538,7 @@
                 <span class="typewriter-text" id="typewriter"></span>
             </span>
         </h1>
-        <p class="tagline">Sovereign Build v10.8.2 | The Architecture of Privacy</p>
+        <p class="tagline">Sovereign Build v10.8.3 | The Architecture of Privacy</p>
         
         <div>
             <a href="https://glokta1991.github.io/legal-docs/white_paper.html" class="ghost-btn">EXPLORE THE ARCHITECTURE</a>
@@ -636,14 +635,12 @@
             </div>
         </section>
 
-        <!-- ORIGINAL COOKIE POLICY SECTION - KEPT AT BOTTOM FOR SCROLLING USERS -->
         <section id="cookie-policy" style="font-size: 0.85em; line-height: 1.6;">
             <h2>Cookie Transparency Policy</h2>
             <p><b>Status: Zero-Tracking Architecture</b></p>
-            <p>SecureMessenger is engineered for Stateless Privacy. I do not track user behavior, utilize Google Analytics, or deploy marketing pixels. While my code is cookie-free, I utilize Cloudflare for DDoS protection; you may occasionally see a strictly necessary security cookie (e.g., <code>__cf_bm</code>) used solely for bot protection. This is exempt from consent under <b>§ 25 para. 2 TDDDG</b>.</p>
+            <p>SecureMessenger is engineered for Stateless Privacy. I do not track user behavior, utilize Google Analytics, or deploy marketing pixels. While my code is cookie-free, I utilize Cloudflare for DDoS protection; you may occasionally see a strictly necessary security cookie used solely for bot protection. This is exempt from consent under <b>§ 25 para. 2 TDDDG</b>.</p>
         </section>
 
-        <!-- ORIGINAL IMPRESSUM SECTION - KEPT AT BOTTOM FOR SCROLLING USERS -->
         <section id="impressum" style="font-size: 0.75em; opacity: 0.6; line-height: 1.6; border-top: 1px solid var(--ghost-dark-green); padding-top: 20px;">
             <h2 style="font-size: 1.1em;">Impressum</h2>
             <p>Inhalte gemäß §5 DDG</p>
@@ -672,143 +669,53 @@
                 if (index < text.length) {
                     typewriterElement.textContent += text.charAt(index);
                     index++;
-                    // Random delay between 50-120ms for realistic typing feel
                     const delay = Math.random() * (120 - 50) + 50;
                     setTimeout(typeNextLetter, delay);
                 } else {
-                    // Animation complete - keep cursor blinking
                     typewriterElement.style.animation = 'blinkCursor 0.75s step-end infinite';
                 }
             }
-            
-            // Start the typing animation after a short delay (logo fade-in)
             setTimeout(typeNextLetter, 500);
         });
         
-        // Get modal elements
         const cookieModal = document.getElementById('cookieModal');
         const impressumModal = document.getElementById('impressumModal');
-        
-        // Get menu links
         const cookiePolicyLink = document.getElementById('cookiePolicyLink');
         const impressumLink = document.getElementById('impressumLink');
-        
-        // Get close buttons
         const closeCookieBtn = document.getElementById('closeCookieModalBtn');
         const closeImpressumBtn = document.getElementById('closeImpressumModalBtn');
         const closeImpressumAcceptBtn = document.getElementById('closeImpressumAcceptBtn');
         
-        // Cookie Policy functions
-        function openCookieModal() {
-            cookieModal.style.display = 'flex';
-            document.body.style.overflow = 'hidden';
-        }
+        function openCookieModal() { cookieModal.style.display = 'flex'; document.body.style.overflow = 'hidden'; }
+        function closeCookieModal() { cookieModal.style.display = 'none'; document.body.style.overflow = ''; }
+        function openImpressumModal() { impressumModal.style.display = 'flex'; document.body.style.overflow = 'hidden'; }
+        function closeImpressumModal() { impressumModal.style.display = 'none'; document.body.style.overflow = ''; }
         
-        function closeCookieModal() {
-            cookieModal.style.display = 'none';
-            document.body.style.overflow = '';
-        }
+        if (cookiePolicyLink) cookiePolicyLink.addEventListener('click', function(e) { e.preventDefault(); openCookieModal(); });
+        if (impressumLink) impressumLink.addEventListener('click', function(e) { e.preventDefault(); openImpressumModal(); });
+        if (closeCookieBtn) closeCookieBtn.addEventListener('click', closeCookieModal);
+        if (closeImpressumBtn) closeImpressumBtn.addEventListener('click', closeImpressumModal);
+        if (closeImpressumAcceptBtn) closeImpressumAcceptBtn.addEventListener('click', closeImpressumModal);
         
-        // Impressum functions
-        function openImpressumModal() {
-            impressumModal.style.display = 'flex';
-            document.body.style.overflow = 'hidden';
-        }
-        
-        function closeImpressumModal() {
-            impressumModal.style.display = 'none';
-            document.body.style.overflow = '';
-        }
-        
-        // Event listeners for menu links
-        if (cookiePolicyLink) {
-            cookiePolicyLink.addEventListener('click', function(e) {
-                e.preventDefault();
-                openCookieModal();
-            });
-        }
-        
-        if (impressumLink) {
-            impressumLink.addEventListener('click', function(e) {
-                e.preventDefault();
-                openImpressumModal();
-            });
-        }
-        
-        // Event listeners for close buttons
-        if (closeCookieBtn) {
-            closeCookieBtn.addEventListener('click', closeCookieModal);
-        }
-        
-        if (closeImpressumBtn) {
-            closeImpressumBtn.addEventListener('click', closeImpressumModal);
-        }
-        
-        if (closeImpressumAcceptBtn) {
-            closeImpressumAcceptBtn.addEventListener('click', closeImpressumModal);
-        }
-        
-        // Accept cookie button functionality
         const acceptCookieBtn = document.getElementById('acceptCookieBtn');
         if (acceptCookieBtn) {
             acceptCookieBtn.addEventListener('click', function() {
                 closeCookieModal();
-                // Store acceptance in localStorage
                 localStorage.setItem('cookiePolicyAccepted', 'true');
-                // Show a brief confirmation message
-                const confirmation = document.createElement('div');
-                confirmation.textContent = '✓ Cookie policy accepted';
-                confirmation.style.cssText = `
-                    position: fixed;
-                    bottom: 20px;
-                    right: 20px;
-                    background-color: var(--ghost-dark-green);
-                    color: var(--ghost-white);
-                    padding: 10px 20px;
-                    border-radius: 8px;
-                    border: 1px solid var(--ghost-neon-green);
-                    z-index: 2001;
-                    font-family: monospace;
-                    animation: fadeOut 2s forwards;
-                `;
-                document.body.appendChild(confirmation);
-                setTimeout(() => confirmation.remove(), 2000);
             });
         }
         
-        // Close modal when clicking outside the content
         window.addEventListener('click', function(e) {
-            if (e.target === cookieModal) {
-                closeCookieModal();
-            }
-            if (e.target === impressumModal) {
-                closeImpressumModal();
-            }
+            if (e.target === cookieModal) closeCookieModal();
+            if (e.target === impressumModal) closeImpressumModal();
         });
         
-        // Close modal with Escape key
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape') {
-                if (cookieModal.style.display === 'flex') {
-                    closeCookieModal();
-                }
-                if (impressumModal.style.display === 'flex') {
-                    closeImpressumModal();
-                }
+                if (cookieModal.style.display === 'flex') closeCookieModal();
+                if (impressumModal.style.display === 'flex') closeImpressumModal();
             }
         });
-        
-        // Animation for fade out
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes fadeOut {
-                0% { opacity: 1; }
-                70% { opacity: 1; }
-                100% { opacity: 0; visibility: hidden; }
-            }
-        `;
-        document.head.appendChild(style);
     </script>
-
 </body>
 </html>
