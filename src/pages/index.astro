@@ -88,7 +88,7 @@
             100% { filter: drop-shadow(0 0 5px #FF0000); }
         }
 
-        /* ========== SLOT MACHINE - ONE ROW OF CONTAINERS ========== */
+        /* ========== CORRECTED SLOT MACHINE ========== */
         .slot-machine-wrapper {
             display: flex;
             justify-content: center;
@@ -130,6 +130,7 @@
             align-items: center;
             justify-content: center;
             height: 95px;
+            width: 100%;
             font-size: 52px;
             font-weight: bold;
             font-family: 'Courier New', monospace;
@@ -154,8 +155,8 @@
             animation: neonOutburst 0.6s cubic-bezier(0.3, 1.2, 0.4, 1) forwards !important;
         }
         .reel-flash {
-            transition: box-shadow 0.1s ease;
             box-shadow: 0 0 0 2px var(--ghost-neon-green), inset 0 0 20px #39FF14 !important;
+            transition: box-shadow 0.05s ease;
         }
 
         .tagline {
@@ -215,7 +216,7 @@
 </head>
 <body>
 
-<!-- MENU (unaltered) -->
+<!-- MENU -->
 <div class="menu-container">
     <img src="/menu_icon.png" alt="Menu" class="menu-icon" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\' fill=\'%2327AE60\'%3E%3Cpath d=\'M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z\'/%3E%3C/svg%3E'">
     <div class="dropdown-content">
@@ -229,7 +230,7 @@
     </div>
 </div>
 
-<!-- MODALS (unaltered) -->
+<!-- MODALS -->
 <div id="cookieModal" class="modal-overlay">
     <div class="modal-content">
         <div class="modal-header">
@@ -260,7 +261,7 @@
     </div>
 </div>
 
-<!-- HEADER with LOGO and SLOT MACHINE -->
+<!-- HEADER -->
 <header>
     <img src="/glass_logo.png" class="logo" alt="Secure Messenger Logo" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'%3E%3Ccircle cx=\'50\' cy=\'50\' r=\'45\' fill=\'%23004D00\' stroke=\'%2327AE60\' stroke-width=\'3\'/%3E%3Ctext x=\'50\' y=\'67\' fill=\'%2327AE60\' font-size=\'40\' text-anchor=\'middle\'%3ESM%3C/text%3E%3C/svg%3E'">
     
@@ -275,7 +276,7 @@
     </div>
 </header>
 
-<!-- MAIN CONTENT (all 5 sections preserved) -->
+<!-- MAIN CONTENT -->
 <div class="container">
     <div class="ghost-line">"To you, I am a conduit. To the world, you are a Ghost."</div>
 
@@ -339,16 +340,15 @@
 
 <script>
     (function() {
-        // TARGET TEXT - spells "SECURE MESSENGER"
+        // TARGET TEXT
         const FINAL_TEXT = "SECURE MESSENGER";
-        // CHARACTER SET includes letters, numbers, AND symbols
+        // CHARACTERS: letters A-Z, numbers 0-9, AND symbols
         const SYMBOLS = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()_+{}|:<>?~";
         
         const container = document.getElementById('the-slot-machine');
         if (!container) return;
         container.innerHTML = '';
         
-        // Create ONE ROW wrapper
         const wrapper = document.createElement('div');
         wrapper.className = 'slot-machine-wrapper';
         const reelStrip = document.createElement('div');
@@ -356,11 +356,11 @@
         
         const reels = [];
         
-        // Build each character container (ONE PER LETTER, arranged horizontally)
+        // ONE ROW - create a container for EACH character in "SECURE MESSENGER"
         for (let i = 0; i < FINAL_TEXT.length; i++) {
             const targetChar = FINAL_TEXT[i];
             
-            // Add visual spacer for the space between "SECURE" and "MESSENGER"
+            // Add spacer for the space between words
             if (targetChar === ' ') {
                 const spacer = document.createElement('div');
                 spacer.className = 'spacer-block';
@@ -368,7 +368,7 @@
                 continue;
             }
             
-            // Each container gets 35-60 random symbols stacked vertically
+            // Number of random symbols to spin through (makes the slot machine effect)
             const spinCount = 35 + Math.floor(Math.random() * 30);
             
             const reelDiv = document.createElement('div');
@@ -376,7 +376,7 @@
             const innerDiv = document.createElement('div');
             innerDiv.className = 'reel-inner';
             
-            // Add random characters (letters, numbers, symbols) - these will spin downwards
+            // Add random characters (letters, numbers, symbols) that will spin
             for (let j = 0; j < spinCount; j++) {
                 const span = document.createElement('div');
                 span.className = 'reel-char';
@@ -406,17 +406,20 @@
         wrapper.appendChild(reelStrip);
         container.appendChild(wrapper);
         
-        // Get accurate character height
+        // Get character height after DOM is ready
         let charHeight = 95;
-        if (reels.length && reels[0].inner.children[0]) {
-            const sample = reels[0].inner.children[0];
-            charHeight = sample.offsetHeight;
-            if (charHeight < 20) charHeight = 95;
-        }
+        const getCharHeight = () => {
+            const sampleChar = document.querySelector('.reel-char');
+            if (sampleChar) {
+                const h = sampleChar.offsetHeight;
+                if (h > 20) charHeight = h;
+            }
+        };
+        getCharHeight();
         
-        // TRIGGER NEON GREEN OUTBURST outward from all containers
+        // NEON GREEN OUTBURST - flashes outward from all containers
         function triggerNeonOutburst() {
-            // Flash each final character
+            // Animate each final character
             reels.forEach(reel => {
                 const finalCharDiv = reel.inner.children[reel.inner.children.length - 1];
                 if (finalCharDiv) {
@@ -437,55 +440,53 @@
             }, 700);
         }
         
-        // SPIN ALL REELS DOWNWARDS with staggered timing
+        // SPIN EACH REEL DOWNWARDS
         let finishedAnimations = 0;
         const totalReels = reels.length;
         
         reels.forEach((reel, index) => {
             const distanceToMove = (reel.totalItems - 1) * charHeight;
-            const spinDuration = 1800 + Math.random() * 1300;
-            const startDelay = index * 55; // cascading wave effect
+            const spinDuration = 1800 + Math.random() * 1400;
+            const startDelay = index * 60; // Cascading wave effect
             
             setTimeout(() => {
-                reel.inner.style.transition = `transform ${spinDuration}ms cubic-bezier(0.25, 0.94, 0.35, 1.05)`;
+                reel.inner.style.transition = `transform ${spinDuration}ms cubic-bezier(0.2, 0.95, 0.3, 1.05)`;
                 reel.inner.style.transform = `translateY(-${distanceToMove}px)`;
                 
-                const finishTimer = setTimeout(() => {
-                    finishedAnimations++;
-                    if (finishedAnimations === totalReels) {
-                        triggerNeonOutburst();
-                    }
-                }, spinDuration + 80);
-                
+                let transitionEnded = false;
                 reel.inner.addEventListener('transitionend', function onEnd() {
-                    clearTimeout(finishTimer);
-                    finishedAnimations++;
-                    if (finishedAnimations === totalReels) {
-                        triggerNeonOutburst();
+                    if (!transitionEnded) {
+                        transitionEnded = true;
+                        finishedAnimations++;
+                        if (finishedAnimations === totalReels) {
+                            triggerNeonOutburst();
+                        }
+                        reel.inner.removeEventListener('transitionend', onEnd);
                     }
-                    reel.inner.removeEventListener('transitionend', onEnd);
-                }, { once: true });
+                });
+                
+                // Fallback timeout
+                setTimeout(() => {
+                    if (!transitionEnded) {
+                        transitionEnded = true;
+                        finishedAnimations++;
+                        if (finishedAnimations === totalReels) {
+                            triggerNeonOutburst();
+                        }
+                    }
+                }, spinDuration + 100);
                 
             }, startDelay);
         });
         
-        // Safety fallback
-        const maxTotalDelay = (totalReels * 55) + 3200;
+        // Final safety fallback
         setTimeout(() => {
-            let allFinalFlashed = false;
-            for(let r of reels) {
-                const last = r.inner.children[r.inner.children.length-1];
-                if(last && last.classList.contains('outburst-glow')) allFinalFlashed = true;
-                else { allFinalFlashed = false; break; }
-            }
-            if (!allFinalFlashed && finishedAnimations !== totalReels) {
-                triggerNeonOutburst();
-            } else if (!allFinalFlashed && finishedAnimations === totalReels) {
+            if (finishedAnimations < totalReels) {
                 triggerNeonOutburst();
             }
-        }, maxTotalDelay + 300);
+        }, (totalReels * 60) + 3500);
         
-        // Handle resize
+        // Handle window resize to maintain correct position
         let resizeTimeout;
         window.addEventListener('resize', () => {
             clearTimeout(resizeTimeout);
@@ -501,11 +502,11 @@
                     });
                     charHeight = newCharHeight;
                 }
-            }, 100);
+            }, 150);
         });
     })();
 
-    // MODAL FUNCTIONALITY (unaltered)
+    // MODAL FUNCTIONALITY
     const cookieModal = document.getElementById('cookieModal');
     const impressumModal = document.getElementById('impressumModal');
     const cookiePolicyLink = document.getElementById('cookiePolicyLink');
