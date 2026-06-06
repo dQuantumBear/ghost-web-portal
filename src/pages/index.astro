@@ -264,24 +264,25 @@
             }
         }
 
-        /* AI-FIX: Slot Machine Engine Styles (v17.0.0) */
+        /* AI-FIX: Slot Machine Engine Styles (v17.0.1) */
         .slot-machine-container {
-            display: inline-flex;
-            justify-content: center;
-            align-items: center;
+            display: inline-block;
             height: 1.2em;
+            max-height: 1.2em;
             overflow: hidden;
             position: relative;
             vertical-align: middle;
+            text-align: left;
         }
 
         .slot-column {
-            display: flex;
+            display: inline-flex;
             flex-direction: column;
             width: 0.7em;
             text-align: center;
             transition: transform 12s cubic-bezier(0.1, 0, 0, 1);
             will-change: transform;
+            height: auto;
         }
 
         .slot-char {
@@ -305,6 +306,7 @@
             opacity: 0;
             color: var(--ghost-neon-green);
             text-shadow: 0 0 30px var(--ghost-neon-green);
+            z-index: 10;
         }
 
         @keyframes neonBurst {
@@ -323,6 +325,8 @@
             align-items: center;
             flex-wrap: wrap;
             min-height: 1.2em;
+            max-height: 1.5em; /* Prevent expansion */
+            overflow: hidden; /* Safety clip */
         }
 
         .tagline {
