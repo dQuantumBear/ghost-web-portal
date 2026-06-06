@@ -264,23 +264,52 @@
             }
         }
 
-        /* Typewriter effect styles */
-        .typewriter-container {
-            display: inline-block;
-            position: relative;
-        }
-
-        .typewriter-text {
-            display: inline-block;
+        /* AI-FIX: Slot Machine Engine Styles (v17.0.0) */
+        .slot-machine-container {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            height: 1.2em;
             overflow: hidden;
-            white-space: nowrap;
-            border-right: 3px solid var(--ghost-neon-green);
-            animation: blinkCursor 0.75s step-end infinite;
+            position: relative;
+            vertical-align: middle;
         }
 
-        @keyframes blinkCursor {
-            from, to { border-color: transparent; }
-            50% { border-color: var(--ghost-neon-green); }
+        .slot-column {
+            display: flex;
+            flex-direction: column;
+            width: 0.7em;
+            text-align: center;
+            transition: transform 12s cubic-bezier(0.1, 0, 0, 1);
+            will-change: transform;
+        }
+
+        .slot-char {
+            height: 1.2em;
+            line-height: 1.2em;
+            flex-shrink: 0;
+            color: var(--ghost-neon-green);
+            text-shadow: 0 0 5px var(--ghost-neon-green);
+        }
+
+        .burst-layer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            pointer-events: none;
+            opacity: 0;
+            color: var(--ghost-neon-green);
+            text-shadow: 0 0 30px var(--ghost-neon-green);
+        }
+
+        @keyframes neonBurst {
+            0% { opacity: 0.8; transform: scale(1); filter: blur(0px); }
+            100% { opacity: 0; transform: scale(1.8); filter: blur(10px); }
         }
 
         h1 {
@@ -293,10 +322,7 @@
             justify-content: center;
             align-items: center;
             flex-wrap: wrap;
-        }
-
-        .static-prefix {
-            display: inline-block;
+            min-height: 1.2em;
         }
 
         .tagline {
@@ -420,11 +446,6 @@
         @media (max-width: 480px) {
             .ghost-line { font-size: 1.05em; white-space: normal; }
             h1 { font-size: 1.6em; flex-direction: column; }
-            .typewriter-text {
-                white-space: normal;
-                word-wrap: break-word;
-                border-right: none;
-            }
             .download-soon-img { max-width: 80%; margin: 30px auto; }
             .dropdown-content { right: -10px; min-width: 200px; }
             .modal-content { width: 95%; }
@@ -532,14 +553,11 @@
 
     <header>
         <img src="/glass_logo.png" alt="Secure Messenger Logo" class="logo">
-        <h1>
-            <span class="static-prefix"></span>
-            <span class="typewriter-container">
-                <span class="typewriter-text" id="typewriter"></span>
-            </span>
+        <h1 id="title-container">
+            <!-- ENGINE INJECTS REELS HERE -->
         </h1>
         <p class="tagline">Sovereign Build v10.8.3 | The Architecture of Privacy</p>
-        
+
         <div>
             <a href="https://glokta1991.github.io/legal-docs/white_paper.html" class="ghost-btn">EXPLORE THE ARCHITECTURE</a>
             <div class="signature-creator" style="margin-top: 15px; font-size: 0.85em; color: var(--ghost-cream); opacity: 0.8;">
@@ -659,25 +677,100 @@
     </footer>
 
     <script>
-        // TYPEWRITER EFFECT FOR "SECURE MESSENGER"
-        document.addEventListener('DOMContentLoaded', function() {
-            const text = "SECURE MESSENGER";
-            const typewriterElement = document.getElementById('typewriter');
-            let index = 0;
-            
-            function typeNextLetter() {
-                if (index < text.length) {
-                    typewriterElement.textContent += text.charAt(index);
-                    index++;
-                    const delay = Math.random() * (120 - 50) + 50;
-                    setTimeout(typeNextLetter, delay);
-                } else {
-                    typewriterElement.style.animation = 'blinkCursor 0.75s step-end infinite';
-                }
+        /**
+         * CHAOS SLOT ENGINE (v17.0.0 - NEON_BURST)
+         * Web Implementation of the Android CipherReelTextView logic.
+         */
+        class CipherReelEngine {
+            constructor(containerId, targetText) {
+                this.container = document.getElementById(containerId);
+                this.targetText = targetText.toUpperCase();
+                this.symbols = "!@#$%^&*()_+=-{}[]|:;\"'<>,.?/".split('');
+                this.letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split('');
+                this.numbers = "0123456789".split('');
+                this.masterPool = [...this.symbols, ...this.letters, ...this.numbers];
+                this.duration = 12000;
+                this.columns = [];
             }
-            setTimeout(typeNextLetter, 500);
+
+            init() {
+                this.container.innerHTML = '';
+                const mainWrapper = document.createElement('div');
+                mainWrapper.className = 'slot-machine-container';
+
+                for (let i = 0; i < this.targetText.length; i++) {
+                    const char = this.targetText[i];
+                    if (char === ' ') {
+                        const spacer = document.createElement('div');
+                        spacer.style.width = '0.5em';
+                        mainWrapper.appendChild(spacer);
+                        continue;
+                    }
+
+                    const column = document.createElement('div');
+                    column.className = 'slot-column';
+
+                    const reel = this.generateChaosReel(char);
+                    reel.forEach(c => {
+                        const div = document.createElement('div');
+                        div.className = 'slot-char';
+                        div.textContent = c;
+                        column.appendChild(div);
+                    });
+
+                    mainWrapper.appendChild(column);
+                    this.columns.push({
+                        element: column,
+                        reelSize: reel.length,
+                        delay: Math.random() * 2000
+                    });
+                }
+
+                // Add burst layer
+                const burst = document.createElement('div');
+                burst.className = 'burst-layer';
+                burst.id = 'neon-burst';
+                burst.textContent = this.targetText;
+                mainWrapper.appendChild(burst);
+
+                this.container.appendChild(mainWrapper);
+
+                setTimeout(() => this.start(), 500);
+            }
+
+            generateChaosReel(targetChar) {
+                const length = Math.floor(Math.random() * 51) + 100; // 100-150
+                const reel = [];
+                for (let i = 0; i < length - 1; i++) {
+                    reel.push(this.masterPool[Math.floor(Math.random() * this.masterPool.length)]);
+                }
+                reel.push(targetChar);
+                return reel;
+            }
+
+            start() {
+                this.columns.forEach(col => {
+                    setTimeout(() => {
+                        const travelDistance = (col.reelSize - 1) * 1.2; // 1.2em per char
+                        col.element.style.transform = `translateY(-${travelDistance}em)`;
+                    }, col.delay);
+                });
+
+                // Trigger burst at the end of the longest possible animation
+                setTimeout(() => {
+                    const burst = document.getElementById('neon-burst');
+                    if (burst) {
+                        burst.style.animation = 'neonBurst 1s ease-out forwards';
+                    }
+                }, this.duration + 2000);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const engine = new CipherReelEngine('title-container', "SECURE MESSENGER");
+            engine.init();
         });
-        
+
         const cookieModal = document.getElementById('cookieModal');
         const impressumModal = document.getElementById('impressumModal');
         const cookiePolicyLink = document.getElementById('cookiePolicyLink');
@@ -685,18 +778,18 @@
         const closeCookieBtn = document.getElementById('closeCookieModalBtn');
         const closeImpressumBtn = document.getElementById('closeImpressumModalBtn');
         const closeImpressumAcceptBtn = document.getElementById('closeImpressumAcceptBtn');
-        
+
         function openCookieModal() { cookieModal.style.display = 'flex'; document.body.style.overflow = 'hidden'; }
         function closeCookieModal() { cookieModal.style.display = 'none'; document.body.style.overflow = ''; }
         function openImpressumModal() { impressumModal.style.display = 'flex'; document.body.style.overflow = 'hidden'; }
         function closeImpressumModal() { impressumModal.style.display = 'none'; document.body.style.overflow = ''; }
-        
+
         if (cookiePolicyLink) cookiePolicyLink.addEventListener('click', function(e) { e.preventDefault(); openCookieModal(); });
         if (impressumLink) impressumLink.addEventListener('click', function(e) { e.preventDefault(); openImpressumModal(); });
         if (closeCookieBtn) closeCookieBtn.addEventListener('click', closeCookieModal);
         if (closeImpressumBtn) closeImpressumBtn.addEventListener('click', closeImpressumModal);
         if (closeImpressumAcceptBtn) closeImpressumAcceptBtn.addEventListener('click', closeImpressumModal);
-        
+
         const acceptCookieBtn = document.getElementById('acceptCookieBtn');
         if (acceptCookieBtn) {
             acceptCookieBtn.addEventListener('click', function() {
@@ -704,12 +797,12 @@
                 localStorage.setItem('cookiePolicyAccepted', 'true');
             });
         }
-        
+
         window.addEventListener('click', function(e) {
             if (e.target === cookieModal) closeCookieModal();
             if (e.target === impressumModal) closeImpressumModal();
         });
-        
+
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape') {
                 if (cookieModal.style.display === 'flex') closeCookieModal();
