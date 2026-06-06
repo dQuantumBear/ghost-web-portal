@@ -296,6 +296,8 @@
             text-align: center;
             will-change: transform;
             flex-shrink: 0;
+            transition: transform 0s ease; /* Default, will be overridden by JS */
+            transform: translate3d(0, 0, 0);
         }
 
         .slot-char {
@@ -343,6 +345,14 @@
             align-items: center;
             text-align: center;
             contain: paint;
+            min-height: 3.6em; /* 2x char height */
+            visibility: visible;
+            opacity: 0;
+            animation: fadeInTitle 0.1s ease-out 0.1s forwards;
+        }
+
+        @keyframes fadeInTitle {
+            to { opacity: 1; }
         }
 
         .tagline {
@@ -709,10 +719,10 @@
                 this.letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split('');
                 this.numbers = "0123456789".split('');
                 this.masterPool = [...this.symbols, ...this.letters, ...this.numbers];
-                this.baseDuration = 12000; // Match Android baseDuration
+                this.baseDuration = 12000;
                 this.columns = [];
                 this.maxTotalTime = 0;
-                this.charHeight = 1.8; // Match CSS and Android 1.8f scaling
+                this.charHeight = 1.8; // Fallback in em units
             }
 
             init() {
@@ -726,6 +736,7 @@
 
                 const hasAnimated = sessionStorage.getItem('hasAnimatedTitle') === 'true';
 
+                // FIRST: Create all columns and add them to viewport
                 for (let i = 0; i < this.targetText.length; i++) {
                     const char = this.targetText[i];
 
@@ -738,6 +749,8 @@
 
                     const column = document.createElement('div');
                     column.className = 'slot-column';
+                    column.style.display = 'flex';
+                    column.style.flexDirection = 'column';
 
                     const reel = this.generateChaosReel(char);
                     reel.forEach(c => {
@@ -747,33 +760,18 @@
                         column.appendChild(div);
                     });
 
-                    // Measurement Lock: Ensure we use the exact rendered height
-                    if (i === 0) {
-                        const testChar = column.firstChild;
-                        // Use a small timeout if needed, but clientHeight works after append
-                        viewport.appendChild(column);
-                        this.measuredCharHeight = testChar.offsetHeight;
-                    } else {
-                        viewport.appendChild(column);
-                    }
-
-                    // Match Android Randomness
-                    const duration = this.baseDuration - 2000 + Math.random() * 6000;
-                    const delay = Math.random() * 2000;
-                    this.maxTotalTime = Math.max(this.maxTotalTime, duration + delay);
-
-                    if (hasAnimated) {
-                        const finalPos = (reel.length - 1) * this.measuredCharHeight;
-                        column.style.transform = `translate3d(0, -${finalPos}px, 0)`;
-                    }
+                    viewport.appendChild(column);
 
                     this.columns.push({
                         element: column,
                         reelSize: reel.length,
-                        duration: duration,
-                        delay: delay
+                        duration: this.baseDuration - 2000 + Math.random() * 6000,
+                        delay: Math.random() * 2000
                     });
                 }
+
+                // CRITICAL FIX: Measure AFTER all elements are in the DOM
+                this.measureCharHeight();
 
                 const burst = document.createElement('div');
                 burst.className = 'burst-layer';
@@ -783,14 +781,48 @@
 
                 this.container.appendChild(mainWrapper);
 
+                // Ensure measurement is complete before starting animation
                 if (!hasAnimated) {
-                    setTimeout(() => this.start(), 300);
+                    // Wait for next frame to ensure layout is calculated
+                    requestAnimationFrame(() => {
+                        requestAnimationFrame(() => {
+                            this.start();
+                        });
+                    });
                     sessionStorage.setItem('hasAnimatedTitle', 'true');
+                } else {
+                    // Set to final position immediately
+                    this.setFinalPositions();
                 }
             }
 
+            measureCharHeight() {
+                // Get the actual rendered height of a character
+                const sampleChar = document.querySelector('.slot-char');
+                if (sampleChar) {
+                    const rect = sampleChar.getBoundingClientRect();
+                    this.measuredCharHeight = rect.height;
+                }
+
+                // Fallback if measurement still fails
+                if (!this.measuredCharHeight || this.measuredCharHeight === 0) {
+                    // Calculate from computed style
+                    const computedStyle = getComputedStyle(sampleChar || document.body);
+                    const fontSize = parseFloat(computedStyle.fontSize);
+                    this.measuredCharHeight = fontSize * 1.8; // Match line-height
+                }
+            }
+
+            setFinalPositions() {
+                this.columns.forEach(col => {
+                    if (this.measuredCharHeight && this.measuredCharHeight > 0) {
+                        const travelDistance = (col.reelSize - 1) * this.measuredCharHeight;
+                        col.element.style.transform = `translate3d(0, -${travelDistance}px, 0)`;
+                    }
+                });
+            }
+
             generateChaosReel(targetChar) {
-                // Match Android reel length: Random.nextInt(100, 151)
                 const length = Math.floor(Math.random() * 51) + 100;
                 const reel = [];
                 for (let i = 0; i < length - 1; i++) {
@@ -801,20 +833,31 @@
             }
 
             start() {
+                // Ensure we have a valid height measurement
+                if (!this.measuredCharHeight || this.measuredCharHeight === 0) {
+                    this.measureCharHeight();
+                    if (!this.measuredCharHeight || this.measuredCharHeight === 0) {
+                        this.measuredCharHeight = 28.8; // Hard fallback (16px * 1.8)
+                    }
+                }
+
+                // Calculate maxTotalTime BEFORE starting animations
+                this.maxTotalTime = 0;
                 this.columns.forEach(col => {
-                    requestAnimationFrame(() => {
-                        requestAnimationFrame(() => {
-                            // Match Android's DecelerateInterpolator(randomFactor)
-                            // factor between 2.0 and 3.0 maps roughly to cubic-bezier(0, 0, 0.1-0.2, 1)
-                            const factor = 0.1 + (Math.random() * 0.1);
-                            col.element.style.transition = `transform ${col.duration}ms cubic-bezier(0, 0, ${factor.toFixed(2)}, 1) ${col.delay}ms`;
-                            const travelDistance = (col.reelSize - 1) * this.measuredCharHeight;
-                            col.element.style.transform = `translate3d(0, -${travelDistance}px, 0)`;
-                        });
-                    });
+                    this.maxTotalTime = Math.max(this.maxTotalTime, col.duration + col.delay);
                 });
 
-                // Final Burst overlay
+                this.columns.forEach(col => {
+                    // Force reflow before applying transition
+                    col.element.offsetHeight; // Force browser reflow
+
+                    const factor = 0.1 + (Math.random() * 0.1);
+                    col.element.style.transition = `transform ${col.duration}ms cubic-bezier(0, 0, ${factor.toFixed(2)}, 1) ${col.delay}ms`;
+
+                    const travelDistance = (col.reelSize - 1) * this.measuredCharHeight;
+                    col.element.style.transform = `translate3d(0, -${travelDistance}px, 0)`;
+                });
+
                 setTimeout(() => {
                     const burst = document.getElementById('neon-burst');
                     if (burst) {
