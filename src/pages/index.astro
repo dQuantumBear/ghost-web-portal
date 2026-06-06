@@ -146,7 +146,6 @@
             box-shadow: 0 0 15px var(--ghost-neon-green);
         }
 
-        /* AI-FIX: Secure Menu Navigation (v8.2.2) */
         .menu-container {
             position: absolute;
             top: 20px;
@@ -261,45 +260,47 @@
             }
         }
 
-        /* WORKING SLOT MACHINE STYLES */
+        /* CRITICAL FIX - Horizontal layout only */
         .slot-machine-container {
             position: relative;
             width: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            display: block;
+            text-align: center;
             padding: 20px 0;
+            overflow-x: auto;
         }
 
         .reel-viewport {
-            display: flex;
-            flex-direction: row;
+            display: inline-flex !important;
+            flex-direction: row !important;
             justify-content: center;
             align-items: center;
             gap: 4px;
-            height: 3em;
+            height: 80px;
             overflow: hidden;
             border: 2px solid var(--ghost-neon-green);
             border-radius: 12px;
             background: rgba(0, 0, 0, 0.85);
             padding: 8px 16px;
-            position: relative;
             box-shadow: 0 0 30px rgba(39, 174, 96, 0.5);
-            flex-wrap: nowrap;
+            white-space: nowrap;
         }
 
         .slot-column {
-            display: flex;
-            flex-direction: column;
-            min-width: 1.4em;
+            display: inline-flex !important;
+            flex-direction: column !important;
+            width: auto;
+            min-width: 40px;
             transition: transform 0ms linear;
             will-change: transform;
+            vertical-align: top;
         }
 
         .slot-char {
-            height: 3em;
-            line-height: 3em;
-            font-size: 1.8em;
+            display: block;
+            height: 80px;
+            line-height: 80px;
+            font-size: 36px;
             font-weight: bold;
             color: var(--ghost-neon-green);
             text-shadow: 0 0 15px var(--ghost-neon-green);
@@ -308,40 +309,38 @@
             font-family: 'Courier New', Courier, monospace;
         }
 
-        @keyframes neonBurst {
-            0% { 
-                opacity: 1; 
-                transform: scale(1); 
-                filter: blur(0px);
-                text-shadow: 0 0 30px var(--ghost-neon-green);
-            }
-            100% { 
-                opacity: 0; 
-                transform: scale(1.5); 
-                filter: blur(20px);
-                text-shadow: 0 0 60px var(--ghost-neon-green);
-            }
-        }
-
         .burst-layer {
-            position: absolute;
+            position: fixed;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
             pointer-events: none;
             opacity: 0;
             color: var(--ghost-neon-green);
-            font-size: 2.2em;
+            font-size: 48px;
             font-weight: bold;
             white-space: nowrap;
-            z-index: 20;
+            z-index: 9999;
             text-shadow: 0 0 30px var(--ghost-neon-green);
+        }
+
+        @keyframes neonBurst {
+            0% { 
+                opacity: 1; 
+                transform: translate(-50%, -50%) scale(1); 
+                filter: blur(0px);
+            }
+            100% { 
+                opacity: 0; 
+                transform: translate(-50%, -50%) scale(1.5); 
+                filter: blur(20px);
+            }
         }
 
         h1 {
             margin: 0;
             padding: 0;
-            min-height: 120px;
+            min-height: 140px;
             position: relative;
         }
 
@@ -355,9 +354,7 @@
         }
 
         @keyframes fadeIn {
-            to {
-                opacity: 1;
-            }
+            to { opacity: 1; }
         }
 
         .ghost-btn {
@@ -465,13 +462,16 @@
             .reel-viewport {
                 gap: 2px;
                 padding: 4px 8px;
-                height: 2.5em;
+                height: 50px;
             }
             .slot-char {
-                height: 2.5em;
-                line-height: 2.5em;
-                font-size: 1.2em;
-                min-width: 1.2em;
+                height: 50px;
+                line-height: 50px;
+                font-size: 22px;
+                min-width: 30px;
+            }
+            .slot-column {
+                min-width: 30px;
             }
             .ghost-line { font-size: 1.05em; white-space: normal; }
             .download-soon-img { max-width: 80%; margin: 30px auto; }
@@ -482,10 +482,16 @@
 
         @media (max-width: 480px) {
             .slot-char {
-                font-size: 1em;
-                min-width: 1em;
+                font-size: 16px;
+                height: 40px;
+                line-height: 40px;
+                min-width: 25px;
+            }
+            .slot-column {
+                min-width: 25px;
             }
             .reel-viewport {
+                height: 40px;
                 gap: 1px;
                 padding: 4px;
             }
@@ -709,10 +715,6 @@
     </footer>
 
     <script>
-        /**
-         * WORKING SLOT MACHINE ENGINE
-         * Creates individual columns for each character with proper spacing
-         */
         class CipherReelEngine {
             constructor(containerId, targetText) {
                 this.container = document.getElementById(containerId);
@@ -729,14 +731,14 @@
                 const viewport = document.createElement('div');
                 viewport.className = 'reel-viewport';
                 
-                // Create one column per character
+                // Create ONE COLUMN PER CHARACTER (horizontally)
                 for (let i = 0; i < this.targetText.length; i++) {
                     const char = this.targetText[i];
                     
-                    // Handle spaces
+                    // Handle spaces - create visible space
                     if (char === ' ') {
                         const spacer = document.createElement('div');
-                        spacer.style.width = '1.8em';
+                        spacer.style.width = '30px';
                         spacer.style.display = 'inline-block';
                         viewport.appendChild(spacer);
                         continue;
@@ -745,21 +747,23 @@
                     // Create column for this character
                     const column = document.createElement('div');
                     column.className = 'slot-column';
+                    column.style.display = 'inline-flex';
+                    column.style.flexDirection = 'column';
                     
-                    // Generate 80-120 random characters for the reel
-                    const reelLength = 80 + Math.floor(Math.random() * 40);
-                    const characters = "!@#$%^&*()_+1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz".split('');
+                    // Generate 60-100 random characters
+                    const reelLength = 60 + Math.floor(Math.random() * 40);
+                    const chars = "!@#$%^&*()_+1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ";
                     
                     // Add random characters
                     for (let j = 0; j < reelLength - 1; j++) {
-                        const randomChar = characters[Math.floor(Math.random() * characters.length)];
+                        const randomChar = chars[Math.floor(Math.random() * chars.length)];
                         const charDiv = document.createElement('div');
                         charDiv.className = 'slot-char';
                         charDiv.textContent = randomChar;
                         column.appendChild(charDiv);
                     }
                     
-                    // Add target character at the end
+                    // Add target character at bottom
                     const targetDiv = document.createElement('div');
                     targetDiv.className = 'slot-char';
                     targetDiv.textContent = char;
@@ -769,49 +773,44 @@
                     
                     this.columns.push({
                         element: column,
-                        reelLength: reelLength,
-                        targetChar: char
+                        reelLength: reelLength
                     });
                 }
                 
                 mainWrapper.appendChild(viewport);
                 this.container.appendChild(mainWrapper);
                 
-                // Start animation after DOM is ready
-                setTimeout(() => this.startAnimation(), 50);
+                // Start animation
+                setTimeout(() => this.startAnimation(), 100);
             }
             
             startAnimation() {
-                // Get accurate character height
-                let charHeight = 55;
-                
-                if (this.columns.length > 0 && this.columns[0].element.children[0]) {
-                    const firstChar = this.columns[0].element.children[0];
-                    charHeight = firstChar.offsetHeight;
-                    if (!charHeight || charHeight === 0) {
-                        charHeight = 55;
-                    }
+                // Get character height
+                let charHeight = 80;
+                if (this.columns[0] && this.columns[0].element.children[0]) {
+                    const h = this.columns[0].element.children[0].offsetHeight;
+                    if (h && h > 0) charHeight = h;
                 }
                 
                 // Animate each column
-                this.columns.forEach((col, index) => {
-                    const travelDistance = (col.reelLength - 1) * charHeight;
-                    const duration = 3000 + (Math.random() * 3000);
-                    const delay = index * 50;
+                this.columns.forEach((col, idx) => {
+                    const distance = (col.reelLength - 1) * charHeight;
+                    const duration = 2500 + Math.random() * 2500;
+                    const delay = idx * 60;
                     
-                    col.element.style.transition = `transform ${duration}ms cubic-bezier(0.2, 0.9, 0.4, 1.1) ${delay}ms`;
-                    col.element.style.transform = `translateY(-${travelDistance}px)`;
+                    col.element.style.transition = `transform ${duration}ms cubic-bezier(0.2, 0.9, 0.4, 1) ${delay}ms`;
+                    col.element.style.transform = `translateY(-${distance}px)`;
                 });
             }
         }
 
-        // Initialize when page loads
+        // Initialize on load
         document.addEventListener('DOMContentLoaded', function() {
             const engine = new CipherReelEngine('title-container', "SECURE MESSENGER");
             engine.init();
         });
 
-        // Modal functionality
+        // Modal code
         const cookieModal = document.getElementById('cookieModal');
         const impressumModal = document.getElementById('impressumModal');
         const cookiePolicyLink = document.getElementById('cookiePolicyLink');
