@@ -205,6 +205,7 @@
             text-align: center;
             background: linear-gradient(to bottom, var(--ghost-dark-green), var(--bg-black));
             border-bottom: 1px solid var(--ghost-neon-green);
+            overflow-x: auto;
         }
 
         .logo {
@@ -280,9 +281,12 @@
             height: 1.8em;
             overflow: hidden !important;
             display: flex;
+            flex-direction: row;
             justify-content: center;
+            align-items: center;
             position: relative;
             width: 100%;
+            gap: 0.05em;
             mask-image: linear-gradient(to bottom, rgba(0,0,0,0.5) 0%, black 20%, black 80%, rgba(0,0,0,0.5) 100%);
             -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,0.5) 0%, black 20%, black 80%, rgba(0,0,0,0.5) 100%);
             transform-style: flat;
@@ -292,12 +296,14 @@
         .slot-column {
             display: flex;
             flex-direction: column;
-            width: 0.7em;
+            width: auto;
+            min-width: 0.7em;
             text-align: center;
             will-change: transform;
             flex-shrink: 0;
-            transition: transform 0s ease; /* Default, will be overridden by JS */
+            transition: transform 0s ease;
             transform: translate3d(0, 0, 0);
+            position: relative;
         }
 
         .slot-char {
@@ -307,6 +313,7 @@
             color: var(--ghost-neon-green);
             text-shadow: 0 0 8px var(--ghost-neon-green);
             font-family: inherit;
+            white-space: nowrap;
         }
 
         .burst-layer {
@@ -338,7 +345,7 @@
             font-size: 2.2em;
             margin: 0;
             height: 1.8em;
-            overflow: hidden !important;
+            overflow: visible !important;
             position: relative;
             display: flex;
             justify-content: center;
@@ -349,6 +356,7 @@
             visibility: visible;
             opacity: 0;
             animation: fadeInTitle 0.1s ease-out 0.1s forwards;
+            width: 100%;
         }
 
         @keyframes fadeInTitle {
@@ -837,7 +845,13 @@
                 if (!this.measuredCharHeight || this.measuredCharHeight === 0) {
                     this.measureCharHeight();
                     if (!this.measuredCharHeight || this.measuredCharHeight === 0) {
-                        this.measuredCharHeight = 28.8; // Hard fallback (16px * 1.8)
+                        const anyChar = document.querySelector('.slot-char');
+                        if (anyChar) {
+                            this.measuredCharHeight = anyChar.offsetHeight;
+                        }
+                        if (!this.measuredCharHeight || this.measuredCharHeight === 0) {
+                            this.measuredCharHeight = 28.8; // Hard fallback (16px * 1.8)
+                        }
                     }
                 }
 
@@ -849,12 +863,19 @@
 
                 this.columns.forEach(col => {
                     // Force reflow before applying transition
-                    col.element.offsetHeight; // Force browser reflow
+                    col.element.offsetHeight;
+
+                    const travelDistance = Math.max(0, (col.reelSize - 1) * this.measuredCharHeight);
+
+                    // Set initial position to 0 before animating
+                    col.element.style.transform = 'translate3d(0, 0, 0)';
+                    col.element.style.transition = 'none';
+
+                    // Force reflow again
+                    col.element.offsetHeight;
 
                     const factor = 0.1 + (Math.random() * 0.1);
-                    col.element.style.transition = `transform ${col.duration}ms cubic-bezier(0, 0, ${factor.toFixed(2)}, 1) ${col.delay}ms`;
-
-                    const travelDistance = (col.reelSize - 1) * this.measuredCharHeight;
+                    col.element.style.transition = `transform ${col.duration}ms cubic-bezier(0.2, 0.9, 0.4, 1.1) ${col.delay}ms`;
                     col.element.style.transform = `translate3d(0, -${travelDistance}px, 0)`;
                 });
 
