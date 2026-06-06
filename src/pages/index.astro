@@ -272,20 +272,22 @@
             overflow: hidden;
             position: relative;
             vertical-align: middle;
-            text-align: left;
+            text-align: center;
+            width: 100%;
         }
 
         .slot-column {
-            display: inline-flex;
-            flex-direction: column;
+            display: inline-block;
             width: 0.7em;
             text-align: center;
             transition: transform 12s cubic-bezier(0.1, 0, 0, 1);
             will-change: transform;
             height: auto;
+            vertical-align: top;
         }
 
         .slot-char {
+            display: block;
             height: 1.2em;
             line-height: 1.2em;
             flex-shrink: 0;
@@ -753,11 +755,17 @@
             }
 
             start() {
-                this.columns.forEach(col => {
-                    setTimeout(() => {
-                        const travelDistance = (col.reelSize - 1) * 1.2; // 1.2em per char
-                        col.element.style.transform = `translateY(-${travelDistance}em)`;
-                    }, col.delay);
+                // AI-FIX: Double-frame request ensures the browser registers
+                // the initial state before applying the transform for the transition.
+                requestAnimationFrame(() => {
+                    requestAnimationFrame(() => {
+                        this.columns.forEach(col => {
+                            setTimeout(() => {
+                                const travelDistance = (col.reelSize - 1) * 1.2; // 1.2em per char
+                                col.element.style.transform = `translate3d(0, -${travelDistance}em, 0)`;
+                            }, col.delay);
+                        });
+                    });
                 });
 
                 // Trigger burst at the end of the longest possible animation
