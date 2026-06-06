@@ -264,35 +264,33 @@
             }
         }
 
-        /* AI-FIX: Slot Machine Engine Styles (v17.1.0) */
+        /* AI-FIX: Slot Machine Engine Styles (v17.2.0 - STABLE) */
         .slot-machine-container {
-            display: inline-block;
+            display: inline-flex;
+            justify-content: center;
             height: 1.5em;
             max-height: 1.5em;
             overflow: hidden;
             position: relative;
             vertical-align: middle;
-            text-align: center;
             width: 100%;
         }
 
         .slot-column {
-            display: inline-block;
+            display: flex;
+            flex-direction: column;
             width: 0.7em;
             text-align: center;
-            transition: transform 7s cubic-bezier(0.1, 0, 0, 1);
             will-change: transform;
-            height: auto;
-            vertical-align: top;
         }
 
         .slot-char {
-            display: block;
             height: 1.5em;
             line-height: 1.5em;
             flex-shrink: 0;
             color: var(--ghost-neon-green);
-            text-shadow: 0 0 5px var(--ghost-neon-green);
+            text-shadow: 0 0 8px var(--ghost-neon-green);
+            font-family: inherit;
         }
 
         .burst-layer {
@@ -309,11 +307,12 @@
             color: var(--ghost-neon-green);
             text-shadow: 0 0 30px var(--ghost-neon-green);
             z-index: 10;
+            white-space: nowrap;
         }
 
         @keyframes neonBurst {
             0% { opacity: 1; transform: scale(1); filter: blur(0px); }
-            100% { opacity: 0; transform: scale(1.8); filter: blur(10px); }
+            100% { opacity: 0; transform: scale(1.8); filter: blur(15px); }
         }
 
         h1 {
@@ -325,10 +324,8 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            flex-wrap: wrap;
             min-height: 1.5em;
-            max-height: 1.8em; /* Prevent expansion */
-            overflow: hidden; /* Safety clip */
+            /* REMOVED OVERFLOW HIDDEN TO PREVENT VANISHING */
         }
 
         .tagline {
@@ -684,7 +681,7 @@
 
     <script>
         /**
-         * CHAOS SLOT ENGINE (v17.1.0 - NEON_BURST)
+         * CHAOS SLOT ENGINE (v17.2.0 - STABLE)
          * Web Implementation of the Android CipherReelTextView logic.
          */
         class CipherReelEngine {
@@ -695,7 +692,7 @@
                 this.letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split('');
                 this.numbers = "0123456789".split('');
                 this.masterPool = [...this.symbols, ...this.letters, ...this.numbers];
-                this.baseDuration = 7000; // Matches activity_login.xml
+                this.baseDuration = 7000;
                 this.columns = [];
                 this.maxTotalTime = 0;
             }
@@ -705,14 +702,14 @@
                 const mainWrapper = document.createElement('div');
                 mainWrapper.className = 'slot-machine-container';
 
-                // Session-Persistent Animation State
                 const hasAnimated = sessionStorage.getItem('hasAnimatedTitle');
 
                 for (let i = 0; i < this.targetText.length; i++) {
                     const char = this.targetText[i];
+
                     if (char === ' ') {
                         const spacer = document.createElement('div');
-                        spacer.style.width = '0.5em';
+                        spacer.style.width = '0.4em';
                         mainWrapper.appendChild(spacer);
                         continue;
                     }
@@ -728,27 +725,22 @@
                         column.appendChild(div);
                     });
 
-                    // Randomize duration and delay based on Android logic
                     const duration = this.baseDuration - 2000 + Math.random() * 6000;
-                    const delay = Math.random() * 2000;
+                    const delay = Math.random() * 1500;
                     this.maxTotalTime = Math.max(this.maxTotalTime, duration + delay);
 
-                    mainWrapper.appendChild(column);
+                    if (hasAnimated) {
+                        const finalPos = (reel.length - 1) * 1.5;
+                        column.style.transform = `translate3d(0, -${finalPos}em, 0)`;
+                    }
 
-                    const colInfo = {
+                    mainWrapper.appendChild(column);
+                    this.columns.push({
                         element: column,
                         reelSize: reel.length,
                         duration: duration,
                         delay: delay
-                    };
-
-                    if (hasAnimated) {
-                        const travelDistance = (reel.length - 1) * 1.5;
-                        column.style.transition = 'none';
-                        column.style.transform = `translate3d(0, -${travelDistance}em, 0)`;
-                    }
-
-                    this.columns.push(colInfo);
+                    });
                 }
 
                 const burst = document.createElement('div');
@@ -760,13 +752,13 @@
                 this.container.appendChild(mainWrapper);
 
                 if (!hasAnimated) {
-                    setTimeout(() => this.start(), 500);
+                    setTimeout(() => this.start(), 300);
                     sessionStorage.setItem('hasAnimatedTitle', 'true');
                 }
             }
 
             generateChaosReel(targetChar) {
-                const length = Math.floor(Math.random() * 51) + 100; // 100-151
+                const length = Math.floor(Math.random() * 40) + 80;
                 const reel = [];
                 for (let i = 0; i < length - 1; i++) {
                     reel.push(this.masterPool[Math.floor(Math.random() * this.masterPool.length)]);
@@ -786,12 +778,13 @@
                     });
                 });
 
+                // Final Burst overlay
                 setTimeout(() => {
                     const burst = document.getElementById('neon-burst');
                     if (burst) {
-                        burst.style.animation = 'neonBurst 1s ease-out forwards';
+                        burst.style.animation = 'neonBurst 1.2s ease-out forwards';
                     }
-                }, this.maxTotalTime + 500);
+                }, this.maxTotalTime + 200);
             }
         }
 
