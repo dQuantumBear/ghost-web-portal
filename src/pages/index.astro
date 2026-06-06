@@ -2,9 +2,15 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>Secure Messenger | Sovereign Ghost Protocol</title>
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         :root {
             --bg-black: #000000;
             --ghost-dark-green: #004D00;
@@ -13,6 +19,7 @@
             --ghost-cream: #FFFDD0;
             --ghost-red: #FF0000;
             --ghost-dark-red: #8B0000;
+            --outburst-glow: #39FF14;
         }
 
         html { scroll-behavior: smooth; }
@@ -57,14 +64,8 @@
         }
 
         @keyframes modalFadeIn {
-            from {
-                opacity: 0;
-                transform: scale(0.95);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
         }
 
         .modal-header {
@@ -163,7 +164,7 @@
             border-radius: 8px;
             box-shadow: 0 0 20px rgba(39, 174, 96, 0.4);
             padding: 10px 0;
-            z-index: 1010;
+            z-index: 1001;
         }
 
         .menu-container:hover .dropdown-content { display: block; }
@@ -189,13 +190,13 @@
         }
 
         header {
-            padding: 60px 10px;
+            padding: 40px 10px 50px 10px;
             text-align: center;
             background: linear-gradient(to bottom, var(--ghost-dark-green), var(--bg-black));
             border-bottom: 1px solid var(--ghost-neon-green);
+            position: relative;
         }
 
-        /* LOGO */
         .logo {
             max-width: 120px;
             height: auto;
@@ -221,50 +222,39 @@
             100% { filter: drop-shadow(0 0 8px #FF0000) drop-shadow(0 0 15px #FF0000); }
         }
 
-        /* WORKING SLOT MACHINE EFFECT */
+        /* SLOT MACHINE GLORY */
         .slot-machine-container {
             display: flex;
             justify-content: center;
             align-items: center;
-            margin: 20px auto;
+            margin: 25px auto 20px auto;
+            padding: 0 10px;
         }
 
         .reel-viewport {
             display: flex;
-            flex-direction: row;
+            flex-wrap: nowrap;
             justify-content: center;
             align-items: center;
-            gap: 4px;
-            background: rgba(0, 0, 0, 0.9);
+            gap: 5px;
+            background: rgba(0, 0, 0, 0.85);
             border: 2px solid var(--ghost-neon-green);
-            border-radius: 12px;
-            padding: 10px 20px;
-            box-shadow: 0 0 30px rgba(39, 174, 96, 0.4);
-            overflow: hidden;
-            position: relative;
-            transition: box-shadow 0.3s ease;
-        }
-
-        /* Neon Outburst Pulse Action */
-        .reel-viewport.glow-outburst {
-            animation: burstGlow 0.6s ease-out forwards;
-        }
-
-        @keyframes burstGlow {
-            0% { box-shadow: 0 0 30px rgba(39, 174, 96, 0.4); }
-            50% { box-shadow: 0 0 70px #27AE60, 0 0 120px rgba(39, 174, 96, 0.8); }
-            100% { box-shadow: 0 0 30px rgba(39, 174, 96, 0.4); }
+            border-radius: 20px;
+            padding: 15px 20px;
+            box-shadow: 0 0 25px rgba(39, 174, 96, 0.5);
+            overflow-x: auto;
+            backdrop-filter: blur(2px);
         }
 
         .slot-column {
             display: block;
-            width: 55px;
-            height: 80px;
+            width: 60px;
+            height: 85px;
             overflow: hidden;
             position: relative;
-            background: #0a0a0a;
-            border-radius: 6px;
-            border: 1px solid rgba(39, 174, 96, 0.2);
+            background: #0a0f0a;
+            border-radius: 10px;
+            box-shadow: inset 0 0 8px rgba(0,255,0,0.2), 0 0 5px rgba(0,0,0,0.5);
         }
 
         .slot-column-inner {
@@ -272,33 +262,63 @@
             top: 0;
             left: 0;
             width: 100%;
-            transform: translateY(0px);
+            will-change: transform;
         }
 
         .slot-char {
-            display: block;
-            height: 80px;
-            line-height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 85px;
+            width: 100%;
             text-align: center;
-            font-size: 42px;
+            font-size: 44px;
             font-weight: bold;
             color: var(--ghost-neon-green);
-            text-shadow: 0 0 15px var(--ghost-neon-green);
+            text-shadow: 0 0 12px var(--ghost-neon-green);
             font-family: 'Courier New', Courier, monospace;
+            background: #000000aa;
         }
 
         .space-holder {
-            width: 25px;
+            width: 28px;
             display: inline-block;
+        }
+
+        /* NEON GREEN OUTBURST ANIMATION */
+        @keyframes neonFlash {
+            0% {
+                text-shadow: 0 0 2px #39FF14, 0 0 5px #39FF14;
+                color: #27AE60;
+            }
+            20% {
+                text-shadow: 0 0 20px #39FF14, 0 0 40px #39FF14, 0 0 60px #39FF14;
+                color: #FFFFFF;
+            }
+            40% {
+                text-shadow: 0 0 5px #39FF14, 0 0 15px #39FF14;
+                color: #27AE60;
+            }
+            70% {
+                text-shadow: 0 0 25px #39FF14, 0 0 50px #39FF14;
+                color: #c0ffb0;
+            }
+            100% {
+                text-shadow: 0 0 12px var(--ghost-neon-green);
+                color: var(--ghost-neon-green);
+            }
+        }
+
+        .final-flash {
+            animation: neonFlash 0.55s cubic-bezier(0.2, 1.2, 0.4, 1) forwards !important;
         }
 
         .tagline {
             color: var(--ghost-neon-green);
             font-weight: bold;
             font-size: 1em;
-            margin-top: 5px;
-            opacity: 0;
-            animation: fadeIn 0.5s ease-in 4.5s forwards;
+            margin-top: 15px;
+            opacity: 1;
         }
 
         .ghost-btn {
@@ -313,8 +333,8 @@
             transition: 0.3s;
             border-radius: 4px;
             font-size: 0.9em;
-            opacity: 0;
-            animation: fadeIn 0.5s ease-in 4.8s forwards;
+            background: transparent;
+            cursor: pointer;
         }
 
         .ghost-btn:hover {
@@ -339,22 +359,12 @@
             box-shadow: 0 0 20px rgba(39, 174, 96, 0.3);
             opacity: 0;
             animation: fadeInUp 0.5s ease-out forwards;
-            animation-delay: calc(4.2s + (var(--order, 0) * 0.1s));
+            animation-delay: calc(2.8s + (var(--order, 0) * 0.08s));
         }
 
         @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes fadeIn {
-            to { opacity: 1; }
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         section:nth-child(1) { --order: 1; }
@@ -381,7 +391,11 @@
             margin: 25px 0;
             display: block;
             opacity: 0;
-            animation: fadeIn 0.5s ease-in 4.0s forwards;
+            animation: fadeIn 0.6s ease-in 2.5s forwards;
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
         }
 
         .download-soon-img {
@@ -391,7 +405,7 @@
             width: 90%;
             height: auto;
             filter: drop-shadow(0 0 15px rgba(39, 174, 96, 0.4));
-            transition: transform 0.3s ease, filter 0.3s ease;
+            transition: transform 0.3s ease;
         }
 
         .highlight { color: var(--ghost-neon-green); font-weight: bold; }
@@ -404,18 +418,20 @@
             background: #050505;
         }
 
-        @media (max-width: 768px) {
-            .slot-column { width: 22px; height: 44px; }
-            .slot-char { height: 44px; line-height: 44px; font-size: 20px; }
-            .space-holder { width: 10px; }
-            .ghost-line { font-size: 1.05em; white-space: normal; }
+        @media (max-width: 760px) {
+            .slot-column { width: 38px; height: 55px; }
+            .slot-char { height: 55px; font-size: 28px; }
+            .space-holder { width: 12px; }
+            .ghost-line { font-size: 1.05em; white-space: normal; padding: 0 15px; }
+            .reel-viewport { gap: 3px; padding: 10px 12px; }
         }
     </style>
 </head>
 <body>
 
+    <!-- Menu -->
     <div class="menu-container">
-        <img src="/menu_icon.png" alt="Menu" class="menu-icon">
+        <img src="/menu_icon.png" alt="Menu" class="menu-icon" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\' fill=\'%2327AE60\'%3E%3Cpath d=\'M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z\'/%3E%3C/svg%3E'">
         <div class="dropdown-content">
             <a href="#">Privacy Policy</a>
             <a href="#">Terms of Service</a>
@@ -427,6 +443,7 @@
         </div>
     </div>
 
+    <!-- Modals -->
     <div id="cookieModal" class="modal-overlay">
         <div class="modal-content">
             <div class="modal-header">
@@ -458,12 +475,9 @@
     </div>
 
     <header>
-        <img src="/glass_logo.png" alt="Secure Messenger Logo" class="logo">
-        
+        <img src="/glass_logo.png" alt="Secure Messenger Logo" class="logo" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'%3E%3Ccircle cx=\'50\' cy=\'50\' r=\'45\' fill=\'%23004D00\' stroke=\'%2327AE60\' stroke-width=\'3\'/%3E%3Ctext x=\'50\' y=\'67\' text-anchor=\'middle\' fill=\'%2327AE60\' font-size=\'40\' font-weight=\'bold\'%3ESM%3C/text%3E%3C/svg%3E'">
         <div id="slot-machine-area"></div>
-        
         <p class="tagline">Sovereign Build v10.8.3 | The Architecture of Privacy</p>
-
         <div>
             <a href="#" class="ghost-btn">EXPLORE THE ARCHITECTURE</a>
             <div class="signature-creator" style="margin-top: 15px; font-size: 0.85em; opacity: 0.8;">
@@ -476,155 +490,211 @@
     <div class="container">
         <span class="ghost-line">"To you, I am a conduit. To the world, you are a Ghost."</span>
 
-        <section>
-            <h2>1. Identity Sovereignty (The 12-Word Master Key)</h2>
-            <p><strong>The Advantage:</strong> Unlike Signal or WhatsApp, SecureMessenger requires zero personal data.</p>
-            <ul>
-                <li><span class="highlight">Zero Identifiers:</span> No phone numbers, no SIM cards, and no email addresses.</li>
-                <li><span class="highlight">Local Generation:</span> Your identity is a private 12-word cryptographic seed generated entirely on your device.</li>
-                <li><span class="highlight">Total Ownership:</span> I do not store passwords. If you hold your 12 words, you hold your data.</li>
-            </ul>
-        </section>
+        <section><h2>1. Identity Sovereignty (The 12-Word Master Key)</h2><p><strong>The Advantage:</strong> Unlike Signal or WhatsApp, SecureMessenger requires zero personal data.</p><ul><li><span class="highlight">Zero Identifiers:</span> No phone numbers, no SIM cards, and no email addresses.</li><li><span class="highlight">Local Generation:</span> Your identity is a private 12-word cryptographic seed generated entirely on your device.</li><li><span class="highlight">Total Ownership:</span> I do not store passwords. If you hold your 12 words, you hold your data.</li></ul></section>
+        <section><h2>2. The Blind Relay: Passing Through the Shadows</h2><p><strong>The Advantage:</strong> Traditional servers log IP addresses and timestamps. My "Blind Relay" doctrine makes the server a mere conduit.</p><ul><li><span class="highlight">IP Volatility:</span> Your IP address is processed in volatile RAM and instantly overwritten.</li><li><span class="highlight">RAM-to-RAM Relay:</span> Messages exist on the server only until they reach the recipient.</li><li><span class="highlight">Full-Spectrum Media Encryption:</span> All data is encrypted locally before upload.</li></ul></section>
+        <section><h2>3. Forensic Shredding: User-Commanded Destruction</h2><p><strong>The Advantage:</strong> Standard "deletion" leaves traces. SecureMessenger gives you a digital shredder.</p><ul><li><span class="highlight">Absolute Sovereignty:</span> You are the sole authority over your data.</li><li><span class="highlight">Overwriting Protocol:</span> Data is overwritten with high-entropy noise before removal.</li><li><span class="highlight">Hardware Armor:</span> Keys are isolated in your phone's Secure Element.</li></ul></section>
+        <section><h2>4. The Sovereign Handshake: Invisible by Default</h2><p><strong>The Advantage:</strong> Stop discovery probing. You are invisible until you choose to be seen.</p><ul><li><span class="highlight">24-Hour Invites:</span> One-time temporary 6-digit codes.</li><li><span class="highlight">Ghost Mode:</span> Freezes your status as "Offline" at the server level.</li><li><span class="highlight">Quarantine Shield:</span> Blocked users don't know they've been quarantined.</li></ul></section>
+        <section><h2>5. Physical Sovereignty: Your Alibi in a Crisis</h2><p><strong>The Advantage:</strong> Security holds even if your device is seized.</p><ul><li><span class="highlight">The Panic PIN:</span> Triggers immediate "Nuclear Wipe" of all keys.</li><li><span class="highlight">The 503 Alibi:</span> After wipe, displays "Network Error (503)".</li><li><span class="highlight">Screen Armor:</span> Blocks screenshots and screen-recording.</li></ul></section>
 
-        <section>
-            <h2>2. The Blind Relay: Passing Through the Shadows</h2>
-            <p><strong>The Advantage:</strong> Traditional servers log IP addresses and timestamps. My "Blind Relay" doctrine makes the server a mere conduit.</p>
-            <ul>
-                <li><span class="highlight">IP Volatility:</span> Your IP address is processed in volatile RAM and instantly overwritten.</li>
-                <li><span class="highlight">RAM-to-RAM Relay:</span> Messages exist on the server only until they reach the recipient.</li>
-                <li><span class="highlight">Full-Spectrum Media Encryption:</span> All data is encrypted locally before upload.</li>
-            </ul>
-        </section>
-
-        <section>
-            <h2>3. Forensic Shredding: User-Commanded Destruction</h2>
-            <p><strong>The Advantage:</strong> Standard "deletion" leaves traces. SecureMessenger gives you a digital shredder.</p>
-            <ul>
-                <li><span class="highlight">Absolute Sovereignty:</span> You are the sole authority over your data.</li>
-                <li><span class="highlight">Overwriting Protocol:</span> Data is overwritten with high-entropy noise before removal.</li>
-                <li><span class="highlight">Hardware Armor:</span> Keys are isolated in your phone's Secure Element.</li>
-            </ul>
-        </section>
-
-        <section>
-            <h2>4. The Sovereign Handshake: Invisible by Default</h2>
-            <p><strong>The Advantage:</strong> Stop discovery probing. You are invisible until you choose to be seen.</p>
-            <ul>
-                <li><span class="highlight">24-Hour Invites:</span> One-time temporary 6-digit codes.</li>
-                <li><span class="highlight">Ghost Mode:</span> Freezes your status as "Offline" at the server level.</li>
-                <li><span class="highlight">Quarantine Shield:</span> Blocked users don't know they've been quarantined.</li>
-            </ul>
-        </section>
-
-        <section>
-            <h2>5. Physical Sovereignty: Your Alibi in a Crisis</h2>
-            <p><strong>The Advantage:</strong> Security holds even if your device is seized.</p>
-            <ul>
-                <li><span class="highlight">The Panic PIN:</span> Triggers immediate "Nuclear Wipe" of all keys.</li>
-                <li><span class="highlight">The 503 Alibi:</span> After wipe, displays "Network Error (503)".</li>
-                <li><span class="highlight">Screen Armor:</span> Blocks screenshots and screen-recording.</li>
-            </ul>
-        </section>
-
-        <img src="/download_soon.png" alt="Download APK Soon" class="download-soon-img">
+        <img src="/download_soon.png" alt="Download APK Soon" class="download-soon-img" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'300\' height=\'100\'%3E%3Crect width=\'300\' height=\'100\' fill=\'%23000\' stroke=\'%2327AE60\' stroke-width=\'2\'/%3E%3Ctext x=\'150\' y=\'55\' text-anchor=\'middle\' fill=\'%2327AE60\' font-size=\'20\' font-family=\'monospace\'%3ECOMING SOON%3C/text%3E%3C/svg%3E'">
     </div>
 
-    <footer>
-        <span class="footer-signature">🐻❤️M</span><br><br>
-        &copy; 2026 Secure Messenger Project. Engineered for Privacy.
-    </footer>
+    <footer><span class="footer-signature">🐻❤️M</span><br><br>&copy; 2026 Secure Messenger Project. Engineered for Privacy.</footer>
 
     <script>
         (function() {
-            const TEXT = "SECURE MESSENGER";
-            const CHARS = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()_+";
-            const container = document.getElementById('slot-machine-area');
-            const reels = [];
+            const TARGET_TEXT = "SECURE MESSENGER";
+            const SYMBOL_SET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+{}|:<>?~";
             
-            // Create wrappers
+            const container = document.getElementById('slot-machine-area');
+            if (!container) return;
+            
+            // clear previous content if any
+            container.innerHTML = '';
+            
+            // main wrapper and viewport
             const wrapper = document.createElement('div');
             wrapper.className = 'slot-machine-container';
             const viewport = document.createElement('div');
             viewport.className = 'reel-viewport';
             
-            // Build reels dynamically
-            for (let i = 0; i < TEXT.length; i++) {
-                const c = TEXT[i];
+            const reelsData = []; // store each reel { innerDiv, targetChar, finalIndex, totalSymbols }
+            const columns = [];
+            
+            // Helper: generate random char from set
+            function getRandomSymbol() {
+                return SYMBOL_SET[Math.floor(Math.random() * SYMBOL_SET.length)];
+            }
+            
+            // build each character column (including spaces as visual spacers)
+            for (let i = 0; i < TARGET_TEXT.length; i++) {
+                const targetChar = TARGET_TEXT[i];
                 
-                if (c === ' ') {
+                if (targetChar === ' ') {
                     const spacer = document.createElement('div');
                     spacer.className = 'space-holder';
                     viewport.appendChild(spacer);
+                    columns.push({ type: 'spacer' });
                     continue;
                 }
                 
-                const column = document.createElement('div');
-                column.className = 'slot-column';
-                const inner = document.createElement('div');
-                inner.className = 'slot-column-inner';
+                // determine number of random symbols that will scroll (25 to 45 items for smooth heavy spin)
+                const spinItemsCount = 28 + Math.floor(Math.random() * 22);  // 28-49 symbols before final char
+                const columnDiv = document.createElement('div');
+                columnDiv.className = 'slot-column';
+                const innerDiv = document.createElement('div');
+                innerDiv.className = 'slot-column-inner';
                 
-                // Length determines the distance it spins down
-                const reelLen = 40 + Math.floor(Math.random() * 20);
-                
-                for (let j = 0; j < reelLen - 1; j++) {
+                // fill with random symbols + the final character at the bottom
+                for (let j = 0; j < spinItemsCount; j++) {
                     const span = document.createElement('span');
                     span.className = 'slot-char';
-                    span.textContent = CHARS[Math.floor(Math.random() * CHARS.length)];
-                    inner.appendChild(span);
+                    span.textContent = getRandomSymbol();
+                    innerDiv.appendChild(span);
                 }
+                // final character span (target)
+                const finalSpan = document.createElement('span');
+                finalSpan.className = 'slot-char';
+                finalSpan.textContent = targetChar;
+                innerDiv.appendChild(finalSpan);
                 
-                // Final answer falling at the exact bottom of the row strip
-                const targetSpan = document.createElement('span');
-                targetSpan.className = 'slot-char';
-                targetSpan.textContent = c;
-                inner.appendChild(targetSpan);
+                columnDiv.appendChild(innerDiv);
+                viewport.appendChild(columnDiv);
                 
-                column.appendChild(inner);
-                viewport.appendChild(column);
-                
-                reels.push({
-                    element: inner,
-                    length: reelLen
+                // store metadata
+                reelsData.push({
+                    inner: innerDiv,
+                    targetChar: targetChar,
+                    totalSymbols: spinItemsCount + 1,    // +1 for final target
+                    element: columnDiv,
+                    finalSpan: finalSpan
                 });
             }
             
             wrapper.appendChild(viewport);
             container.appendChild(wrapper);
             
-            // Wait for elements to register heights in DOM safely
-            setTimeout(() => {
-                let charH = 80; 
-                if (window.innerWidth <= 768) {
-                    charH = 44; // Sync responsive styles
-                }
-                
-                let maxDuration = 0;
-
-                reels.forEach((reel, idx) => {
-                    const dist = (reel.length - 1) * charH;
-                    // Staggered layout parameters for smooth sequential drops
-                    const duration = 1500 + (idx * 120); 
-                    const delay = 100;
-                    
-                    if ((duration + delay) > maxDuration) {
-                        maxDuration = duration + delay;
+            // measure character height (using first column's first char)
+            let charHeight = 85;
+            if (reelsData.length > 0 && reelsData[0].inner.children[0]) {
+                const firstSpan = reelsData[0].inner.children[0];
+                charHeight = firstSpan.offsetHeight;
+                if (charHeight === 0) charHeight = 85; // fallback
+            }
+            
+            // For better responsiveness, also listen to resize? but simple.
+            const finalizeAndFlash = () => {
+                // apply outburst: flash neon green to all final characters inside slot columns
+                reelsData.forEach(reel => {
+                    const allChars = reel.inner.querySelectorAll('.slot-char');
+                    if (allChars.length > 0) {
+                        const bottomChar = allChars[allChars.length - 1];
+                        bottomChar.classList.add('final-flash');
+                        // also add ripple effect to whole column border
+                        if (reel.element) {
+                            reel.element.style.transition = 'box-shadow 0.2s';
+                            reel.element.style.boxShadow = '0 0 20px #39FF14, inset 0 0 8px #39FF14';
+                            setTimeout(() => {
+                                if (reel.element) reel.element.style.boxShadow = '';
+                            }, 550);
+                        }
                     }
-
-                    setTimeout(() => {
-                        reel.element.style.transition = `transform ${duration}ms cubic-bezier(0.1, 0.85, 0.25, 1.02)`;
-                        reel.element.style.transform = `translateY(-${dist}px)`;
-                    }, delay);
                 });
-
-                // Trigger Neon Explosion exactly as the last letter drops in place
+                // full viewport flash effect (outward burst)
+                viewport.style.transition = 'box-shadow 0.3s ease-out, border-color 0.2s';
+                viewport.style.boxShadow = '0 0 45px #39FF14, 0 0 80px #27AE60';
+                viewport.style.borderColor = '#9AFF4A';
                 setTimeout(() => {
-                    viewport.classList.add('glow-outburst');
-                }, maxDuration);
-
-            }, 50);
+                    viewport.style.boxShadow = '0 0 25px rgba(39, 174, 96, 0.5)';
+                    viewport.style.borderColor = 'var(--ghost-neon-green)';
+                }, 600);
+            };
+            
+            // START SPIN with staggered delays and elegant easing
+            // each reel spins downwards from top to final location
+            const animations = [];
+            
+            reelsData.forEach((reel, idx) => {
+                const distance = (reel.totalSymbols - 1) * charHeight;
+                // different durations per reel: between 1500ms to 2600ms for natural slot feel
+                const duration = 1700 + Math.random() * 1300; // 1.7s - 3.0s
+                const delay = idx * 45;   // cascading delay per character (wave effect)
+                
+                const startTransform = () => {
+                    reel.inner.style.transition = `transform ${duration}ms cubic-bezier(0.23, 0.96, 0.33, 1.05)`;
+                    reel.inner.style.transform = `translateY(-${distance}px)`;
+                };
+                
+                const timeoutId = setTimeout(startTransform, delay);
+                animations.push(timeoutId);
+                
+                // after all animations finish, trigger final neon outburst
+                const maxFinishTime = delay + duration + 200;
+                if (idx === reelsData.length - 1) {
+                    setTimeout(() => {
+                        finalizeAndFlash();
+                    }, maxFinishTime);
+                } else {
+                    // ensure final flash happens after last possible reel even if offset miscalc
+                    if (idx === reelsData.length - 1) return;
+                }
+            });
+            
+            // Extra safety: overall forced flash after maximum duration (~3.5s)
+            const longestPossible = (reelsData.length * 45) + 3000 + 200;
+            setTimeout(() => {
+                // check if flash already applied: if any char doesn't have flash class, apply clean outburst again
+                let alreadyFlashed = false;
+                for (let reel of reelsData) {
+                    const lastSpan = reel.inner.children[reel.inner.children.length - 1];
+                    if (lastSpan && lastSpan.classList.contains('final-flash')) {
+                        alreadyFlashed = true;
+                        break;
+                    }
+                }
+                if (!alreadyFlashed) {
+                    finalizeAndFlash();
+                }
+            }, longestPossible);
+            
+            // Also ensure that after spin we optionally apply micro fix for webkit
+            window.addEventListener('load', () => {
+                // if any column is not properly positioned because of dynamic font loading re-check height
+                setTimeout(() => {
+                    const freshHeight = document.querySelector('.slot-char')?.offsetHeight || charHeight;
+                    if (Math.abs(freshHeight - charHeight) > 5) {
+                        // re-adjust transforms slightly
+                        reelsData.forEach(reel => {
+                            const computedTransform = reel.inner.style.transform;
+                            if (computedTransform && computedTransform !== 'none') {
+                                const match = computedTransform.match(/translateY\(-([0-9.]+)px\)/);
+                                if (match) {
+                                    const oldDist = parseFloat(match[1]);
+                                    const correctedDist = (reel.totalSymbols - 1) * freshHeight;
+                                    if (Math.abs(oldDist - correctedDist) > 2) {
+                                        reel.inner.style.transform = `translateY(-${correctedDist}px)`;
+                                    }
+                                }
+                            }
+                        });
+                    }
+                }, 100);
+            });
+            
+            // Accessibility / guard: if any CSS transition not supported, still reveal final text but trigger flash.
+            setTimeout(() => {
+                // check reels that might have not transitioned due to error
+                for (let reel of reelsData) {
+                    if (!reel.inner.style.transform || reel.inner.style.transform === 'none') {
+                        const dist = (reel.totalSymbols - 1) * charHeight;
+                        reel.inner.style.transition = 'transform 800ms cubic-bezier(0.2,0.9,0.4,1.1)';
+                        reel.inner.style.transform = `translateY(-${dist}px)`;
+                    }
+                }
+            }, 100);
         })();
-
-        // Modal initialization behavior
+        
+        // Modal & menu functionality (unchanged but ensure it works perfectly)
         const cookieModal = document.getElementById('cookieModal');
         const impressumModal = document.getElementById('impressumModal');
         const cookiePolicyLink = document.getElementById('cookiePolicyLink');
@@ -632,30 +702,36 @@
         const closeCookieBtn = document.getElementById('closeCookieModalBtn');
         const closeImpressumBtn = document.getElementById('closeImpressumModalBtn');
         const closeImpressumAcceptBtn = document.getElementById('closeImpressumAcceptBtn');
-
-        function openCookieModal() { cookieModal.style.display = 'flex'; document.body.style.overflow = 'hidden'; }
-        function closeCookieModal() { cookieModal.style.display = 'none'; document.body.style.overflow = ''; }
-        function openImpressumModal() { impressumModal.style.display = 'flex'; document.body.style.overflow = 'hidden'; }
-        function closeImpressumModal() { impressumModal.style.display = 'none'; document.body.style.overflow = ''; }
-
-        if (cookiePolicyLink) cookiePolicyLink.addEventListener('click', (e) => { e.preventDefault(); openCookieModal(); });
-        if (impressumLink) impressumLink.addEventListener('click', (e) => { e.preventDefault(); openImpressumModal(); });
-        if (closeCookieBtn) closeCookieBtn.addEventListener('click', closeCookieModal);
-        if (closeImpressumBtn) closeImpressumBtn.addEventListener('click', closeImpressumModal);
-        if (closeImpressumAcceptBtn) closeImpressumAcceptBtn.addEventListener('click', closeImpressumModal);
-
+        
+        function openCookieModal() { if(cookieModal) { cookieModal.style.display = 'flex'; document.body.style.overflow = 'hidden'; } }
+        function closeCookieModal() { if(cookieModal) { cookieModal.style.display = 'none'; document.body.style.overflow = ''; } }
+        function openImpressumModal() { if(impressumModal) { impressumModal.style.display = 'flex'; document.body.style.overflow = 'hidden'; } }
+        function closeImpressumModal() { if(impressumModal) { impressumModal.style.display = 'none'; document.body.style.overflow = ''; } }
+        
+        if(cookiePolicyLink) cookiePolicyLink.addEventListener('click', (e) => { e.preventDefault(); openCookieModal(); });
+        if(impressumLink) impressumLink.addEventListener('click', (e) => { e.preventDefault(); openImpressumModal(); });
+        if(closeCookieBtn) closeCookieBtn.addEventListener('click', closeCookieModal);
+        if(closeImpressumBtn) closeImpressumBtn.addEventListener('click', closeImpressumModal);
+        if(closeImpressumAcceptBtn) closeImpressumAcceptBtn.addEventListener('click', closeImpressumModal);
+        
         const acceptCookieBtn = document.getElementById('acceptCookieBtn');
-        if (acceptCookieBtn) {
+        if(acceptCookieBtn) {
             acceptCookieBtn.addEventListener('click', () => {
                 closeCookieModal();
                 localStorage.setItem('cookiePolicyAccepted', 'true');
             });
         }
-
+        
         window.addEventListener('click', (e) => {
-            if (e.target === cookieModal) closeCookieModal();
-            if (e.target === impressumModal) closeImpressumModal();
+            if(e.target === cookieModal) closeCookieModal();
+            if(e.target === impressumModal) closeImpressumModal();
         });
+        
+        // Fix menu icon placeholder
+        const menuImg = document.querySelector('.menu-icon');
+        if(menuImg && menuImg.complete && menuImg.naturalWidth === 0) {
+            menuImg.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2327AE60'%3E%3Cpath d='M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z'/%3E%3C/svg%3E";
+        }
     </script>
 </body>
 </html>
