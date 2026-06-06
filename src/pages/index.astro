@@ -28,7 +28,283 @@
             overflow-x: hidden;
         }
 
-        /* Modal Overlay - Floating Window */
+        /* SLOT MACHINE STYLES */
+        .slot-machine-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 40px auto;
+            position: relative;
+        }
+
+        .reel-viewport {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            background: rgba(0, 0, 0, 0.9);
+            border: 3px solid var(--ghost-neon-green);
+            border-radius: 12px;
+            padding: 15px 25px;
+            box-shadow: 0 0 30px rgba(39, 174, 96, 0.4);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .reel-viewport.reveal {
+            animation: reelGlowOutburst 0.8s ease-out;
+        }
+
+        @keyframes reelGlowOutburst {
+            0% {
+                box-shadow: 0 0 30px rgba(39, 174, 96, 0.4);
+            }
+            50% {
+                box-shadow: 
+                    0 0 80px rgba(39, 174, 96, 1),
+                    0 0 120px rgba(39, 174, 96, 0.8),
+                    inset 0 0 50px rgba(39, 174, 96, 0.4);
+                border-color: #FFFF00;
+            }
+            100% {
+                box-shadow: 
+                    0 0 60px rgba(39, 174, 96, 0.7),
+                    0 0 100px rgba(39, 174, 96, 0.4);
+                border-color: var(--ghost-neon-green);
+            }
+        }
+
+        .slot-column {
+            display: block;
+            width: 65px;
+            height: 100px;
+            overflow: hidden;
+            position: relative;
+            background: rgba(10, 10, 10, 0.95);
+            border: 1px solid rgba(39, 174, 96, 0.5);
+            border-radius: 6px;
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.8);
+        }
+
+        .slot-column-inner {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            transition: none;
+        }
+
+        .slot-char {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100px;
+            width: 100%;
+            font-size: 52px;
+            font-weight: bold;
+            color: var(--ghost-neon-green);
+            text-shadow: 0 0 20px var(--ghost-neon-green);
+            font-family: 'Courier New', Courier, monospace;
+            letter-spacing: 2px;
+        }
+
+        /* Outburst particles */
+        .outburst-particle {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background: var(--ghost-neon-green);
+            border-radius: 50%;
+            pointer-events: none;
+            box-shadow: 0 0 15px var(--ghost-neon-green);
+            z-index: 999;
+        }
+
+        .outburst-particle.animate {
+            animation: particleBurst 1s ease-out forwards;
+        }
+
+        @keyframes particleBurst {
+            0% {
+                opacity: 1;
+                transform: translate(0, 0) scale(1);
+            }
+            100% {
+                opacity: 0;
+                transform: translate(var(--tx), var(--ty)) scale(0);
+            }
+        }
+
+        /* Other elements */
+        header {
+            padding: 60px 10px;
+            text-align: center;
+            background: linear-gradient(to bottom, var(--ghost-dark-green), var(--bg-black));
+            border-bottom: 1px solid var(--ghost-neon-green);
+        }
+
+        .logo {
+            max-width: 120px;
+            height: auto;
+            margin-bottom: 15px;
+            animation: redToGreenGlow 3s ease-in-out infinite;
+        }
+
+        @keyframes redToGreenGlow {
+            0% { filter: drop-shadow(0 0 5px #FF0000) drop-shadow(0 0 10px #FF0000); }
+            50% { filter: drop-shadow(0 0 20px #27AE60) drop-shadow(0 0 35px #27AE60); }
+            100% { filter: drop-shadow(0 0 5px #FF0000) drop-shadow(0 0 10px #FF0000); }
+        }
+
+        .tagline {
+            color: var(--ghost-neon-green);
+            font-weight: bold;
+            font-size: 1em;
+            margin-top: 15px;
+            opacity: 0;
+        }
+
+        .tagline.show {
+            animation: fadeIn 0.5s ease-in forwards;
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        .ghost-btn {
+            display: inline-block;
+            padding: 12px 24px;
+            margin-top: 25px;
+            border: 2px solid var(--ghost-neon-green);
+            color: var(--ghost-neon-green);
+            text-decoration: none;
+            font-weight: bold;
+            letter-spacing: 2px;
+            transition: 0.3s;
+            border-radius: 4px;
+            font-size: 0.9em;
+            opacity: 0;
+        }
+
+        .ghost-btn.show {
+            animation: fadeIn 0.5s ease-in forwards;
+        }
+
+        .ghost-btn:hover {
+            background-color: var(--ghost-dark-green);
+            color: var(--ghost-white);
+            box-shadow: 0 0 15px var(--ghost-neon-green);
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        section {
+            background-color: rgba(0, 77, 0, 0.1);
+            margin-bottom: 30px;
+            padding: 25px;
+            border-radius: 20px;
+            border: 1px solid rgba(39, 174, 96, 0.3);
+            box-shadow: 0 0 20px rgba(39, 174, 96, 0.3);
+            opacity: 0;
+        }
+
+        section.show {
+            animation: fadeInUp 0.5s ease-out forwards;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h2 {
+            color: var(--ghost-neon-green);
+            text-transform: uppercase;
+            font-size: 1.2em;
+            border-bottom: 1px solid var(--ghost-dark-green);
+            padding-bottom: 10px;
+            margin-top: 0;
+        }
+
+        .ghost-line {
+            font-size: 1.5em;
+            color: var(--ghost-cream);
+            text-align: center;
+            font-weight: bold;
+            margin: 25px 0;
+            display: block;
+            opacity: 0;
+        }
+
+        .ghost-line.show {
+            animation: fadeIn 0.5s ease-in forwards;
+        }
+
+        .menu-container {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+
+        .menu-icon {
+            width: 50px;
+            height: auto;
+            cursor: pointer;
+            filter: drop-shadow(0 0 5px var(--ghost-neon-green));
+            transition: 0.3s;
+        }
+
+        .menu-icon:hover { transform: scale(1.1); }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            right: 0;
+            top: 100%;
+            background-color: var(--bg-black);
+            min-width: 240px;
+            border: 2px solid var(--ghost-neon-green);
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(39, 174, 96, 0.4);
+            padding: 10px 0;
+            z-index: 1001;
+        }
+
+        .menu-container:hover .dropdown-content { display: block; }
+
+        .dropdown-content a {
+            color: var(--ghost-white);
+            padding: 12px 20px;
+            text-decoration: none;
+            display: block;
+            font-size: 0.9em;
+            text-transform: uppercase;
+            font-weight: bold;
+            transition: 0.2s;
+            border-bottom: 1px solid rgba(39, 174, 96, 0.1);
+            cursor: pointer;
+        }
+
+        .dropdown-content a:last-child { border-bottom: none; }
+
+        .dropdown-content a:hover {
+            background-color: var(--ghost-dark-green);
+            color: var(--ghost-neon-green);
+        }
+
         .modal-overlay {
             display: none;
             position: fixed;
@@ -134,307 +410,6 @@
             box-shadow: 0 0 15px var(--ghost-neon-green);
         }
 
-        /* Menu */
-        .menu-container {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            z-index: 1000;
-        }
-
-        .menu-icon {
-            width: 50px;
-            height: auto;
-            cursor: pointer;
-            filter: drop-shadow(0 0 5px var(--ghost-neon-green));
-            transition: 0.3s;
-        }
-
-        .menu-icon:hover { transform: scale(1.1); }
-
-        .dropdown-content {
-            display: none;
-            position: absolute;
-            right: 0;
-            top: 100%;
-            background-color: var(--bg-black);
-            min-width: 240px;
-            border: 2px solid var(--ghost-neon-green);
-            border-radius: 8px;
-            box-shadow: 0 0 20px rgba(39, 174, 96, 0.4);
-            padding: 10px 0;
-            z-index: 1001;
-        }
-
-        .menu-container:hover .dropdown-content { display: block; }
-
-        .dropdown-content a {
-            color: var(--ghost-white);
-            padding: 12px 20px;
-            text-decoration: none;
-            display: block;
-            font-size: 0.9em;
-            text-transform: uppercase;
-            font-weight: bold;
-            transition: 0.2s;
-            border-bottom: 1px solid rgba(39, 174, 96, 0.1);
-            cursor: pointer;
-        }
-
-        .dropdown-content a:last-child { border-bottom: none; }
-
-        .dropdown-content a:hover {
-            background-color: var(--ghost-dark-green);
-            color: var(--ghost-neon-green);
-        }
-
-        header {
-            padding: 60px 10px;
-            text-align: center;
-            background: linear-gradient(to bottom, var(--ghost-dark-green), var(--bg-black));
-            border-bottom: 1px solid var(--ghost-neon-green);
-        }
-
-        /* Logo */
-        .logo {
-            max-width: 120px;
-            height: auto;
-            margin-bottom: 15px;
-            animation: redToGreenGlow 3s ease-in-out infinite;
-            transition: transform 0.3s ease;
-        }
-
-        .logo:hover {
-            transform: scale(1.05);
-            animation: redToGreenGlowFast 1.5s ease-in-out infinite;
-        }
-
-        @keyframes redToGreenGlow {
-            0% { filter: drop-shadow(0 0 5px #FF0000) drop-shadow(0 0 10px #FF0000); }
-            50% { filter: drop-shadow(0 0 20px #27AE60) drop-shadow(0 0 35px #27AE60); }
-            100% { filter: drop-shadow(0 0 5px #FF0000) drop-shadow(0 0 10px #FF0000); }
-        }
-
-        @keyframes redToGreenGlowFast {
-            0% { filter: drop-shadow(0 0 8px #FF0000) drop-shadow(0 0 15px #FF0000); }
-            50% { filter: drop-shadow(0 0 25px #27AE60) drop-shadow(0 0 45px #27AE60); }
-            100% { filter: drop-shadow(0 0 8px #FF0000) drop-shadow(0 0 15px #FF0000); }
-        }
-
-        /* SLOT MACHINE */
-        .slot-machine-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin: 20px auto;
-            position: relative;
-        }
-
-        .reel-viewport {
-            display: flex;
-            flex-direction: row;
-            justify-content: center;
-            align-items: center;
-            gap: 4px;
-            background: rgba(0, 0, 0, 0.8);
-            border: 2px solid var(--ghost-neon-green);
-            border-radius: 12px;
-            padding: 10px 20px;
-            box-shadow: 0 0 30px rgba(39, 174, 96, 0.4);
-            overflow: hidden;
-            position: relative;
-        }
-
-        .reel-viewport.reveal {
-            animation: reelGlowOutburst 0.6s ease-out;
-        }
-
-        @keyframes reelGlowOutburst {
-            0% {
-                box-shadow: 0 0 30px rgba(39, 174, 96, 0.4);
-            }
-            50% {
-                box-shadow: 
-                    0 0 60px rgba(39, 174, 96, 0.8),
-                    0 0 100px rgba(39, 174, 96, 0.6),
-                    inset 0 0 40px rgba(39, 174, 96, 0.3);
-            }
-            100% {
-                box-shadow: 
-                    0 0 40px rgba(39, 174, 96, 0.6),
-                    0 0 80px rgba(39, 174, 96, 0.3);
-            }
-        }
-
-        /* Radial outburst particles */
-        .outburst-particle {
-            position: absolute;
-            width: 8px;
-            height: 8px;
-            background: var(--ghost-neon-green);
-            border-radius: 50%;
-            pointer-events: none;
-            box-shadow: 0 0 10px var(--ghost-neon-green);
-        }
-
-        .outburst-particle.animate {
-            animation: particleBurst 0.8s ease-out forwards;
-        }
-
-        @keyframes particleBurst {
-            0% {
-                opacity: 1;
-                transform: translate(0, 0) scale(1);
-            }
-            100% {
-                opacity: 0;
-                transform: translate(var(--tx), var(--ty)) scale(0);
-            }
-        }
-
-        .slot-column {
-            display: block;
-            width: 55px;
-            height: 80px;
-            overflow: hidden;
-            position: relative;
-            background: #0a0a0a;
-            border-radius: 6px;
-        }
-
-        .slot-column-inner {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            transition: transform 0ms linear;
-        }
-
-        .slot-char {
-            display: block;
-            height: 80px;
-            line-height: 80px;
-            text-align: center;
-            font-size: 42px;
-            font-weight: bold;
-            color: var(--ghost-neon-green);
-            text-shadow: 0 0 15px var(--ghost-neon-green);
-            font-family: 'Courier New', Courier, monospace;
-        }
-
-        .space-holder {
-            width: 25px;
-            display: inline-block;
-        }
-
-        .tagline {
-            color: var(--ghost-neon-green);
-            font-weight: bold;
-            font-size: 1em;
-            margin-top: 5px;
-            opacity: 0;
-            animation: fadeIn 0.5s ease-in forwards;
-        }
-
-        .tagline.show {
-            animation: fadeIn 0.5s ease-in forwards;
-        }
-
-        @keyframes fadeIn {
-            to { opacity: 1; }
-        }
-
-        .ghost-btn {
-            display: inline-block;
-            padding: 12px 24px;
-            margin-top: 25px;
-            border: 2px solid var(--ghost-neon-green);
-            color: var(--ghost-neon-green);
-            text-decoration: none;
-            font-weight: bold;
-            letter-spacing: 2px;
-            transition: 0.3s;
-            border-radius: 4px;
-            font-size: 0.9em;
-            opacity: 0;
-            animation: fadeIn 0.5s ease-in forwards;
-        }
-
-        .ghost-btn.show {
-            animation: fadeIn 0.5s ease-in forwards;
-        }
-
-        .ghost-btn:hover {
-            background-color: var(--ghost-dark-green);
-            color: var(--ghost-white);
-            box-shadow: 0 0 15px var(--ghost-neon-green);
-        }
-
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-
-        section {
-            background-color: rgba(0, 77, 0, 0.1);
-            margin-bottom: 30px;
-            padding: 25px;
-            border-radius: 20px;
-            border: 1px solid rgba(39, 174, 96, 0.3);
-            transition: all 0.3s ease;
-            box-shadow: 0 0 20px rgba(39, 174, 96, 0.3);
-            opacity: 0;
-            animation: fadeInUp 0.5s ease-out forwards;
-            animation-delay: calc(var(--order, 0) * 0.1s);
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        section.show {
-            animation: fadeInUp 0.5s ease-out forwards;
-        }
-
-        section:nth-child(1) { --order: 1; }
-        section:nth-child(2) { --order: 2; }
-        section:nth-child(3) { --order: 3; }
-        section:nth-child(4) { --order: 4; }
-        section:nth-child(5) { --order: 5; }
-
-        h2 {
-            color: var(--ghost-neon-green);
-            text-transform: uppercase;
-            font-size: 1.2em;
-            border-bottom: 1px solid var(--ghost-dark-green);
-            padding-bottom: 10px;
-            margin-top: 0;
-        }
-
-        .ghost-line {
-            font-size: 1.5em;
-            color: var(--ghost-cream);
-            text-align: center;
-            font-weight: bold;
-            white-space: nowrap;
-            margin: 25px 0;
-            display: block;
-            opacity: 0;
-            animation: fadeIn 0.5s ease-in forwards;
-        }
-
-        .ghost-line.show {
-            animation: fadeIn 0.5s ease-in forwards;
-        }
-
         .download-soon-img {
             display: block;
             margin: 50px auto;
@@ -442,7 +417,6 @@
             width: 90%;
             height: auto;
             filter: drop-shadow(0 0 15px rgba(39, 174, 96, 0.4));
-            transition: transform 0.3s ease, filter 0.3s ease;
         }
 
         .highlight { color: var(--ghost-neon-green); font-weight: bold; }
@@ -456,16 +430,14 @@
         }
 
         @media (max-width: 768px) {
-            .slot-column { width: 35px; height: 50px; }
-            .slot-char { height: 50px; line-height: 50px; font-size: 28px; }
-            .space-holder { width: 15px; }
-            .ghost-line { font-size: 1.05em; white-space: normal; }
+            .slot-column { width: 45px; height: 70px; }
+            .slot-char { height: 70px; font-size: 36px; }
+            .reel-viewport { gap: 4px; padding: 10px 15px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Menu -->
     <div class="menu-container">
         <img src="/menu_icon.png" alt="Menu" class="menu-icon">
         <div class="dropdown-content">
@@ -479,7 +451,6 @@
         </div>
     </div>
 
-    <!-- Modals -->
     <div id="cookieModal" class="modal-overlay">
         <div class="modal-content">
             <div class="modal-header">
@@ -581,10 +552,10 @@
     <script>
         (function() {
             const TEXT = "SECURE MESSENGER";
-            const CHARS = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()_+";
+            const CHARS = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()_+-=[]{}|;:,.<>?";
             const container = document.getElementById('slot-machine-area');
-            const reels = [];
-            const CHAR_HEIGHT = 80;
+            const CHAR_HEIGHT = 100;
+            const REEL_LENGTH = 100; // Number of random chars before the final character
             
             // Create wrapper
             const wrapper = document.createElement('div');
@@ -592,35 +563,30 @@
             const viewport = document.createElement('div');
             viewport.className = 'reel-viewport';
             
-            // Build each reel
+            const reels = [];
+            
+            // Build 17 character containers (SECURE MESSENGER = 16 chars + 1 space)
             for (let i = 0; i < TEXT.length; i++) {
                 const c = TEXT[i];
-                
-                if (c === ' ') {
-                    const spacer = document.createElement('div');
-                    spacer.className = 'space-holder';
-                    viewport.appendChild(spacer);
-                    continue;
-                }
                 
                 const column = document.createElement('div');
                 column.className = 'slot-column';
                 const inner = document.createElement('div');
                 inner.className = 'slot-column-inner';
                 
-                const reelLen = 70 + Math.floor(Math.random() * 40);
-                
-                for (let j = 0; j < reelLen - 1; j++) {
+                // Fill with random characters
+                for (let j = 0; j < REEL_LENGTH; j++) {
                     const span = document.createElement('span');
                     span.className = 'slot-char';
                     span.textContent = CHARS[Math.floor(Math.random() * CHARS.length)];
                     inner.appendChild(span);
                 }
                 
-                const targetSpan = document.createElement('span');
-                targetSpan.className = 'slot-char';
-                targetSpan.textContent = c;
-                inner.appendChild(targetSpan);
+                // Add final character
+                const finalSpan = document.createElement('span');
+                finalSpan.className = 'slot-char';
+                finalSpan.textContent = c;
+                inner.appendChild(finalSpan);
                 
                 column.appendChild(inner);
                 viewport.appendChild(column);
@@ -628,65 +594,42 @@
                 reels.push({
                     element: inner,
                     column: column,
-                    length: reelLen,
-                    index: i
+                    targetChar: c
                 });
             }
             
             wrapper.appendChild(viewport);
             container.appendChild(wrapper);
             
-            // Calculate max animation duration
-            let maxDuration = 0;
+            // ANIMATE ALL REELS TOGETHER
+            const spinDuration = 3200 + Math.random() * 1500; // 3.2 - 4.7 seconds
+            const totalDistance = REEL_LENGTH * CHAR_HEIGHT;
             
-            reels.forEach((reel, idx) => {
-                const dist = (reel.length - 1) * CHAR_HEIGHT;
-                const duration = 2000 + (Math.random() * 2500);
-                const delay = idx * 50;
-                
-                maxDuration = Math.max(maxDuration, delay + duration);
-                
-                setTimeout(() => {
-                    reel.element.style.transition = `transform ${duration}ms cubic-bezier(0.2, 0.9, 0.3, 1.05)`;
-                    reel.element.style.transform = `translateY(-${dist}px)`;
-                }, delay);
-            });
-            
-            // Trigger reveal effect after all reels settle
             setTimeout(() => {
-                viewport.classList.add('reveal');
-                
-                // Create outburst particles
-                createOutburstEffect(viewport);
-                
-                // Fade in tagline, button, and sections
-                const tagline = document.querySelector('.tagline');
-                const ghostBtn = document.querySelector('.ghost-btn');
-                const sections = document.querySelectorAll('section');
-                const ghostLine = document.querySelector('.ghost-line');
-                
-                if (tagline) tagline.classList.add('show');
-                if (ghostBtn) ghostBtn.classList.add('show');
-                if (ghostLine) ghostLine.classList.add('show');
-                
-                sections.forEach((section, idx) => {
-                    section.style.animationDelay = `${idx * 0.1}s`;
-                    section.classList.add('show');
+                reels.forEach((reel, idx) => {
+                    reel.element.style.transition = `transform ${spinDuration}ms cubic-bezier(0.25, 0.1, 0.25, 1)`;
+                    reel.element.style.transform = `translateY(-${totalDistance}px)`;
                 });
-            }, maxDuration);
+                
+                // Trigger glow/outburst effect after spin completes
+                setTimeout(() => {
+                    viewport.classList.add('reveal');
+                    createOutburstParticles(viewport);
+                    revealOtherElements();
+                }, spinDuration + 100);
+            }, 500);
             
-            function createOutburstEffect(element) {
-                const particleCount = 24;
+            function createOutburstParticles(element) {
                 const rect = element.getBoundingClientRect();
                 const centerX = rect.left + rect.width / 2;
                 const centerY = rect.top + rect.height / 2;
                 
-                for (let i = 0; i < particleCount; i++) {
+                for (let i = 0; i < 30; i++) {
                     const particle = document.createElement('div');
                     particle.className = 'outburst-particle';
                     
-                    const angle = (i / particleCount) * Math.PI * 2;
-                    const distance = 150 + Math.random() * 100;
+                    const angle = (i / 30) * Math.PI * 2;
+                    const distance = 120 + Math.random() * 180;
                     const tx = Math.cos(angle) * distance;
                     const ty = Math.sin(angle) * distance;
                     
@@ -696,18 +639,27 @@
                     particle.style.setProperty('--ty', ty + 'px');
                     
                     document.body.appendChild(particle);
-                    
-                    // Trigger animation
-                    particle.offsetHeight; // Force reflow
+                    particle.offsetHeight;
                     particle.classList.add('animate');
                     
-                    // Clean up after animation
-                    setTimeout(() => particle.remove(), 800);
+                    setTimeout(() => particle.remove(), 1200);
                 }
+            }
+            
+            function revealOtherElements() {
+                setTimeout(() => {
+                    document.querySelector('.tagline')?.classList.add('show');
+                    document.querySelector('.ghost-btn')?.classList.add('show');
+                    document.querySelector('.ghost-line')?.classList.add('show');
+                    
+                    document.querySelectorAll('section').forEach((section, idx) => {
+                        setTimeout(() => section.classList.add('show'), idx * 100);
+                    });
+                }, 200);
             }
         })();
 
-        // Modal code
+        // MODAL CODE
         const cookieModal = document.getElementById('cookieModal');
         const impressumModal = document.getElementById('impressumModal');
         const cookiePolicyLink = document.getElementById('cookiePolicyLink');
