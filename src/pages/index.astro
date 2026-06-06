@@ -13,52 +13,47 @@
             --ghost-cream: #FFFDD0;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
         body {
             background-color: var(--bg-black);
             color: var(--ghost-white);
             font-family: 'Courier New', Courier, monospace;
+            margin: 0;
+            padding: 0;
+            text-align: center;
         }
 
         header {
             padding: 60px 20px;
-            text-align: center;
             background: linear-gradient(to bottom, #004D00, #000000);
             border-bottom: 1px solid var(--ghost-neon-green);
         }
 
-        /* SIMPLE WORKING SLOT MACHINE - HORIZONTAL */
-        .slot-machine {
+        /* WORKING SLOT MACHINE - ONE ROW, ONE CHARACTER PER COLUMN */
+        .slot-container {
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 4px;
-            flex-wrap: wrap;
+            gap: 5px;
             margin: 20px auto;
-            padding: 15px 20px;
-            background: rgba(0, 0, 0, 0.8);
+            padding: 10px 20px;
+            background: #000000;
             border: 2px solid var(--ghost-neon-green);
             border-radius: 12px;
-            box-shadow: 0 0 30px rgba(39, 174, 96, 0.3);
+            box-shadow: 0 0 30px rgba(39, 174, 96, 0.4);
             overflow-x: auto;
         }
 
+        /* EACH COLUMN - ONLY SHOWS 1 CHARACTER AT A TIME */
         .reel {
-            display: block;
             width: 55px;
             height: 80px;
             overflow: hidden;
             position: relative;
-            background: rgba(0, 0, 0, 0.5);
+            background: #0a0a0a;
             border-radius: 6px;
         }
 
-        .reel-inner {
+        .reel-strip {
             position: absolute;
             top: 0;
             left: 0;
@@ -66,6 +61,7 @@
             transition: transform 0ms linear;
         }
 
+        /* EACH CHARACTER - EXACTLY MATCHES REEL HEIGHT */
         .reel-char {
             display: block;
             height: 80px;
@@ -79,19 +75,21 @@
         }
 
         .spacer {
+            width: 25px;
             display: inline-block;
-            width: 20px;
         }
 
         .tagline {
             color: var(--ghost-neon-green);
             margin-top: 15px;
+            font-size: 14px;
         }
 
         .container {
             max-width: 800px;
             margin: 0 auto;
             padding: 40px 20px;
+            text-align: left;
         }
 
         section {
@@ -104,9 +102,9 @@
 
         h2 {
             color: var(--ghost-neon-green);
-            margin-bottom: 15px;
-            padding-bottom: 10px;
+            margin-top: 0;
             border-bottom: 1px solid #004D00;
+            padding-bottom: 10px;
         }
 
         .highlight {
@@ -114,19 +112,9 @@
             font-weight: bold;
         }
 
-        ul {
-            margin-left: 20px;
-            margin-top: 10px;
-        }
-
-        li {
-            margin: 8px 0;
-            line-height: 1.5;
-        }
-
         .ghost-line {
             text-align: center;
-            font-size: 1.3em;
+            font-size: 1.2em;
             color: var(--ghost-cream);
             margin: 30px 0;
             font-style: italic;
@@ -139,19 +127,19 @@
             border-top: 1px solid #004D00;
         }
 
-        @media (max-width: 768px) {
+        @media (max-width: 700px) {
             .reel { width: 35px; height: 50px; }
             .reel-char { height: 50px; line-height: 50px; font-size: 28px; }
-            .spacer { width: 12px; }
-            .slot-machine { gap: 2px; padding: 10px; }
+            .spacer { width: 15px; }
+            .slot-container { gap: 2px; padding: 8px 12px; }
         }
     </style>
 </head>
 <body>
 
 <header>
-    <div id="slot-machine" class="slot-machine"></div>
-    <p class="tagline">Sovereign Build v10.8.3 | The Architecture of Privacy</p>
+    <div class="slot-container" id="slotMachine"></div>
+    <div class="tagline">Sovereign Build v10.8.3 | The Architecture of Privacy</div>
 </header>
 
 <div class="container">
@@ -209,86 +197,80 @@
 </div>
 
 <footer>
-    <p>Created, financed and designed by dQuantumBear</p>
-    <p>Contact: securemessenger0@gmail.com</p>
+    <p>Created by dQuantumBear | securemessenger0@gmail.com</p>
     <p>© 2026 Secure Messenger Project. Engineered for Privacy.</p>
 </footer>
 
 <script>
-    class SlotMachine {
-        constructor(text) {
-            this.text = text.toUpperCase();
-            this.reels = [];
-            this.container = document.getElementById('slot-machine');
-        }
-
-        init() {
-            this.container.innerHTML = '';
-            
-            for (let i = 0; i < this.text.length; i++) {
-                const char = this.text[i];
-                
-                if (char === ' ') {
-                    const spacer = document.createElement('span');
-                    spacer.className = 'spacer';
-                    this.container.appendChild(spacer);
-                    continue;
-                }
-                
-                const reel = document.createElement('div');
-                reel.className = 'reel';
-                
-                const inner = document.createElement('div');
-                inner.className = 'reel-inner';
-                
-                const chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()_+";
-                const length = 70 + Math.floor(Math.random() * 40);
-                
-                for (let j = 0; j < length - 1; j++) {
-                    const span = document.createElement('span');
-                    span.className = 'reel-char';
-                    span.textContent = chars[Math.floor(Math.random() * chars.length)];
-                    inner.appendChild(span);
-                }
-                
-                const target = document.createElement('span');
-                target.className = 'reel-char';
-                target.textContent = char;
-                inner.appendChild(target);
-                
-                reel.appendChild(inner);
-                this.container.appendChild(reel);
-                
-                this.reels.push({
-                    element: inner,
-                    length: length
-                });
-            }
-            
-            setTimeout(() => this.animate(), 50);
-        }
+    (function() {
+        const TARGET_TEXT = "SECURE MESSENGER";
+        const CHARACTERS = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()_+";
         
-        animate() {
-            let charHeight = 80;
-            if (this.reels[0] && this.reels[0].element.children[0]) {
-                charHeight = this.reels[0].element.children[0].offsetHeight;
+        const container = document.getElementById('slotMachine');
+        const reels = [];
+        
+        // Build the slot machine
+        for (let i = 0; i < TARGET_TEXT.length; i++) {
+            const char = TARGET_TEXT[i];
+            
+            if (char === ' ') {
+                const spacer = document.createElement('span');
+                spacer.className = 'spacer';
+                container.appendChild(spacer);
+                continue;
             }
             
-            this.reels.forEach((reel, i) => {
-                const distance = (reel.length - 1) * charHeight;
-                const duration = 2500 + (Math.random() * 2500);
-                const delay = i * 60;
-                
-                reel.element.style.transition = `transform ${duration}ms cubic-bezier(0.2, 0.9, 0.4, 1) ${delay}ms`;
-                reel.element.style.transform = `translateY(-${distance}px)`;
+            // Create reel column
+            const reelDiv = document.createElement('div');
+            reelDiv.className = 'reel';
+            
+            const strip = document.createElement('div');
+            strip.className = 'reel-strip';
+            
+            // Generate random characters (70-100 per reel)
+            const reelLength = 70 + Math.floor(Math.random() * 40);
+            
+            for (let j = 0; j < reelLength - 1; j++) {
+                const randomChar = CHARACTERS[Math.floor(Math.random() * CHARACTERS.length)];
+                const charSpan = document.createElement('span');
+                charSpan.className = 'reel-char';
+                charSpan.textContent = randomChar;
+                strip.appendChild(charSpan);
+            }
+            
+            // Add the final target character
+            const targetSpan = document.createElement('span');
+            targetSpan.className = 'reel-char';
+            targetSpan.textContent = char;
+            strip.appendChild(targetSpan);
+            
+            reelDiv.appendChild(strip);
+            container.appendChild(reelDiv);
+            
+            reels.push({
+                element: strip,
+                length: reelLength
             });
         }
-    }
-    
-    document.addEventListener('DOMContentLoaded', () => {
-        const machine = new SlotMachine("SECURE MESSENGER");
-        machine.init();
-    });
+        
+        // Get character height (80px default, or whatever renders)
+        let charHeight = 80;
+        if (reels.length > 0 && reels[0].element.children[0]) {
+            charHeight = reels[0].element.children[0].offsetHeight;
+        }
+        
+        // Animate each reel
+        reels.forEach((reel, index) => {
+            const distance = (reel.length - 1) * charHeight;
+            const duration = 2000 + (Math.random() * 2000);
+            const delay = index * 60;
+            
+            setTimeout(() => {
+                reel.element.style.transition = `transform ${duration}ms cubic-bezier(0.2, 0.9, 0.3, 1.05)`;
+                reel.element.style.transform = `translateY(-${distance}px)`;
+            }, delay);
+        });
+    })();
 </script>
 
 </body>
