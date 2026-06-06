@@ -11,428 +11,285 @@
             --ghost-neon-green: #27AE60;
             --ghost-white: #FFFFFF;
             --ghost-cream: #FFFDD0;
-            --ghost-red: #FF0000;
-            --ghost-dark-red: #8B0000;
         }
 
-        html { scroll-behavior: smooth; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
         body {
             background-color: var(--bg-black);
             color: var(--ghost-white);
             font-family: 'Courier New', Courier, monospace;
-            margin: 0;
-            padding: 0;
-            line-height: 1.4;
-            position: relative;
-            overflow-x: hidden;
-        }
-
-        /* Modal Overlay - Floating Window */
-        .modal-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.85);
-            backdrop-filter: blur(8px);
-            z-index: 2000;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .modal-content {
-            position: relative;
-            background-color: var(--bg-black);
-            border: 2px solid var(--ghost-neon-green);
-            border-radius: 16px;
-            max-width: 500px;
-            width: 90%;
-            max-height: 80vh;
-            overflow-y: auto;
-            box-shadow: 0 0 40px rgba(39, 174, 96, 0.5);
-            animation: modalFadeIn 0.3s ease-out;
-        }
-
-        @keyframes modalFadeIn {
-            from {
-                opacity: 0;
-                transform: scale(0.95);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
-        }
-
-        .modal-header {
-            padding: 20px 25px 10px 25px;
-            border-bottom: 1px solid var(--ghost-dark-green);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .modal-header h2 {
-            margin: 0;
-            color: var(--ghost-neon-green);
-            text-transform: uppercase;
-            font-size: 1.3em;
-            border: none;
-            padding: 0;
-        }
-
-        .close-modal {
-            background: none;
-            border: none;
-            color: var(--ghost-neon-green);
-            font-size: 28px;
-            cursor: pointer;
-            padding: 0;
-            width: 32px;
-            height: 32px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            transition: 0.2s;
-        }
-
-        .close-modal:hover {
-            background-color: var(--ghost-dark-green);
-            transform: scale(1.1);
-        }
-
-        .modal-body {
-            padding: 20px 25px;
-            font-size: 0.9em;
-            line-height: 1.6;
-            color: var(--ghost-cream);
-        }
-
-        .modal-body p {
-            margin: 10px 0;
-        }
-
-        .modal-body code {
-            background: rgba(39, 174, 96, 0.2);
-            padding: 2px 6px;
-            border-radius: 4px;
-            font-family: monospace;
-            color: var(--ghost-neon-green);
-        }
-
-        .accept-btn {
-            display: block;
-            width: 100%;
-            padding: 12px;
-            margin-top: 20px;
-            background-color: transparent;
-            border: 2px solid var(--ghost-neon-green);
-            color: var(--ghost-neon-green);
-            font-weight: bold;
-            font-size: 1em;
-            cursor: pointer;
-            border-radius: 8px;
-            transition: 0.3s;
-            font-family: inherit;
-        }
-
-        .accept-btn:hover {
-            background-color: var(--ghost-dark-green);
-            color: var(--ghost-white);
-            box-shadow: 0 0 15px var(--ghost-neon-green);
-        }
-
-        .menu-container {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            z-index: 1000;
-        }
-
-        .menu-icon {
-            width: 50px;
-            height: auto;
-            cursor: pointer;
-            filter: drop-shadow(0 0 5px var(--ghost-neon-green));
-            transition: 0.3s;
-        }
-
-        .menu-icon:hover { transform: scale(1.1); }
-
-        .dropdown-content {
-            display: none;
-            position: absolute;
-            right: 0;
-            top: 100%;
-            background-color: var(--bg-black);
-            min-width: 240px;
-            border: 2px solid var(--ghost-neon-green);
-            border-radius: 8px;
-            box-shadow: 0 0 20px rgba(39, 174, 96, 0.4);
-            padding: 10px 0;
-            z-index: 101;
-        }
-
-        .menu-container:hover .dropdown-content { display: block; }
-
-        .dropdown-content a {
-            color: var(--ghost-white);
-            padding: 12px 20px;
-            text-decoration: none;
-            display: block;
-            font-size: 0.9em;
-            text-transform: uppercase;
-            font-weight: bold;
-            transition: 0.2s;
-            border-bottom: 1px solid rgba(39, 174, 96, 0.1);
-            cursor: pointer;
-        }
-
-        .dropdown-content a:last-child { border-bottom: none; }
-
-        .dropdown-content a:hover {
-            background-color: var(--ghost-dark-green);
-            color: var(--ghost-neon-green);
         }
 
         header {
-            padding: 60px 10px;
+            padding: 60px 20px;
             text-align: center;
-            background: linear-gradient(to bottom, var(--ghost-dark-green), var(--bg-black));
+            background: linear-gradient(to bottom, #004D00, #000000);
             border-bottom: 1px solid var(--ghost-neon-green);
         }
 
-        .logo {
-            max-width: 120px;
-            height: auto;
-            margin-bottom: 15px;
-            animation: redToGreenGlow 3s ease-in-out infinite;
-            transition: transform 0.3s ease;
-        }
-
-        .logo:hover {
-            transform: scale(1.05);
-            animation: redToGreenGlowFast 1.5s ease-in-out infinite;
-        }
-
-        @keyframes redToGreenGlow {
-            0% {
-                filter: drop-shadow(0 0 5px #FF0000) drop-shadow(0 0 10px #FF0000);
-                opacity: 1;
-            }
-            25% {
-                filter: drop-shadow(0 0 15px #FF4500) drop-shadow(0 0 25px #FF4500);
-                opacity: 0.95;
-            }
-            50% {
-                filter: drop-shadow(0 0 20px #27AE60) drop-shadow(0 0 35px #27AE60);
-                opacity: 1;
-            }
-            75% {
-                filter: drop-shadow(0 0 15px #00FF00) drop-shadow(0 0 25px #00FF00);
-                opacity: 0.95;
-            }
-            100% {
-                filter: drop-shadow(0 0 5px #FF0000) drop-shadow(0 0 10px #FF0000);
-                opacity: 1;
-            }
-        }
-
-        @keyframes redToGreenGlowFast {
-            0% {
-                filter: drop-shadow(0 0 8px #FF0000) drop-shadow(0 0 15px #FF0000);
-            }
-            25% {
-                filter: drop-shadow(0 0 20px #FF4500) drop-shadow(0 0 35px #FF4500);
-            }
-            50% {
-                filter: drop-shadow(0 0 25px #27AE60) drop-shadow(0 0 45px #27AE60);
-            }
-            75% {
-                filter: drop-shadow(0 0 20px #00FF00) drop-shadow(0 0 35px #00FF00);
-            }
-            100% {
-                filter: drop-shadow(0 0 8px #FF0000) drop-shadow(0 0 15px #FF0000);
-            }
-        }
-
-        /* --- STABLE MATRIX CIPHER REEL SYSTEM --- */
-        .slot-machine-container {
+        /* SIMPLE WORKING SLOT MACHINE - HORIZONTAL */
+        .slot-machine {
             display: flex;
             justify-content: center;
             align-items: center;
-            width: 100%;
-            margin: 20px 0;
-            overflow: hidden;
-        }
-
-        .reel-viewport {
-            display: inline-flex;
-            flex-direction: row;
-            justify-content: center;
-            align-items: center;
-            gap: 6px;
-            height: 70px;
-            overflow: hidden;
+            gap: 4px;
+            flex-wrap: wrap;
+            margin: 20px auto;
+            padding: 15px 20px;
+            background: rgba(0, 0, 0, 0.8);
             border: 2px solid var(--ghost-neon-green);
-            border-radius: 8px;
-            background: rgba(0, 0, 0, 0.95);
-            padding: 0 20px;
-            box-shadow: 0 0 25px rgba(39, 174, 96, 0.4);
+            border-radius: 12px;
+            box-shadow: 0 0 30px rgba(39, 174, 96, 0.3);
+            overflow-x: auto;
         }
 
-        .slot-column {
-            display: inline-flex;
-            flex-direction: column;
-            width: 28px;
+        .reel {
+            display: block;
+            width: 55px;
+            height: 80px;
+            overflow: hidden;
             position: relative;
-            will-change: transform;
-            transform: translateY(0);
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 6px;
         }
 
-        .slot-char {
-            height: 70px;
-            line-height: 70px;
-            font-size: 36px;
+        .reel-inner {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            transition: transform 0ms linear;
+        }
+
+        .reel-char {
+            display: block;
+            height: 80px;
+            line-height: 80px;
+            text-align: center;
+            font-size: 42px;
             font-weight: bold;
             color: var(--ghost-neon-green);
-            text-shadow: 0 0 12px var(--ghost-neon-green);
-            text-align: center;
+            text-shadow: 0 0 15px var(--ghost-neon-green);
             font-family: 'Courier New', Courier, monospace;
         }
 
-        h1 {
-            margin: 0;
-            padding: 0;
-            min-height: 110px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+        .spacer {
+            display: inline-block;
+            width: 20px;
         }
 
         .tagline {
             color: var(--ghost-neon-green);
-            font-weight: bold;
-            font-size: 1em;
-            margin-top: 5px;
-            opacity: 0;
-            animation: fadeIn 0.5s ease-in 2.5s forwards;
-        }
-
-        @keyframes fadeIn {
-            to { opacity: 1; }
-        }
-
-        .ghost-btn {
-            display: inline-block;
-            padding: 12px 24px;
-            margin-top: 25px;
-            border: 2px solid var(--ghost-neon-green);
-            color: var(--ghost-neon-green);
-            text-decoration: none;
-            font-weight: bold;
-            letter-spacing: 2px;
-            transition: 0.3s;
-            border-radius: 4px;
-            font-size: 0.9em;
-            opacity: 0;
-            animation: fadeIn 0.5s ease-in 2.8s forwards;
-        }
-
-        .ghost-btn:hover {
-            background-color: var(--ghost-dark-green);
-            color: var(--ghost-white);
-            box-shadow: 0 0 15px var(--ghost-neon-green);
+            margin-top: 15px;
         }
 
         .container {
             max-width: 800px;
             margin: 0 auto;
-            padding: 20px;
+            padding: 40px 20px;
         }
 
         section {
-            background-color: rgba(0, 77, 0, 0.1);
+            background: rgba(0, 77, 0, 0.1);
             margin-bottom: 30px;
             padding: 25px;
             border-radius: 20px;
             border: 1px solid rgba(39, 174, 96, 0.3);
-            transition: all 0.3s ease;
-            box-shadow: 0 0 20px rgba(39, 174, 96, 0.3);
-            opacity: 0;
-            animation: fadeInUp 0.5s ease-out forwards;
-            animation-delay: calc(2.5s + (var(--order, 0) * 0.1s));
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        section:nth-child(1) { --order: 1; }
-        section:nth-child(2) { --order: 2; }
-        section:nth-child(3) { --order: 3; }
-        section:nth-child(4) { --order: 4; }
-        section:nth-child(5) { --order: 5; }
-        section:nth-child(6) { --order: 6; }
-        section:nth-child(7) { --order: 7; }
-
-        section:hover {
-            box-shadow: 0 0 30px rgba(39, 174, 96, 0.5);
-            border-color: rgba(39, 174, 96, 0.6);
         }
 
         h2 {
             color: var(--ghost-neon-green);
-            text-transform: uppercase;
-            font-size: 1.2em;
-            border-bottom: 1px solid var(--ghost-dark-green);
+            margin-bottom: 15px;
             padding-bottom: 10px;
-            margin-top: 0;
+            border-bottom: 1px solid #004D00;
+        }
+
+        .highlight {
+            color: var(--ghost-neon-green);
+            font-weight: bold;
+        }
+
+        ul {
+            margin-left: 20px;
+            margin-top: 10px;
+        }
+
+        li {
+            margin: 8px 0;
+            line-height: 1.5;
         }
 
         .ghost-line {
-            font-size: 1.5em;
-            color: var(--ghost-cream);
             text-align: center;
-            font-weight: bold;
-            white-space: nowrap;
-            margin: 25px 0;
-            display: block;
-            opacity: 0;
-            animation: fadeIn 0.5s ease-in 2.3s forwards;
+            font-size: 1.3em;
+            color: var(--ghost-cream);
+            margin: 30px 0;
+            font-style: italic;
         }
 
-        .download-soon-img {
-            display: block;
-            margin: 50px auto;
-            max-width: 320px;
-            width: 90%;
-            height: auto;
-            filter: drop-shadow(0 0 15px rgba(39, 174, 96, 0.4));
-            transition: transform 0.3s ease, filter 0.3s ease;
-        }
-
-        .download-soon-img:hover {
-            transform: scale(1.05);
-            filter: drop-shadow(0 0 25px rgba(39, 174, 96, 0.6));
+        footer {
+            text-align: center;
+            padding: 40px;
+            color: #777;
+            border-top: 1px solid #004D00;
         }
 
         @media (max-width: 768px) {
-            .reel-viewport {
-                gap: 4px;
-                padding: 0 12px;
-                height: 50px;
+            .reel { width: 35px; height: 50px; }
+            .reel-char { height: 50px; line-height: 50px; font-size: 28px; }
+            .spacer { width: 12px; }
+            .slot-machine { gap: 2px; padding: 10px; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div id="slot-machine" class="slot-machine"></div>
+    <p class="tagline">Sovereign Build v10.8.3 | The Architecture of Privacy</p>
+</header>
+
+<div class="container">
+    <div class="ghost-line">"To you, I am a conduit. To the world, you are a Ghost."</div>
+
+    <section>
+        <h2>1. Identity Sovereignty (The 12-Word Master Key)</h2>
+        <p><strong>The Advantage:</strong> Unlike Signal or WhatsApp, SecureMessenger requires zero personal data.</p>
+        <ul>
+            <li><span class="highlight">Zero Identifiers:</span> No phone numbers, no SIM cards, and no email addresses.</li>
+            <li><span class="highlight">Local Generation:</span> Your identity is a private 12-word cryptographic seed generated entirely on your device.</li>
+            <li><span class="highlight">Total Ownership:</span> I do not store passwords. If you hold your 12 words, you hold your data.</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>2. The Blind Relay: Passing Through the Shadows</h2>
+        <p><strong>The Advantage:</strong> Traditional servers log IP addresses and timestamps. My "Blind Relay" doctrine makes the server a mere conduit.</p>
+        <ul>
+            <li><span class="highlight">IP Volatility:</span> Your IP address is processed in volatile RAM and instantly overwritten.</li>
+            <li><span class="highlight">RAM-to-RAM Relay:</span> Messages exist on the server only until they reach the recipient.</li>
+            <li><span class="highlight">Full-Spectrum Media Encryption:</span> All data is encrypted locally before upload.</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>3. Forensic Shredding: User-Commanded Destruction</h2>
+        <p><strong>The Advantage:</strong> Standard "deletion" leaves traces. SecureMessenger gives you a digital shredder.</p>
+        <ul>
+            <li><span class="highlight">Absolute Sovereignty:</span> You are the sole authority over your data.</li>
+            <li><span class="highlight">Overwriting Protocol:</span> Data is overwritten with high-entropy noise before removal.</li>
+            <li><span class="highlight">Hardware Armor:</span> Keys are isolated in your phone's Secure Element.</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>4. The Sovereign Handshake: Invisible by Default</h2>
+        <p><strong>The Advantage:</strong> Stop discovery probing. You are invisible until you choose to be seen.</p>
+        <ul>
+            <li><span class="highlight">24-Hour Invites:</span> One-time temporary 6-digit codes.</li>
+            <li><span class="highlight">Ghost Mode:</span> Freezes your status as "Offline" at the server level.</li>
+            <li><span class="highlight">Quarantine Shield:</span> Blocked users don't know they've been quarantined.</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>5. Physical Sovereignty: Your Alibi in a Crisis</h2>
+        <p><strong>The Advantage:</strong> Security holds even if your device is seized.</p>
+        <ul>
+            <li><span class="highlight">The Panic PIN:</span> Triggers immediate "Nuclear Wipe" of all keys.</li>
+            <li><span class="highlight">The 503 Alibi:</span> After wipe, displays "Network Error (503)".</li>
+            <li><span class="highlight">Screen Armor:</span> Blocks screenshots and screen-recording.</li>
+        </ul>
+    </section>
+</div>
+
+<footer>
+    <p>Created, financed and designed by dQuantumBear</p>
+    <p>Contact: securemessenger0@gmail.com</p>
+    <p>© 2026 Secure Messenger Project. Engineered for Privacy.</p>
+</footer>
+
+<script>
+    class SlotMachine {
+        constructor(text) {
+            this.text = text.toUpperCase();
+            this.reels = [];
+            this.container = document.getElementById('slot-machine');
+        }
+
+        init() {
+            this.container.innerHTML = '';
+            
+            for (let i = 0; i < this.text.length; i++) {
+                const char = this.text[i];
+                
+                if (char === ' ') {
+                    const spacer = document.createElement('span');
+                    spacer.className = 'spacer';
+                    this.container.appendChild(spacer);
+                    continue;
+                }
+                
+                const reel = document.createElement('div');
+                reel.className = 'reel';
+                
+                const inner = document.createElement('div');
+                inner.className = 'reel-inner';
+                
+                const chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()_+";
+                const length = 70 + Math.floor(Math.random() * 40);
+                
+                for (let j = 0; j < length - 1; j++) {
+                    const span = document.createElement('span');
+                    span.className = 'reel-char';
+                    span.textContent = chars[Math.floor(Math.random() * chars.length)];
+                    inner.appendChild(span);
+                }
+                
+                const target = document.createElement('span');
+                target.className = 'reel-char';
+                target.textContent = char;
+                inner.appendChild(target);
+                
+                reel.appendChild(inner);
+                this.container.appendChild(reel);
+                
+                this.reels.push({
+                    element: inner,
+                    length: length
+                });
             }
-            .slot-char {
-                height: 50px;
+            
+            setTimeout(() => this.animate(), 50);
+        }
+        
+        animate() {
+            let charHeight = 80;
+            if (this.reels[0] && this.reels[0].element.children[0]) {
+                charHeight = this.reels[0].element.children[0].offsetHeight;
+            }
+            
+            this.reels.forEach((reel, i) => {
+                const distance = (reel.length - 1) * charHeight;
+                const duration = 2500 + (Math.random() * 2500);
+                const delay = i * 60;
+                
+                reel.element.style.transition = `transform ${duration}ms cubic-bezier(0.2, 0.9, 0.4, 1) ${delay}ms`;
+                reel.element.style.transform = `translateY(-${distance}px)`;
+            });
+        }
+    }
+    
+    document.addEventListener('DOMContentLoaded', () => {
+        const machine = new SlotMachine("SECURE MESSENGER");
+        machine.init();
+    });
+</script>
+
+</body>
+</html>
