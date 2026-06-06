@@ -264,11 +264,11 @@
             }
         }
 
-        /* AI-FIX: Slot Machine Engine Styles (v17.0.1) */
+        /* AI-FIX: Slot Machine Engine Styles (v17.1.0) */
         .slot-machine-container {
             display: inline-block;
-            height: 1.2em;
-            max-height: 1.2em;
+            height: 1.5em;
+            max-height: 1.5em;
             overflow: hidden;
             position: relative;
             vertical-align: middle;
@@ -280,7 +280,7 @@
             display: inline-block;
             width: 0.7em;
             text-align: center;
-            transition: transform 12s cubic-bezier(0.1, 0, 0, 1);
+            transition: transform 7s cubic-bezier(0.1, 0, 0, 1);
             will-change: transform;
             height: auto;
             vertical-align: top;
@@ -288,8 +288,8 @@
 
         .slot-char {
             display: block;
-            height: 1.2em;
-            line-height: 1.2em;
+            height: 1.5em;
+            line-height: 1.5em;
             flex-shrink: 0;
             color: var(--ghost-neon-green);
             text-shadow: 0 0 5px var(--ghost-neon-green);
@@ -312,7 +312,7 @@
         }
 
         @keyframes neonBurst {
-            0% { opacity: 0.8; transform: scale(1); filter: blur(0px); }
+            0% { opacity: 1; transform: scale(1); filter: blur(0px); }
             100% { opacity: 0; transform: scale(1.8); filter: blur(10px); }
         }
 
@@ -326,8 +326,8 @@
             justify-content: center;
             align-items: center;
             flex-wrap: wrap;
-            min-height: 1.2em;
-            max-height: 1.5em; /* Prevent expansion */
+            min-height: 1.5em;
+            max-height: 1.8em; /* Prevent expansion */
             overflow: hidden; /* Safety clip */
         }
 
@@ -684,7 +684,7 @@
 
     <script>
         /**
-         * CHAOS SLOT ENGINE (v17.0.0 - NEON_BURST)
+         * CHAOS SLOT ENGINE (v17.1.0 - NEON_BURST)
          * Web Implementation of the Android CipherReelTextView logic.
          */
         class CipherReelEngine {
@@ -695,14 +695,18 @@
                 this.letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split('');
                 this.numbers = "0123456789".split('');
                 this.masterPool = [...this.symbols, ...this.letters, ...this.numbers];
-                this.duration = 12000;
+                this.baseDuration = 7000; // Matches activity_login.xml
                 this.columns = [];
+                this.maxTotalTime = 0;
             }
 
             init() {
                 this.container.innerHTML = '';
                 const mainWrapper = document.createElement('div');
                 mainWrapper.className = 'slot-machine-container';
+
+                // Session-Persistent Animation State
+                const hasAnimated = sessionStorage.getItem('hasAnimatedTitle');
 
                 for (let i = 0; i < this.targetText.length; i++) {
                     const char = this.targetText[i];
@@ -724,15 +728,29 @@
                         column.appendChild(div);
                     });
 
+                    // Randomize duration and delay based on Android logic
+                    const duration = this.baseDuration - 2000 + Math.random() * 6000;
+                    const delay = Math.random() * 2000;
+                    this.maxTotalTime = Math.max(this.maxTotalTime, duration + delay);
+
                     mainWrapper.appendChild(column);
-                    this.columns.push({
+
+                    const colInfo = {
                         element: column,
                         reelSize: reel.length,
-                        delay: Math.random() * 2000
-                    });
+                        duration: duration,
+                        delay: delay
+                    };
+
+                    if (hasAnimated) {
+                        const travelDistance = (reel.length - 1) * 1.5;
+                        column.style.transition = 'none';
+                        column.style.transform = `translate3d(0, -${travelDistance}em, 0)`;
+                    }
+
+                    this.columns.push(colInfo);
                 }
 
-                // Add burst layer
                 const burst = document.createElement('div');
                 burst.className = 'burst-layer';
                 burst.id = 'neon-burst';
@@ -741,11 +759,14 @@
 
                 this.container.appendChild(mainWrapper);
 
-                setTimeout(() => this.start(), 500);
+                if (!hasAnimated) {
+                    setTimeout(() => this.start(), 500);
+                    sessionStorage.setItem('hasAnimatedTitle', 'true');
+                }
             }
 
             generateChaosReel(targetChar) {
-                const length = Math.floor(Math.random() * 51) + 100; // 100-150
+                const length = Math.floor(Math.random() * 51) + 100; // 100-151
                 const reel = [];
                 for (let i = 0; i < length - 1; i++) {
                     reel.push(this.masterPool[Math.floor(Math.random() * this.masterPool.length)]);
@@ -755,26 +776,22 @@
             }
 
             start() {
-                // AI-FIX: Double-frame request ensures the browser registers
-                // the initial state before applying the transform for the transition.
-                requestAnimationFrame(() => {
+                this.columns.forEach(col => {
                     requestAnimationFrame(() => {
-                        this.columns.forEach(col => {
-                            setTimeout(() => {
-                                const travelDistance = (col.reelSize - 1) * 1.2; // 1.2em per char
-                                col.element.style.transform = `translate3d(0, -${travelDistance}em, 0)`;
-                            }, col.delay);
+                        requestAnimationFrame(() => {
+                            col.element.style.transition = `transform ${col.duration}ms cubic-bezier(0.1, 0, 0, 1) ${col.delay}ms`;
+                            const travelDistance = (col.reelSize - 1) * 1.5;
+                            col.element.style.transform = `translate3d(0, -${travelDistance}em, 0)`;
                         });
                     });
                 });
 
-                // Trigger burst at the end of the longest possible animation
                 setTimeout(() => {
                     const burst = document.getElementById('neon-burst');
                     if (burst) {
                         burst.style.animation = 'neonBurst 1s ease-out forwards';
                     }
-                }, this.duration + 2000);
+                }, this.maxTotalTime + 500);
             }
         }
 
