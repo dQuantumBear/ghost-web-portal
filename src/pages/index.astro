@@ -264,30 +264,37 @@
             }
         }
 
-        /* AI-FIX: Slot Machine Engine Styles (v17.2.0 - STABLE) */
+        /* AI-FIX: Slot Machine Engine Styles (v17.3.0 - RECOVERY) */
         .slot-machine-container {
-            display: inline-flex;
-            justify-content: center;
-            height: 1.5em;
-            max-height: 1.5em;
-            overflow: hidden;
             position: relative;
-            vertical-align: middle;
+            height: 1.5em;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .reel-viewport {
+            height: 1.5em;
+            overflow: hidden !important;
+            display: flex;
+            justify-content: center;
+            position: relative;
             width: 100%;
         }
 
         .slot-column {
-            display: flex;
-            flex-direction: column;
+            display: inline-block;
             width: 0.7em;
             text-align: center;
             will-change: transform;
+            flex-shrink: 0;
         }
 
         .slot-char {
+            display: block;
             height: 1.5em;
             line-height: 1.5em;
-            flex-shrink: 0;
             color: var(--ghost-neon-green);
             text-shadow: 0 0 8px var(--ghost-neon-green);
             font-family: inherit;
@@ -321,11 +328,10 @@
             letter-spacing: 3px;
             font-size: 2.2em;
             margin: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
             min-height: 1.5em;
-            /* REMOVED OVERFLOW HIDDEN TO PREVENT VANISHING */
+            position: relative;
+            display: block;
+            text-align: center;
         }
 
         .tagline {
@@ -681,7 +687,7 @@
 
     <script>
         /**
-         * CHAOS SLOT ENGINE (v17.2.0 - STABLE)
+         * CHAOS SLOT ENGINE (v17.3.0 - RECOVERY)
          * Web Implementation of the Android CipherReelTextView logic.
          */
         class CipherReelEngine {
@@ -702,6 +708,10 @@
                 const mainWrapper = document.createElement('div');
                 mainWrapper.className = 'slot-machine-container';
 
+                const viewport = document.createElement('div');
+                viewport.className = 'reel-viewport';
+                mainWrapper.appendChild(viewport);
+
                 const hasAnimated = sessionStorage.getItem('hasAnimatedTitle');
 
                 for (let i = 0; i < this.targetText.length; i++) {
@@ -710,7 +720,7 @@
                     if (char === ' ') {
                         const spacer = document.createElement('div');
                         spacer.style.width = '0.4em';
-                        mainWrapper.appendChild(spacer);
+                        viewport.appendChild(spacer);
                         continue;
                     }
 
@@ -734,7 +744,7 @@
                         column.style.transform = `translate3d(0, -${finalPos}em, 0)`;
                     }
 
-                    mainWrapper.appendChild(column);
+                    viewport.appendChild(column);
                     this.columns.push({
                         element: column,
                         reelSize: reel.length,
