@@ -163,7 +163,7 @@
             border-radius: 8px;
             box-shadow: 0 0 20px rgba(39, 174, 96, 0.4);
             padding: 10px 0;
-            z-index: 1001;
+            z-index: 1010;
         }
 
         .menu-container:hover .dropdown-content { display: block; }
@@ -195,7 +195,7 @@
             border-bottom: 1px solid var(--ghost-neon-green);
         }
 
-        /* YOUR LOGO - RESTORED */
+        /* LOGO */
         .logo {
             max-width: 120px;
             height: auto;
@@ -221,7 +221,7 @@
             100% { filter: drop-shadow(0 0 8px #FF0000) drop-shadow(0 0 15px #FF0000); }
         }
 
-        /* WORKING SLOT MACHINE */
+        /* WORKING SLOT MACHINE EFFECT */
         .slot-machine-container {
             display: flex;
             justify-content: center;
@@ -235,12 +235,25 @@
             justify-content: center;
             align-items: center;
             gap: 4px;
-            background: rgba(0, 0, 0, 0.8);
+            background: rgba(0, 0, 0, 0.9);
             border: 2px solid var(--ghost-neon-green);
             border-radius: 12px;
             padding: 10px 20px;
             box-shadow: 0 0 30px rgba(39, 174, 96, 0.4);
-            overflow-x: auto;
+            overflow: hidden;
+            position: relative;
+            transition: box-shadow 0.3s ease;
+        }
+
+        /* Neon Outburst Pulse Action */
+        .reel-viewport.glow-outburst {
+            animation: burstGlow 0.6s ease-out forwards;
+        }
+
+        @keyframes burstGlow {
+            0% { box-shadow: 0 0 30px rgba(39, 174, 96, 0.4); }
+            50% { box-shadow: 0 0 70px #27AE60, 0 0 120px rgba(39, 174, 96, 0.8); }
+            100% { box-shadow: 0 0 30px rgba(39, 174, 96, 0.4); }
         }
 
         .slot-column {
@@ -251,6 +264,7 @@
             position: relative;
             background: #0a0a0a;
             border-radius: 6px;
+            border: 1px solid rgba(39, 174, 96, 0.2);
         }
 
         .slot-column-inner {
@@ -258,7 +272,7 @@
             top: 0;
             left: 0;
             width: 100%;
-            transition: transform 0ms linear;
+            transform: translateY(0px);
         }
 
         .slot-char {
@@ -284,11 +298,7 @@
             font-size: 1em;
             margin-top: 5px;
             opacity: 0;
-            animation: fadeIn 0.5s ease-in 2.5s forwards;
-        }
-
-        @keyframes fadeIn {
-            to { opacity: 1; }
+            animation: fadeIn 0.5s ease-in 4.5s forwards;
         }
 
         .ghost-btn {
@@ -304,7 +314,7 @@
             border-radius: 4px;
             font-size: 0.9em;
             opacity: 0;
-            animation: fadeIn 0.5s ease-in 2.8s forwards;
+            animation: fadeIn 0.5s ease-in 4.8s forwards;
         }
 
         .ghost-btn:hover {
@@ -329,7 +339,7 @@
             box-shadow: 0 0 20px rgba(39, 174, 96, 0.3);
             opacity: 0;
             animation: fadeInUp 0.5s ease-out forwards;
-            animation-delay: calc(2.5s + (var(--order, 0) * 0.1s));
+            animation-delay: calc(4.2s + (var(--order, 0) * 0.1s));
         }
 
         @keyframes fadeInUp {
@@ -341,6 +351,10 @@
                 opacity: 1;
                 transform: translateY(0);
             }
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
         }
 
         section:nth-child(1) { --order: 1; }
@@ -367,7 +381,7 @@
             margin: 25px 0;
             display: block;
             opacity: 0;
-            animation: fadeIn 0.5s ease-in 2.3s forwards;
+            animation: fadeIn 0.5s ease-in 4.0s forwards;
         }
 
         .download-soon-img {
@@ -391,16 +405,15 @@
         }
 
         @media (max-width: 768px) {
-            .slot-column { width: 35px; height: 50px; }
-            .slot-char { height: 50px; line-height: 50px; font-size: 28px; }
-            .space-holder { width: 15px; }
+            .slot-column { width: 22px; height: 44px; }
+            .slot-char { height: 44px; line-height: 44px; font-size: 20px; }
+            .space-holder { width: 10px; }
             .ghost-line { font-size: 1.05em; white-space: normal; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Menu -->
     <div class="menu-container">
         <img src="/menu_icon.png" alt="Menu" class="menu-icon">
         <div class="dropdown-content">
@@ -414,7 +427,6 @@
         </div>
     </div>
 
-    <!-- Modals -->
     <div id="cookieModal" class="modal-overlay">
         <div class="modal-content">
             <div class="modal-header">
@@ -446,10 +458,8 @@
     </div>
 
     <header>
-        <!-- YOUR LOGO - BACK WHERE IT BELONGS -->
         <img src="/glass_logo.png" alt="Secure Messenger Logo" class="logo">
         
-        <!-- SLOT MACHINE - BELOW LOGO -->
         <div id="slot-machine-area"></div>
         
         <p class="tagline">Sovereign Build v10.8.3 | The Architecture of Privacy</p>
@@ -531,13 +541,13 @@
             const container = document.getElementById('slot-machine-area');
             const reels = [];
             
-            // Create wrapper
+            // Create wrappers
             const wrapper = document.createElement('div');
             wrapper.className = 'slot-machine-container';
             const viewport = document.createElement('div');
             viewport.className = 'reel-viewport';
             
-            // Build each reel
+            // Build reels dynamically
             for (let i = 0; i < TEXT.length; i++) {
                 const c = TEXT[i];
                 
@@ -553,7 +563,8 @@
                 const inner = document.createElement('div');
                 inner.className = 'slot-column-inner';
                 
-                const reelLen = 70 + Math.floor(Math.random() * 40);
+                // Length determines the distance it spins down
+                const reelLen = 40 + Math.floor(Math.random() * 20);
                 
                 for (let j = 0; j < reelLen - 1; j++) {
                     const span = document.createElement('span');
@@ -562,6 +573,7 @@
                     inner.appendChild(span);
                 }
                 
+                // Final answer falling at the exact bottom of the row strip
                 const targetSpan = document.createElement('span');
                 targetSpan.className = 'slot-char';
                 targetSpan.textContent = c;
@@ -579,25 +591,40 @@
             wrapper.appendChild(viewport);
             container.appendChild(wrapper);
             
-            // Get char height and animate
-            let charH = 80;
-            if (reels[0] && reels[0].element.children[0]) {
-                charH = reels[0].element.children[0].offsetHeight;
-            }
-            
-            reels.forEach((reel, idx) => {
-                const dist = (reel.length - 1) * charH;
-                const duration = 2000 + (Math.random() * 2500);
-                const delay = idx * 50;
+            // Wait for elements to register heights in DOM safely
+            setTimeout(() => {
+                let charH = 80; 
+                if (window.innerWidth <= 768) {
+                    charH = 44; // Sync responsive styles
+                }
                 
+                let maxDuration = 0;
+
+                reels.forEach((reel, idx) => {
+                    const dist = (reel.length - 1) * charH;
+                    // Staggered layout parameters for smooth sequential drops
+                    const duration = 1500 + (idx * 120); 
+                    const delay = 100;
+                    
+                    if ((duration + delay) > maxDuration) {
+                        maxDuration = duration + delay;
+                    }
+
+                    setTimeout(() => {
+                        reel.element.style.transition = `transform ${duration}ms cubic-bezier(0.1, 0.85, 0.25, 1.02)`;
+                        reel.element.style.transform = `translateY(-${dist}px)`;
+                    }, delay);
+                });
+
+                // Trigger Neon Explosion exactly as the last letter drops in place
                 setTimeout(() => {
-                    reel.element.style.transition = `transform ${duration}ms cubic-bezier(0.2, 0.9, 0.3, 1.05)`;
-                    reel.element.style.transform = `translateY(-${dist}px)`;
-                }, delay);
-            });
+                    viewport.classList.add('glow-outburst');
+                }, maxDuration);
+
+            }, 50);
         })();
 
-        // Modal code
+        // Modal initialization behavior
         const cookieModal = document.getElementById('cookieModal');
         const impressumModal = document.getElementById('impressumModal');
         const cookiePolicyLink = document.getElementById('cookiePolicyLink');
