@@ -273,12 +273,12 @@
             justify-content: center;
             align-items: center;
             overflow: hidden !important;
-            contain: layout paint;
+            contain: strict;
         }
 
         .reel-viewport {
             height: 1.8em;
-            overflow: hidden;
+            overflow: hidden !important;
             display: flex;
             justify-content: center;
             position: relative;
@@ -333,10 +333,12 @@
             letter-spacing: 3px;
             font-size: 2.2em;
             margin: 0;
-            min-height: 1.8em;
+            height: 1.8em;
+            overflow: hidden !important;
             position: relative;
             display: block;
             text-align: center;
+            contain: strict;
         }
 
         .tagline {
