@@ -267,24 +267,29 @@
         /* AI-FIX: Slot Machine Engine Styles (v17.3.0 - RECOVERY) */
         .slot-machine-container {
             position: relative;
-            height: 1.5em;
+            height: 1.8em;
             width: 100%;
             display: flex;
             justify-content: center;
             align-items: center;
+            overflow: hidden !important;
+            contain: layout paint;
         }
 
         .reel-viewport {
-            height: 1.5em;
-            overflow: hidden !important;
+            height: 1.8em;
+            overflow: hidden;
             display: flex;
             justify-content: center;
             position: relative;
             width: 100%;
+            mask-image: linear-gradient(to bottom, rgba(0,0,0,0.5) 0%, black 20%, black 80%, rgba(0,0,0,0.5) 100%);
+            -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,0.5) 0%, black 20%, black 80%, rgba(0,0,0,0.5) 100%);
         }
 
         .slot-column {
-            display: inline-block;
+            display: flex;
+            flex-direction: column;
             width: 0.7em;
             text-align: center;
             will-change: transform;
@@ -293,8 +298,8 @@
 
         .slot-char {
             display: block;
-            height: 1.5em;
-            line-height: 1.5em;
+            height: 1.8em;
+            line-height: 1.8em;
             color: var(--ghost-neon-green);
             text-shadow: 0 0 8px var(--ghost-neon-green);
             font-family: inherit;
@@ -328,7 +333,7 @@
             letter-spacing: 3px;
             font-size: 2.2em;
             margin: 0;
-            min-height: 1.5em;
+            min-height: 1.8em;
             position: relative;
             display: block;
             text-align: center;
@@ -698,9 +703,10 @@
                 this.letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split('');
                 this.numbers = "0123456789".split('');
                 this.masterPool = [...this.symbols, ...this.letters, ...this.numbers];
-                this.baseDuration = 7000;
+                this.baseDuration = 12000; // Match Android baseDuration
                 this.columns = [];
                 this.maxTotalTime = 0;
+                this.charHeight = 1.8; // Match CSS and Android 1.8f scaling
             }
 
             init() {
@@ -712,7 +718,7 @@
                 viewport.className = 'reel-viewport';
                 mainWrapper.appendChild(viewport);
 
-                const hasAnimated = sessionStorage.getItem('hasAnimatedTitle');
+                const hasAnimated = sessionStorage.getItem('hasAnimatedTitle') === 'true';
 
                 for (let i = 0; i < this.targetText.length; i++) {
                     const char = this.targetText[i];
@@ -735,12 +741,13 @@
                         column.appendChild(div);
                     });
 
+                    // Match Android Randomness
                     const duration = this.baseDuration - 2000 + Math.random() * 6000;
-                    const delay = Math.random() * 1500;
+                    const delay = Math.random() * 2000;
                     this.maxTotalTime = Math.max(this.maxTotalTime, duration + delay);
 
                     if (hasAnimated) {
-                        const finalPos = (reel.length - 1) * 1.5;
+                        const finalPos = (reel.length - 1) * this.charHeight;
                         column.style.transform = `translate3d(0, -${finalPos}em, 0)`;
                     }
 
@@ -768,7 +775,8 @@
             }
 
             generateChaosReel(targetChar) {
-                const length = Math.floor(Math.random() * 40) + 80;
+                // Match Android reel length: Random.nextInt(100, 151)
+                const length = Math.floor(Math.random() * 51) + 100;
                 const reel = [];
                 for (let i = 0; i < length - 1; i++) {
                     reel.push(this.masterPool[Math.floor(Math.random() * this.masterPool.length)]);
@@ -781,8 +789,11 @@
                 this.columns.forEach(col => {
                     requestAnimationFrame(() => {
                         requestAnimationFrame(() => {
-                            col.element.style.transition = `transform ${col.duration}ms cubic-bezier(0.1, 0, 0, 1) ${col.delay}ms`;
-                            const travelDistance = (col.reelSize - 1) * 1.5;
+                            // Match Android's DecelerateInterpolator(randomFactor)
+                            // factor between 2.0 and 3.0 maps roughly to cubic-bezier(0, 0, 0.1-0.2, 1)
+                            const factor = 0.1 + (Math.random() * 0.1);
+                            col.element.style.transition = `transform ${col.duration}ms cubic-bezier(0, 0, ${factor.toFixed(2)}, 1) ${col.delay}ms`;
+                            const travelDistance = (col.reelSize - 1) * this.charHeight;
                             col.element.style.transform = `translate3d(0, -${travelDistance}em, 0)`;
                         });
                     });
