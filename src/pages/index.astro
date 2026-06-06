@@ -205,7 +205,6 @@
             text-align: center;
             background: linear-gradient(to bottom, var(--ghost-dark-green), var(--bg-black));
             border-bottom: 1px solid var(--ghost-neon-green);
-            overflow-x: auto;
         }
 
         .logo {
@@ -265,55 +264,59 @@
             }
         }
 
-        /* AI-FIX: Slot Machine Engine Styles (v17.3.0 - RECOVERY) */
+        /* CORRECTED: Slot Machine Engine Styles */
         .slot-machine-container {
             position: relative;
-            height: 1.8em;
             width: 100%;
             display: flex;
             justify-content: center;
             align-items: center;
-            overflow: hidden !important;
-            contain: paint;
+            padding: 20px 0;
         }
 
         .reel-viewport {
-            height: 1.8em;
-            overflow: hidden !important;
             display: flex;
             flex-direction: row;
-            justify-content: center;
-            align-items: center;
+            gap: 4px;
+            height: 2.2em;
+            overflow: hidden;
+            border: 2px solid var(--ghost-neon-green);
+            border-radius: 8px;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 0 8px;
             position: relative;
-            width: 100%;
-            gap: 0.05em;
-            mask-image: linear-gradient(to bottom, rgba(0,0,0,0.5) 0%, black 20%, black 80%, rgba(0,0,0,0.5) 100%);
-            -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,0.5) 0%, black 20%, black 80%, rgba(0,0,0,0.5) 100%);
-            transform-style: flat;
-            backface-visibility: hidden;
+            box-shadow: 0 0 25px rgba(39, 174, 96, 0.4);
         }
 
         .slot-column {
             display: flex;
             flex-direction: column;
-            width: auto;
-            min-width: 0.7em;
-            text-align: center;
             will-change: transform;
-            flex-shrink: 0;
-            transition: transform 0s ease;
-            transform: translate3d(0, 0, 0);
-            position: relative;
+            transition: transform 0ms linear;
         }
 
         .slot-char {
-            display: block;
-            height: 1.8em;
-            line-height: 1.8em;
+            height: 2.2em;
+            line-height: 2.2em;
+            font-size: 2.2em;
             color: var(--ghost-neon-green);
-            text-shadow: 0 0 8px var(--ghost-neon-green);
-            font-family: inherit;
-            white-space: nowrap;
+            text-shadow: 0 0 12px var(--ghost-neon-green);
+            text-align: center;
+            min-width: 1.1em;
+            font-weight: bold;
+        }
+
+        /* Optional shine effect */
+        .slot-column::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 30%;
+            background: linear-gradient(transparent, rgba(255,255,255,0.25), transparent);
+            pointer-events: none;
+            opacity: 0.15;
         }
 
         .burst-layer {
@@ -344,23 +347,12 @@
             letter-spacing: 3px;
             font-size: 2.2em;
             margin: 0;
-            height: 1.8em;
-            overflow: visible !important;
             position: relative;
             display: flex;
             justify-content: center;
             align-items: center;
             text-align: center;
-            contain: paint;
-            min-height: 3.6em; /* 2x char height */
-            visibility: visible;
-            opacity: 0;
-            animation: fadeInTitle 0.1s ease-out 0.1s forwards;
             width: 100%;
-        }
-
-        @keyframes fadeInTitle {
-            to { opacity: 1; }
         }
 
         .tagline {
@@ -469,7 +461,7 @@
         .download-soon-img {
             display: block;
             margin: 50px auto;
-            max-width: 320px; /* Perfectly sized for 800px container (approx 40%) */
+            max-width: 320px;
             width: 90%;
             height: auto;
             filter: drop-shadow(0 0 15px rgba(39, 174, 96, 0.4));
@@ -488,6 +480,8 @@
             .dropdown-content { right: -10px; min-width: 200px; }
             .modal-content { width: 95%; }
             .logo { max-width: 80px; }
+            .reel-viewport { gap: 2px; padding: 0 4px; }
+            .slot-char { font-size: 1.2em; min-width: 0.8em; }
         }
 
         .support-box {
@@ -716,55 +710,45 @@
 
     <script>
         /**
-         * CHAOS SLOT ENGINE (v17.3.0 - RECOVERY)
-         * Web Implementation of the Android CipherReelTextView logic.
+         * CORRECTED: CHAOS SLOT ENGINE
+         * Clean & Reliable Implementation
          */
         class CipherReelEngine {
             constructor(containerId, targetText) {
                 this.container = document.getElementById(containerId);
-                this.targetText = targetText.toUpperCase();
-                this.symbols = "!@#$%^&*()_+=-{}[]|:;\"'<>,.?/".split('');
-                this.letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split('');
-                this.numbers = "0123456789".split('');
-                this.masterPool = [...this.symbols, ...this.letters, ...this.numbers];
-                this.baseDuration = 12000;
+                this.targetText = targetText.toUpperCase().replace(/ /g, '\u00A0');
                 this.columns = [];
-                this.maxTotalTime = 0;
-                this.charHeight = 1.8; // Fallback in em units
             }
 
             init() {
                 this.container.innerHTML = '';
                 const mainWrapper = document.createElement('div');
                 mainWrapper.className = 'slot-machine-container';
-
+                
                 const viewport = document.createElement('div');
                 viewport.className = 'reel-viewport';
-                mainWrapper.appendChild(viewport);
 
-                const hasAnimated = sessionStorage.getItem('hasAnimatedTitle') === 'true';
+                const charHeight = 2.2;
 
-                // FIRST: Create all columns and add them to viewport
                 for (let i = 0; i < this.targetText.length; i++) {
                     const char = this.targetText[i];
-
-                    if (char === ' ') {
+                    
+                    if (char === '\u00A0') {
                         const spacer = document.createElement('div');
-                        spacer.style.width = '0.4em';
+                        spacer.style.width = '0.6em';
                         viewport.appendChild(spacer);
                         continue;
                     }
 
                     const column = document.createElement('div');
                     column.className = 'slot-column';
-                    column.style.display = 'flex';
-                    column.style.flexDirection = 'column';
 
-                    const reel = this.generateChaosReel(char);
-                    reel.forEach(c => {
+                    const reel = this.generateReel(char, 80);
+
+                    reel.forEach(symbol => {
                         const div = document.createElement('div');
                         div.className = 'slot-char';
-                        div.textContent = c;
+                        div.textContent = symbol;
                         column.appendChild(div);
                     });
 
@@ -772,119 +756,65 @@
 
                     this.columns.push({
                         element: column,
-                        reelSize: reel.length,
-                        duration: this.baseDuration - 2000 + Math.random() * 6000,
-                        delay: Math.random() * 2000
+                        reelLength: reel.length,
+                        targetChar: char
                     });
                 }
-
-                // CRITICAL FIX: Measure AFTER all elements are in the DOM
-                this.measureCharHeight();
 
                 const burst = document.createElement('div');
                 burst.className = 'burst-layer';
                 burst.id = 'neon-burst';
-                burst.textContent = this.targetText;
+                burst.textContent = this.targetText.replace(/\u00A0/g, ' ');
                 mainWrapper.appendChild(burst);
-
+                
+                mainWrapper.appendChild(viewport);
                 this.container.appendChild(mainWrapper);
 
-                // Ensure measurement is complete before starting animation
-                if (!hasAnimated) {
-                    // Wait for next frame to ensure layout is calculated
-                    requestAnimationFrame(() => {
-                        requestAnimationFrame(() => {
-                            this.start();
-                        });
-                    });
-                    sessionStorage.setItem('hasAnimatedTitle', 'true');
-                } else {
-                    // Set to final position immediately
-                    this.setFinalPositions();
-                }
+                requestAnimationFrame(() => this.startAnimation());
             }
 
-            measureCharHeight() {
-                // Get the actual rendered height of a character
-                const sampleChar = document.querySelector('.slot-char');
-                if (sampleChar) {
-                    const rect = sampleChar.getBoundingClientRect();
-                    this.measuredCharHeight = rect.height;
-                }
-
-                // Fallback if measurement still fails
-                if (!this.measuredCharHeight || this.measuredCharHeight === 0) {
-                    // Calculate from computed style
-                    const computedStyle = getComputedStyle(sampleChar || document.body);
-                    const fontSize = parseFloat(computedStyle.fontSize);
-                    this.measuredCharHeight = fontSize * 1.8; // Match line-height
-                }
-            }
-
-            setFinalPositions() {
-                this.columns.forEach(col => {
-                    if (this.measuredCharHeight && this.measuredCharHeight > 0) {
-                        const travelDistance = (col.reelSize - 1) * this.measuredCharHeight;
-                        col.element.style.transform = `translate3d(0, -${travelDistance}px, 0)`;
-                    }
-                });
-            }
-
-            generateChaosReel(targetChar) {
-                const length = Math.floor(Math.random() * 51) + 100;
+            generateReel(targetChar, length = 80) {
+                const pool = "!@#$%^&*()_+1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ".split('');
                 const reel = [];
-                for (let i = 0; i < length - 1; i++) {
-                    reel.push(this.masterPool[Math.floor(Math.random() * this.masterPool.length)]);
+                
+                for (let i = 0; i < length - 15; i++) {
+                    reel.push(pool[Math.floor(Math.random() * pool.length)]);
                 }
-                reel.push(targetChar);
+                
+                for (let i = 0; i < 15; i++) {
+                    reel.push(Math.random() < 0.6 ? targetChar : pool[Math.floor(Math.random() * pool.length)]);
+                }
+                
                 return reel;
             }
 
-            start() {
-                // Ensure we have a valid height measurement
-                if (!this.measuredCharHeight || this.measuredCharHeight === 0) {
-                    this.measureCharHeight();
-                    if (!this.measuredCharHeight || this.measuredCharHeight === 0) {
-                        const anyChar = document.querySelector('.slot-char');
-                        if (anyChar) {
-                            this.measuredCharHeight = anyChar.offsetHeight;
-                        }
-                        if (!this.measuredCharHeight || this.measuredCharHeight === 0) {
-                            this.measuredCharHeight = 28.8; // Hard fallback (16px * 1.8)
-                        }
+            startAnimation() {
+                let charHeightPx = 55;
+                
+                if (this.columns[0] && this.columns[0].element.children[0]) {
+                    charHeightPx = this.columns[0].element.children[0].offsetHeight;
+                    if (!charHeightPx || charHeightPx === 0) {
+                        charHeightPx = 55;
                     }
                 }
 
-                // Calculate maxTotalTime BEFORE starting animations
-                this.maxTotalTime = 0;
-                this.columns.forEach(col => {
-                    this.maxTotalTime = Math.max(this.maxTotalTime, col.duration + col.delay);
+                this.columns.forEach((col, index) => {
+                    const travelDistance = (col.reelLength - 1) * charHeightPx;
+                    const duration = 2800 + Math.random() * 2200;
+                    const delay = index * 80;
+
+                    col.element.style.transition = `transform ${duration}ms cubic-bezier(0.25, 0.1, 0.25, 1) ${delay}ms`;
+                    col.element.style.transform = `translateY(-${travelDistance}px)`;
                 });
 
-                this.columns.forEach(col => {
-                    // Force reflow before applying transition
-                    col.element.offsetHeight;
-
-                    const travelDistance = Math.max(0, (col.reelSize - 1) * this.measuredCharHeight);
-
-                    // Set initial position to 0 before animating
-                    col.element.style.transform = 'translate3d(0, 0, 0)';
-                    col.element.style.transition = 'none';
-
-                    // Force reflow again
-                    col.element.offsetHeight;
-
-                    const factor = 0.1 + (Math.random() * 0.1);
-                    col.element.style.transition = `transform ${col.duration}ms cubic-bezier(0.2, 0.9, 0.4, 1.1) ${col.delay}ms`;
-                    col.element.style.transform = `translate3d(0, -${travelDistance}px, 0)`;
-                });
-
+                const maxDuration = 2800 + 2200 + (this.columns.length * 80);
+                
                 setTimeout(() => {
                     const burst = document.getElementById('neon-burst');
                     if (burst) {
                         burst.style.animation = 'neonBurst 1.2s ease-out forwards';
                     }
-                }, this.maxTotalTime + 200);
+                }, maxDuration + 200);
             }
         }
 
@@ -928,9 +858,4 @@
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape') {
                 if (cookieModal.style.display === 'flex') closeCookieModal();
-                if (impressumModal.style.display === 'flex') closeImpressumModal();
-            }
-        });
-    </script>
-</body>
-</html>
+                if (impressumModal.style
