@@ -344,16 +344,47 @@
             }
         }
 
-        /* Mobile Responsive */
+        /* Mobile Responsive Slot Engine (v10.8.4) */
         @media (max-width: 900px) {
             :root {
-                --box-size: 30px;
+                --box-size: 28px;
             }
             .spinning-char {
-                font-size: 18px;
+                font-size: 16px;
             }
             .row-container {
                 gap: 2px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            :root {
+                --box-size: 20px;
+            }
+            .spinning-char {
+                font-size: 12px;
+            }
+            .row-container {
+                gap: 1px;
+            }
+            #title-container {
+                font-size: 1.2em;
+                min-height: 2.2em;
+            }
+        }
+
+        @media (max-width: 380px) {
+            :root {
+                --box-size: 17px;
+            }
+            .spinning-char {
+                font-size: 10px;
+            }
+        }
+
+        @media (max-width: 340px) {
+            :root {
+                --box-size: 16px;
             }
         }
 
@@ -484,29 +515,18 @@
             animation: fadeIn 0.5s ease-in 2.3s forwards;
         }
 
-        /* AI-FIX: Proportional Download Button (v10.8.3) */
-        .download-soon-img {
-            display: block;
-            margin: 50px auto;
-            max-width: 320px; /* Perfectly sized for 800px container (approx 40%) */
-            width: 90%;
-            height: auto;
-            filter: drop-shadow(0 0 15px rgba(39, 174, 96, 0.4));
-            transition: transform 0.3s ease, filter 0.3s ease;
-        }
-
-        .download-soon-img:hover {
-            transform: scale(1.05);
-            filter: drop-shadow(0 0 25px rgba(39, 174, 96, 0.6));
-        }
-
+        /* AI-FIX: Proportional Download Button & Mobile UI Refinements (v10.8.4) */
         @media (max-width: 480px) {
-            .ghost-line { font-size: 1.05em; white-space: normal; }
-            h1 { font-size: 1.6em; flex-direction: column; }
-            .download-soon-img { max-width: 80%; margin: 30px auto; }
+            .ghost-line { font-size: 1.05em; white-space: normal; margin: 15px 0; }
+            section { padding: 15px; margin-bottom: 20px; border-radius: 12px; }
+            h2 { font-size: 1.1em; }
+            .download-soon-img { max-width: 85%; margin: 30px auto; }
             .dropdown-content { right: -10px; min-width: 200px; }
-            .modal-content { width: 95%; }
-            .logo { max-width: 80px; }
+            .modal-content { width: 95%; max-height: 90vh; }
+            .logo { max-width: 80px; margin-bottom: 10px; }
+            header { padding: 40px 10px; }
+            .tagline { font-size: 0.85em; }
+            .ghost-btn { padding: 10px 20px; font-size: 0.8em; }
         }
 
         .support-box {
