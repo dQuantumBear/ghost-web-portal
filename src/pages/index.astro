@@ -280,6 +280,7 @@
             flex-direction: row;
             gap: 5px;
             position: relative;
+            justify-content: center;
         }
 
         /* Individual Container for each letter */
@@ -295,6 +296,7 @@
             justify-content: center;
             align-items: center;
             box-shadow: inset 0 0 10px rgba(0,0,0,0.8);
+            flex-shrink: 0;
         }
 
         .spinning-char {
@@ -344,10 +346,10 @@
             }
         }
 
-        /* Mobile Responsive Slot Engine (v10.8.4) */
+        /* Mobile Responsive Slot Engine (v10.8.5 - Hardened Mobile Layout) */
         @media (max-width: 900px) {
             :root {
-                --box-size: 28px;
+                --box-size: 26px;
             }
             .spinning-char {
                 font-size: 16px;
@@ -359,7 +361,7 @@
 
         @media (max-width: 600px) {
             :root {
-                --box-size: 20px;
+                --box-size: 18px;
             }
             .spinning-char {
                 font-size: 12px;
@@ -368,23 +370,33 @@
                 gap: 1px;
             }
             #title-container {
-                font-size: 1.2em;
+                font-size: 1.1em;
                 min-height: 2.2em;
             }
         }
 
-        @media (max-width: 380px) {
+        @media (max-width: 400px) {
             :root {
-                --box-size: 17px;
+                --box-size: 16px;
             }
             .spinning-char {
                 font-size: 10px;
             }
+            .row-container {
+                gap: 1px;
+            }
+            #title-container {
+                min-height: 2em;
+                letter-spacing: 1px;
+            }
         }
 
-        @media (max-width: 340px) {
+        @media (max-width: 350px) {
             :root {
-                --box-size: 16px;
+                --box-size: 14px;
+            }
+            .spinning-char {
+                font-size: 9px;
             }
         }
 
@@ -629,7 +641,7 @@
     </div>
 
     <header>
-        <img src="/glass_logo.png" alt="Secure Messenger Logo" class="logo">
+        <img src="glass_logo.png" alt="Secure Messenger Logo" class="logo">
         <div id="title-container">
             <div class="row-container" id="main-row">
                 <div class="outburst-layer" id="burst"></div>
