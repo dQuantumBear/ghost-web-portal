@@ -1,4 +1,4 @@
-DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -354,52 +354,21 @@ DOCTYPE html>
         /* Mobile Responsive Slot Engine (v10.8.8 - Ultra-Fluid Scaling) */
         @media (max-width: 900px) {
             :root {
-                --box-size: 18px; /* Reduced from 20px to fit 375px-390px viewports */
+                --box-size: clamp(12px, 5vw, 25px); /* FIXED: Fluid scaling */
             }
             .spinning-char {
-                font-size: 11px;
+                font-size: clamp(10px, 4vw, 20px); /* FIXED: Fluid scaling */
             }
             .row-container {
-                gap: 2px;
+                gap: 0.5vw; /* FIXED: Proportionate gap */
                 flex-wrap: nowrap; /* Ensure letters stay in one line */
             }
         }
 
         @media (max-width: 600px) {
-            :root {
-                --box-size: 15px;
-            }
-            .spinning-char {
-                font-size: 10px;
-            }
-            .row-container {
-                gap: 1px;
-            }
             #title-container {
-                font-size: 1em;
-                min-height: 2em;
-                letter-spacing: 1px;
-            }
-        }
-
-        @media (max-width: 400px) {
-            :root {
-                --box-size: 13px;
-            }
-            .spinning-char {
-                font-size: 8px;
-            }
-            .row-container {
-                gap: 1px;
-            }
-        }
-
-        @media (max-width: 320px) {
-            :root {
-                --box-size: 11px;
-            }
-            .spinning-char {
-                font-size: 7px;
+                font-size: 1.5em; /* Adjusted for smaller screens */
+                min-height: 2.2em;
             }
         }
 
@@ -604,7 +573,7 @@ DOCTYPE html>
 
     <!-- AI-FIX: Floating Navigation Menu -->
     <div class="menu-container">
-        <img src="/menu_icon.png" alt="Menu" class="menu-icon">
+        <img src="menu_icon.png" alt="Menu" class="menu-icon">
         <div class="dropdown-content">
             <a href="https://glokta1991.github.io/legal-docs/privacy.html" target="_blank">Privacy Policy</a>
             <a href="https://glokta1991.github.io/legal-docs/terms.html" target="_blank">Terms of Service</a>
@@ -729,7 +698,7 @@ DOCTYPE html>
         </section>
 
         <section class="support-box">
-            <img src="/bear_panic.png" alt="dQuantumBear" class="bear-img">
+            <img src="bear_panic.png" alt="dQuantumBear" class="bear-img">
             <h2>Built by One. Powered by You.</h2>
             <p>
                 Secure Messenger is a project developed, designed and financed by One (1) individual with zero support from Big Tech, venture capital, or billionaire interests.
@@ -743,7 +712,7 @@ DOCTYPE html>
             <p class="highlight">— dQuantumBear</p>
         </section>
 
-        <img src="/download_soon.png" alt="Download APK Soon" class="download-soon-img">
+        <img src="playstore.png" alt="Download APK Soon" class="download-soon-img" style="width: 100%; max-width: 400px; margin: 20px auto; display: block;">
 
         <section style="text-align: center; border: none; background: transparent;">
             <div style="font-size: 0.9em; margin-bottom: 10px;">
@@ -772,7 +741,7 @@ DOCTYPE html>
     </div>
 
     <footer>
-        <img src="/app_icon_bear.jpg" alt="Sovereign Bear" class="bottom-bear"><br>
+        <img src="app_icon_bear.jpg" alt="Sovereign Bear" class="bottom-bear"><br>
         <span class="footer-signature">🐻❤️M</span><br><br>
         &copy; 2026 Secure Messenger Project. Engineered for Privacy.
     </footer>
