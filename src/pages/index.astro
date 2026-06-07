@@ -434,7 +434,11 @@
             margin-top: 5px;
             opacity: 0;
             animation: fadeIn 0.5s ease-in 2.5s forwards;
+            max-width: 100%;
+            display: inline-block;
         }
+
+        .mobile-break { display: none; }
 
         @keyframes fadeIn {
             to {
@@ -529,18 +533,20 @@
             animation: fadeIn 0.5s ease-in 2.3s forwards;
         }
 
-        /* AI-FIX: Proportional Download Button & Mobile UI Refinements (v10.8.4) */
+        /* AI-FIX: Proportional Download Button & Mobile UI Refinements (v10.8.5) */
         @media (max-width: 480px) {
-            .ghost-line { font-size: 1.05em; white-space: normal; margin: 15px 0; }
+            .mobile-break { display: block; height: 0; }
+            .ghost-line { font-size: 1.05em; white-space: normal !important; margin: 15px 0; overflow-wrap: break-word; }
             section { padding: 15px; margin-bottom: 20px; border-radius: 12px; }
             h2 { font-size: 1.1em; }
             .download-soon-img { max-width: 85%; margin: 30px auto; }
             .dropdown-content { right: -10px; min-width: 200px; }
             .modal-content { width: 95%; max-height: 90vh; }
             .logo { max-width: 80px; margin-bottom: 10px; }
-            header { padding: 40px 10px; }
-            .tagline { font-size: 0.85em; }
+            header { padding: 40px 10px; overflow-x: hidden; }
+            .tagline { font-size: 0.85em; line-height: 1.4; }
             .ghost-btn { padding: 10px 20px; font-size: 0.8em; }
+            .signature-creator { font-size: 0.75em !important; }
         }
 
         .support-box {
@@ -650,13 +656,13 @@
                 <!-- 17 individual containers will be injected here -->
             </div>
         </div>
-        <p class="tagline">Sovereign Build v10.8.3 | The Architecture of Privacy</p>
+        <p class="tagline">Sovereign Build v10.8.3 | <br class="mobile-break"> The Architecture of Privacy</p>
 
         <div>
             <a href="https://glokta1991.github.io/legal-docs/white_paper.html" class="ghost-btn">EXPLORE THE ARCHITECTURE</a>
-            <div class="signature-creator" style="margin-top: 15px; font-size: 0.85em; color: var(--ghost-cream); opacity: 0.8;">
+            <div class="signature-creator" style="margin-top: 15px; font-size: 0.85em; color: var(--ghost-cream); opacity: 0.8; line-height: 1.5; padding: 0 10px;">
                 Created, financed and designed by <span class="highlight">dQuantumBear</span><br>
-                Contact: <span class="highlight">securemessenger0@gmail.com</span>
+                Contact: <span class="highlight" style="word-break: break-all;">securemessenger0@gmail.com</span>
             </div>
         </div>
     </header>
