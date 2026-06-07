@@ -26,6 +26,11 @@
             line-height: 1.4;
             position: relative;
             overflow-x: hidden;
+            box-sizing: border-box;
+        }
+
+        *, *:before, *:after {
+            box-sizing: inherit;
         }
 
         /* Modal Overlay - Floating Window */
@@ -346,13 +351,13 @@
             }
         }
 
-        /* Mobile Responsive Slot Engine (v10.8.6 - Maximum Mobile Hardening) */
+        /* Mobile Responsive Slot Engine (v10.8.7 - Fluid Scaling) */
         @media (max-width: 900px) {
             :root {
-                --box-size: 24px;
+                --box-size: 20px;
             }
             .spinning-char {
-                font-size: 14px;
+                font-size: 12px;
             }
             .row-container {
                 gap: 2px;
@@ -361,7 +366,7 @@
 
         @media (max-width: 600px) {
             :root {
-                --box-size: 16px;
+                --box-size: 15px;
             }
             .spinning-char {
                 font-size: 10px;
@@ -378,7 +383,7 @@
 
         @media (max-width: 400px) {
             :root {
-                --box-size: 14px;
+                --box-size: 13px;
             }
             .spinning-char {
                 font-size: 8px;
@@ -390,7 +395,7 @@
 
         @media (max-width: 320px) {
             :root {
-                --box-size: 12px;
+                --box-size: 11px;
             }
             .spinning-char {
                 font-size: 7px;
@@ -638,7 +643,7 @@
     </div>
 
     <header>
-        <img src="glass_logo.png" alt="Secure Messenger Logo" class="logo">
+        <img src="app/src/main/res/drawable/glass_logo.png" alt="Secure Messenger Logo" class="logo">
         <div id="title-container">
             <div class="row-container" id="main-row">
                 <div class="outburst-layer" id="burst"></div>
