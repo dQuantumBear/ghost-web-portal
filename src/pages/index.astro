@@ -346,13 +346,13 @@
             }
         }
 
-        /* Mobile Responsive Slot Engine (v10.8.5 - Hardened Mobile Layout) */
+        /* Mobile Responsive Slot Engine (v10.8.6 - Maximum Mobile Hardening) */
         @media (max-width: 900px) {
             :root {
-                --box-size: 26px;
+                --box-size: 24px;
             }
             .spinning-char {
-                font-size: 16px;
+                font-size: 14px;
             }
             .row-container {
                 gap: 2px;
@@ -360,22 +360,6 @@
         }
 
         @media (max-width: 600px) {
-            :root {
-                --box-size: 18px;
-            }
-            .spinning-char {
-                font-size: 12px;
-            }
-            .row-container {
-                gap: 1px;
-            }
-            #title-container {
-                font-size: 1.1em;
-                min-height: 2.2em;
-            }
-        }
-
-        @media (max-width: 400px) {
             :root {
                 --box-size: 16px;
             }
@@ -386,17 +370,30 @@
                 gap: 1px;
             }
             #title-container {
+                font-size: 1em;
                 min-height: 2em;
                 letter-spacing: 1px;
             }
         }
 
-        @media (max-width: 350px) {
+        @media (max-width: 400px) {
             :root {
                 --box-size: 14px;
             }
             .spinning-char {
-                font-size: 9px;
+                font-size: 8px;
+            }
+            .row-container {
+                gap: 1px;
+            }
+        }
+
+        @media (max-width: 320px) {
+            :root {
+                --box-size: 12px;
+            }
+            .spinning-char {
+                font-size: 7px;
             }
         }
 
