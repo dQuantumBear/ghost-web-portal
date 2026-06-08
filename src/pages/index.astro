@@ -351,26 +351,38 @@
             }
         }
 
-        /* Mobile Responsive Slot Engine (v10.8.8 - Ultra-Fluid Scaling) */
-        @media (max-width: 900px) {
-            :root {
-                --box-size: clamp(12px, 5vw, 25px); /* FIXED: Fluid scaling */
-            }
-            .spinning-char {
-                font-size: clamp(10px, 4vw, 20px); /* FIXED: Fluid scaling */
-            }
-            .row-container {
-                gap: 0.5vw; /* FIXED: Proportionate gap */
-                flex-wrap: nowrap; /* Ensure letters stay in one line */
-            }
-        }
+       /* =============== MOBILE SLOT ENGINE FIX =============== */
+@media (max-width: 900px) {
+    :root {
+        --box-size: clamp(10px, 3.65vw, 22px);   /* More aggressive scaling */
+    }
+    .spinning-char {
+        font-size: clamp(9px, 3.2vw, 18px);
+    }
+    .row-container {
+        gap: 1.8px;           /* Tighter gap */
+        padding: 0 8px;       /* Prevent edge touching */
+    }
+}
 
-        @media (max-width: 600px) {
-            #title-container {
-                font-size: 1.5em; /* Adjusted for smaller screens */
-                min-height: 2.2em;
-            }
-        }
+@media (max-width: 480px) {
+    :root {
+        --box-size: clamp(9px, 3.4vw, 19px);    /* Even tighter for small phones */
+    }
+    .spinning-char {
+        font-size: clamp(8px, 2.9vw, 16px);
+    }
+    .row-container {
+        gap: 1.2px;
+        padding: 0 6px;
+    }
+    
+    /* Extra safety */
+    #title-container {
+        max-width: 100%;
+        overflow: hidden;
+    }
+}
 
         #title-container {
             color: var(--ghost-cream);
