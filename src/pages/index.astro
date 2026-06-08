@@ -351,39 +351,26 @@
             }
         }
 
-       /* =============== MOBILE SLOT ENGINE FIX =============== */
-/* =============== AGGRESSIVE MOBILE SLOT ENGINE FIX =============== */
-@media (max-width: 900px) {
-    :root {
-        --box-size: clamp(8px, 3.1vw, 18px);
-    }
-    .spinning-char {
-        font-size: clamp(7px, 2.7vw, 15px);
-    }
-    .row-container {
-        gap: 1.5px;
-        padding: 0 10px;
-    }
-}
+        /* Mobile Responsive Slot Engine (v10.8.8 - Ultra-Fluid Scaling) */
+        @media (max-width: 900px) {
+            :root {
+                --box-size: clamp(10px, 4.4vw, 25px); /* FIXED: Fluid scaling */
+            }
+            .spinning-char {
+                font-size: clamp(8px, 3.5vw, 20px); /* FIXED: Fluid scaling */
+            }
+            .row-container {
+                gap: 0.3vw; /* FIXED: Proportionate gap */
+                flex-wrap: nowrap; /* Ensure letters stay in one line */
+            }
+        }
 
-@media (max-width: 480px) {
-    :root {
-        --box-size: clamp(7.5px, 2.85vw, 16px);   /* Very tight for small phones */
-    }
-    .spinning-char {
-        font-size: clamp(6.5px, 2.5vw, 13.5px);
-    }
-    .row-container {
-        gap: 1px;
-        padding: 0 8px;
-    }
-
-    /* Force shrinking if still needed */
-    .letter-container {
-        flex-shrink: 1 !important;
-        min-width: 0 !important;
-    }
-}
+        @media (max-width: 600px) {
+            #title-container {
+                font-size: 1.5em; /* Adjusted for smaller screens */
+                min-height: 2.2em;
+            }
+        }
 
         #title-container {
             color: var(--ghost-cream);
@@ -450,6 +437,19 @@
             background-color: var(--ghost-dark-green);
             color: var(--ghost-white);
             box-shadow: 0 0 15px var(--ghost-neon-green);
+        }
+
+        .download-soon-img {
+            width: 100%;
+            max-width: 200px;
+            margin: 20px auto;
+            display: block;
+            transition: 0.3s;
+        }
+
+        .download-soon-img:hover {
+            transform: scale(1.05);
+            filter: drop-shadow(0 0 10px var(--ghost-neon-green));
         }
 
         .container {
@@ -522,7 +522,7 @@
             .ghost-line { font-size: 1.05em; white-space: normal !important; margin: 15px 0; overflow-wrap: break-word; }
             section { padding: 15px; margin-bottom: 20px; border-radius: 12px; }
             h2 { font-size: 1.1em; }
-            .download-soon-img { max-width: 85%; margin: 30px auto; }
+            .download-soon-img { max-width: 180px; margin: 20px auto; }
             .dropdown-content { right: -10px; min-width: 200px; }
             .modal-content { width: 95%; max-height: 90vh; }
             .logo { max-width: 80px; margin-bottom: 10px; }
@@ -725,9 +725,8 @@
             <p class="highlight">— dQuantumBear</p>
         </section>
 
-                        <img src="playstore.png" 
-             alt="Download APK Soon" 
-             class="download-soon-img">
+        <img src="playstore.png" alt="Download APK Soon" class="download-soon-img">
+
         <section style="text-align: center; border: none; background: transparent;">
             <div style="font-size: 0.9em; margin-bottom: 10px;">
                 <span class="highlight">NO PHONE NUMBERS</span> &bull; <span class="highlight">NO METADATA</span> &bull; <span class="highlight">NO SURVEILLANCE</span>
