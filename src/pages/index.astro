@@ -300,28 +300,4 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            box-shadow: inset 0 0 10px rgba(0,0,0,0.8);
-            flex-shrink: 0;
-        }
-
-        .spinning-char {
-            font-size: 32px;
-            font-weight: bold;
-            color: var(--text-color);
-            position: absolute;
-            transition: transform 0.05s linear;
-        }
-
-        /* Revealed state */
-        .letter-container.revealed .spinning-char {
-            color: var(--neon-green);
-            text-shadow: 0 0 10px var(--neon-green), 0 0 20px var(--neon-green);
-            transform: translateY(0) !important;
-        }
-
-        /* Outburst Effect */
-        .outburst-layer {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50
+            box-shadow: inset 0 0 10px rgba(0,0,0
