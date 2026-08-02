@@ -595,6 +595,33 @@
             opacity: 0;
             animation: fadeIn 0.5s ease-in 2.8s forwards;
         }
+
+        /* PayPal Donate Button — Forensic Isolation Compliant */
+        .donate-btn {
+            display: inline-block;
+            padding: 14px 32px;
+            margin: 10px 0;
+            border: 2px solid var(--ghost-neon-green);
+            color: var(--ghost-neon-green);
+            background-color: transparent;
+            text-decoration: none;
+            font-weight: bold;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            transition: 0.3s;
+            border-radius: 4px;
+            font-size: 0.95em;
+            cursor: pointer;
+            font-family: 'Courier New', Courier, monospace;
+            white-space: nowrap;
+        }
+
+        .donate-btn:hover {
+            background-color: var(--ghost-dark-green);
+            color: var(--ghost-white);
+            box-shadow: 0 0 20px var(--ghost-neon-green);
+            transform: scale(1.02);
+        }
     </style>
 </head>
 <body>
@@ -914,6 +941,9 @@
             </p>
             <p>
                 If you want to additionally support me my PayPal is <span class="highlight">nexus.mnemonic@gmail.com</span>
+            </p>
+            <p style="margin: 25px 0;">
+                <a href="https://www.paypal.com/donate?hosted_button_id=5BFMXH6TM5ZPN" class="donate-btn" target="_blank" rel="noopener noreferrer">⚡ SUPPORT THE PROJECT</a>
             </p>
             <p class="highlight">— dQuantumBear</p>
         </section>
