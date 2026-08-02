@@ -44,33 +44,32 @@
             background-color: rgba(0, 0, 0, 0.85);
             backdrop-filter: blur(8px);
             z-index: 2000;
-            justify-content: center;
-            align-items: center;
-            padding: 20px; /* FIX: prevents edge-touching & forces centering on mobile */
         }
 
         .modal-content {
-            position: relative;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
             background-color: var(--bg-black);
             border: 2px solid var(--ghost-neon-green);
             border-radius: 16px;
             max-width: 500px;
-            width: 90%;
-            max-height: 80vh;
+            width: calc(100% - 40px);
+            max-height: calc(100vh - 40px);
             overflow-y: auto;
             box-shadow: 0 0 40px rgba(39, 174, 96, 0.5);
             animation: modalFadeIn 0.3s ease-out;
-            min-width: 0; /* allows flex item to shrink below content width */
         }
 
         @keyframes modalFadeIn {
             from {
                 opacity: 0;
-                transform: scale(0.95);
+                transform: translate(-50%, -50%) scale(0.95);
             }
             to {
                 opacity: 1;
-                transform: scale(1);
+                transform: translate(-50%, -50%) scale(1);
             }
         }
 
@@ -523,7 +522,7 @@
             h2 { font-size: 1.1em; }
             .download-soon-img { max-width: 180px; margin: 20px auto; }
             .dropdown-content { right: -10px; min-width: 200px; }
-            .modal-content { width: 92%; max-height: 90vh; min-width: 0; }
+            .modal-content { width: calc(100% - 40px); max-height: calc(100vh - 40px); }
             .logo { max-width: 80px; margin-bottom: 10px; }
             header { padding: 40px 10px; overflow-x: hidden; }
             .tagline { font-size: 0.75em !important; line-height: 1.4; }
