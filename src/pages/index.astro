@@ -1,10 +1,13 @@
+---
+// index.astro - SecureMessenger Landing Page v26.1.0-STABLE (GHOST-PHOENIX-VI)
+---
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Secure Messenger | White Label Encrypted Zero Knowledge Communications Platform</title>
-    <style>
+    <title>Secure Messenger | White Label Zero-Knowledge Encrypted Communications Platform</title>
+    <style is:global>
         :root {
             --bg-black: #000000;
             --ghost-dark-green: #004D00;
@@ -13,6 +16,7 @@
             --ghost-cream: #FFFDD0;
             --ghost-red: #FF0000;
             --ghost-dark-red: #8B0000;
+            --neon-bright: #39ff14;
         }
 
         html { scroll-behavior: smooth; }
@@ -29,145 +33,46 @@
             box-sizing: border-box;
         }
 
-        *, *:before, *:after {
-            box-sizing: inherit;
-        }
+        *, *:before, *:after { box-sizing: inherit; }
 
-        /* Modal Overlay - Floating Window */
-        .modal-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.85);
-            backdrop-filter: blur(8px);
-            z-index: 2000;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .modal-content {
-            position: relative;
-            background-color: var(--bg-black);
-            border: 2px solid var(--ghost-neon-green);
-            border-radius: 16px;
-            max-width: 500px;
-            width: 90%;
-            max-height: 80vh;
-            overflow-y: auto;
-            box-shadow: 0 0 40px rgba(39, 174, 96, 0.5);
-            animation: modalFadeIn 0.3s ease-out;
-        }
-
-        @keyframes modalFadeIn {
-            from {
-                opacity: 0;
-                transform: scale(0.95);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
-        }
-
-        .modal-header {
-            padding: 20px 25px 10px 25px;
-            border-bottom: 1px solid var(--ghost-dark-green);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .modal-header h2 {
-            margin: 0;
-            color: var(--ghost-neon-green);
-            text-transform: uppercase;
-            font-size: 1.3em;
-            border: none;
-            padding: 0;
-        }
-
-        .close-modal {
-            background: none;
-            border: none;
-            color: var(--ghost-neon-green);
-            font-size: 28px;
-            cursor: pointer;
-            padding: 0;
-            width: 32px;
-            height: 32px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            transition: 0.2s;
-        }
-
-        .close-modal:hover {
-            background-color: var(--ghost-dark-green);
-            transform: scale(1.1);
-        }
-
-        .modal-body {
-            padding: 20px 25px;
-            font-size: 0.9em;
-            line-height: 1.6;
-            color: var(--ghost-cream);
-        }
-
-        .modal-body p {
-            margin: 10px 0;
-        }
-
-        .modal-body code {
-            background: rgba(39, 174, 96, 0.2);
-            padding: 2px 6px;
-            border-radius: 4px;
-            font-family: monospace;
-            color: var(--ghost-neon-green);
-        }
-
-        .accept-btn {
-            display: block;
-            width: 100%;
-            padding: 12px;
-            margin-top: 20px;
-            background-color: transparent;
-            border: 2px solid var(--ghost-neon-green);
-            color: var(--ghost-neon-green);
-            font-weight: bold;
-            font-size: 1em;
-            cursor: pointer;
-            border-radius: 8px;
-            transition: 0.3s;
-            font-family: inherit;
-        }
-
-        .accept-btn:hover {
-            background-color: var(--ghost-dark-green);
-            color: var(--ghost-white);
-            box-shadow: 0 0 15px var(--ghost-neon-green);
-        }
-
-        /* AI-FIX: Secure Menu Navigation (v8.2.2) */
+        /* Navigation Menu */
         .menu-container {
             position: absolute;
             top: 20px;
             right: 20px;
             z-index: 1000;
-        }
-
-        .menu-icon {
-            width: 50px;
-            height: auto;
             cursor: pointer;
-            filter: drop-shadow(0 0 5px var(--ghost-neon-green));
-            transition: 0.3s;
+            padding: 10px;
         }
 
-        .menu-icon:hover { transform: scale(1.1); }
+        .hamburger {
+            width: 30px;
+            height: 3px;
+            background-color: var(--ghost-neon-green);
+            position: relative;
+            transition: 0.3s;
+            box-shadow: 0 0 10px var(--ghost-neon-green);
+        }
+
+        .hamburger::before, .hamburger::after {
+            content: '';
+            position: absolute;
+            width: 30px;
+            height: 3px;
+            background-color: var(--ghost-neon-green);
+            transition: 0.3s;
+            box-shadow: 0 0 10px var(--ghost-neon-green);
+        }
+
+        .hamburger::before { top: -10px; }
+        .hamburger::after { top: 10px; }
+
+        .menu-container:hover .hamburger, 
+        .menu-container:hover .hamburger::before, 
+        .menu-container:hover .hamburger::after { 
+            background-color: var(--ghost-white); 
+            box-shadow: 0 0 15px var(--ghost-white); 
+        }
 
         .dropdown-content {
             display: none;
@@ -195,713 +100,237 @@
             font-weight: bold;
             transition: 0.2s;
             border-bottom: 1px solid rgba(39, 174, 96, 0.1);
-            cursor: pointer;
         }
 
-        .dropdown-content a:last-child { border-bottom: none; }
+        .dropdown-content a:hover { background-color: var(--ghost-dark-green); color: var(--ghost-neon-green); }
 
-        .dropdown-content a:hover {
-            background-color: var(--ghost-dark-green);
-            color: var(--ghost-neon-green);
+        /* Modals */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background-color: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(8px);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
         }
 
+        .modal-content {
+            background-color: var(--bg-black);
+            border: 2px solid var(--ghost-neon-green);
+            border-radius: 16px;
+            max-width: 500px;
+            width: 90%;
+            padding: 20px;
+            box-shadow: 0 0 40px rgba(39, 174, 96, 0.5);
+        }
+
+        .accept-btn { display: block; width: 100%; padding: 12px; margin-top: 20px; background-color: transparent; border: 2px solid var(--ghost-neon-green); color: var(--ghost-neon-green); font-weight: bold; cursor: pointer; border-radius: 8px; transition: 0.3s; }
+        .accept-btn:hover { background-color: var(--ghost-dark-green); color: var(--ghost-white); }
+
+        /* Header */
         header {
             padding: 60px 10px;
             text-align: center;
             background: linear-gradient(to bottom, var(--ghost-dark-green), var(--bg-black));
             border-bottom: 1px solid var(--ghost-neon-green);
-            overflow: hidden; /* Prevent horizontal scroll from pulsing glow or overflow */
         }
 
-        .logo {
-            max-width: 120px;
-            height: auto;
-            margin-bottom: 15px;
-            /* RED TO GREEN PULSING GLOW ANIMATION */
-            animation: redToGreenGlow 3s ease-in-out infinite;
-            transition: transform 0.3s ease;
-        }
+        .logo { max-width: 120px; margin-bottom: 15px; animation: redToGreenGlow 3s ease-in-out infinite; }
 
-        .logo:hover {
-            transform: scale(1.05);
-            animation: redToGreenGlowFast 1.5s ease-in-out infinite;
-        }
-
-        /* Main animation: Red to Green pulsing glow */
         @keyframes redToGreenGlow {
-            0% {
-                filter: drop-shadow(0 0 5px #FF0000) drop-shadow(0 0 10px #FF0000);
-                opacity: 1;
-            }
-            25% {
-                filter: drop-shadow(0 0 15px #FF4500) drop-shadow(0 0 25px #FF4500);
-                opacity: 0.95;
-            }
-            50% {
-                filter: drop-shadow(0 0 20px #27AE60) drop-shadow(0 0 35px #27AE60);
-                opacity: 1;
-            }
-            75% {
-                filter: drop-shadow(0 0 15px #00FF00) drop-shadow(0 0 25px #00FF00);
-                opacity: 0.95;
-            }
-            100% {
-                filter: drop-shadow(0 0 5px #FF0000) drop-shadow(0 0 10px #FF0000);
-                opacity: 1;
-            }
+            0%, 100% { filter: drop-shadow(0 0 5px #FF0000); }
+            50% { filter: drop-shadow(0 0 20px #27AE60); }
         }
 
-        /* Faster animation on hover for interactive feel */
-        @keyframes redToGreenGlowFast {
-            0% {
-                filter: drop-shadow(0 0 8px #FF0000) drop-shadow(0 0 15px #FF0000);
-            }
-            25% {
-                filter: drop-shadow(0 0 20px #FF4500) drop-shadow(0 0 35px #FF4500);
-            }
-            50% {
-                filter: drop-shadow(0 0 25px #27AE60) drop-shadow(0 0 45px #27AE60);
-            }
-            75% {
-                filter: drop-shadow(0 0 20px #00FF00) drop-shadow(0 0 35px #00FF00);
-            }
-            100% {
-                filter: drop-shadow(0 0 8px #FF0000) drop-shadow(0 0 15px #FF0000);
-            }
-        }
-
-        /* 17 Containers Slot Engine - Precisely from Snippet */
-        :root {
-            --neon-green: #39ff14;
-            --bg-color: #000;
-            --container-bg: #111;
-            --text-color: #fff;
-            --box-size: 50px;
-        }
-
-        /* The row holding the 17 individual containers */
-        .row-container {
-            display: flex;
-            flex-direction: row;
-            gap: 5px;
-            position: relative;
-            justify-content: center;
-        }
-
-        /* Individual Container for each letter */
+        /* 17 Containers Slot Engine */
+        .row-container { display: flex; gap: 5px; justify-content: center; margin: 20px 0; }
         .letter-container {
-            width: var(--box-size);
-            height: var(--box-size);
-            background-color: var(--container-bg);
+            width: 50px; height: 50px;
+            background-color: #111;
             border: 1px solid #333;
-            border-radius: 4px;
-            overflow: hidden;
-            position: relative;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            box-shadow: inset 0 0 10px rgba(0,0,0,0.8);
-            flex-shrink: 0;
+            border-radius: 4px; overflow: hidden;
+            position: relative; display: flex;
+            justify-content: center; align-items: center;
         }
 
-        .spinning-char {
-            font-size: 32px;
-            font-weight: bold;
-            color: var(--text-color);
-            position: absolute;
-            transition: transform 0.05s linear;
-        }
-
-        /* Revealed state */
+        .spinning-char { font-size: 32px; font-weight: bold; color: #fff; position: absolute; }
         .letter-container.revealed .spinning-char {
-            color: var(--neon-green);
-            text-shadow: 0 0 10px var(--neon-green), 0 0 20px var(--neon-green);
+            color: var(--neon-bright);
+            text-shadow: 0 0 10px var(--neon-bright);
             transform: translateY(0) !important;
         }
 
-        /* Outburst Effect */
-        .outburst-layer {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 100;
-            opacity: 0;
+        /* Technical Components */
+        .technical-component {
+            width: 100%; margin: 40px 0; border: 1px solid var(--ghost-neon-green); border-radius: 8px;
+            padding: 20px; background-color: rgba(0, 77, 0, 0.05); overflow-x: auto;
         }
 
-        .outburst-layer.active {
-            animation: neon-burst 0.7s ease-out forwards;
-        }
-
-        @keyframes neon-burst {
-            0% {
-                opacity: 0;
-                box-shadow: 0 0 0px 0px var(--neon-green);
-            }
-            30% {
-                opacity: 1;
-                box-shadow: 0 0 100px 50px var(--neon-green);
-            }
-            100% {
-                opacity: 0;
-                box-shadow: 0 0 200px 100px rgba(57, 255, 20, 0);
-            }
-        }
-
-        /* Mobile Responsive Slot Engine (v10.8.9 - Refined for Small Screens) */
-        @media (max-width: 900px) {
-            :root {
-                --box-size: clamp(8px, 4vw, 25px); /* REDUCED: Improved mobile fit */
-            }
-            .spinning-char {
-                font-size: clamp(6px, 3.2vw, 20px); /* REDUCED */
-            }
-            .row-container {
-                gap: 0.2vw; /* REDUCED: Tighter spacing */
-                flex-wrap: nowrap;
-                letter-spacing: normal; /* RESET: Prevent inheritance from title-container */
-            }
-        }
-
-        @media (max-width: 600px) {
-            #title-container {
-                font-size: 1.5em; /* Adjusted for smaller screens */
-                min-height: 2.2em;
-            }
-            .tagline { font-size: 0.8em !important; line-height: 1.4; }
-        }
-
-        #title-container {
-            color: var(--ghost-cream);
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            font-size: 2.2em;
-            margin: 0;
-            height: 1.8em;
-            overflow: visible !important;
-            position: relative;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            contain: paint;
-            min-height: 3.6em; /* 2x char height */
-            visibility: visible;
-            opacity: 0;
-            animation: fadeInTitle 0.1s ease-out 0.1s forwards;
-            width: 100%;
-        }
-
-        @keyframes fadeInTitle {
-            to { opacity: 1; }
-        }
-
-        .tagline {
-            color: var(--ghost-neon-green);
-            font-weight: bold;
-            font-size: 1em;
-            margin-top: 5px;
-            opacity: 0;
-            animation: fadeIn 0.5s ease-in 2.5s forwards;
-            max-width: 100%;
-            display: inline-block;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .mobile-break { display: none; }
-
-        @keyframes fadeIn {
-            to {
-                opacity: 1;
-            }
-        }
-
-        /* Button Styling */
-        .ghost-btn {
-            display: inline-block;
-            padding: 12px 24px;
-            margin-top: 25px;
-            border: 2px solid var(--ghost-neon-green);
-            color: var(--ghost-neon-green);
-            text-decoration: none;
-            font-weight: bold;
-            letter-spacing: 2px;
-            transition: 0.3s;
-            border-radius: 4px;
-            font-size: 0.9em;
-            opacity: 0;
-            animation: fadeIn 0.5s ease-in 2.8s forwards;
-        }
-
-        .ghost-btn:hover {
-            background-color: var(--ghost-dark-green);
-            color: var(--ghost-white);
-            box-shadow: 0 0 15px var(--ghost-neon-green);
-        }
-
-        .download-soon-img {
-            width: 100%;
-            max-width: 200px;
-            margin: 20px auto;
-            display: block;
-            transition: 0.3s;
-        }
-
-        .download-soon-img:hover {
-            transform: scale(1.05);
-            filter: drop-shadow(0 0 10px var(--ghost-neon-green));
-        }
-
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-
-        section {
-            background-color: rgba(0, 77, 0, 0.1);
-            margin-bottom: 30px;
-            padding: 25px;
-            border-radius: 20px;
-            border: 1px solid rgba(39, 174, 96, 0.3);
-            transition: all 0.3s ease;
-            box-shadow: 0 0 20px rgba(39, 174, 96, 0.3);
-            opacity: 0;
-            animation: fadeInUp 0.5s ease-out forwards;
-            animation-delay: calc(2.5s + (var(--order, 0) * 0.1s));
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        section:nth-child(1) { --order: 1; }
-        section:nth-child(2) { --order: 2; }
-        section:nth-child(3) { --order: 3; }
-        section:nth-child(4) { --order: 4; }
-        section:nth-child(5) { --order: 5; }
-        section:nth-child(6) { --order: 6; }
-        section:nth-child(7) { --order: 7; }
-
-        section:hover {
-            box-shadow: 0 0 30px rgba(39, 174, 96, 0.5);
-            border-color: rgba(39, 174, 96, 0.6);
-        }
-
-        h2 {
-            color: var(--ghost-neon-green);
-            text-transform: uppercase;
-            font-size: 1.2em;
-            border-bottom: 1px solid var(--ghost-dark-green);
-            padding-bottom: 10px;
-            margin-top: 0;
-        }
-
-        .ghost-line {
-            font-size: 1.5em;
-            color: var(--ghost-cream);
-            text-align: center;
-            font-weight: bold;
-            white-space: nowrap;
-            margin: 25px 0;
-            display: block;
-            opacity: 0;
-            animation: fadeIn 0.5s ease-in 2.3s forwards;
-        }
-
-        /* AI-FIX: Proportional Download Button & Mobile UI Refinements (v10.8.9) */
-        @media (max-width: 480px) {
-            .mobile-break { display: block; height: 0; }
-            .ghost-line { font-size: 1.05em; white-space: normal !important; margin: 15px 0; overflow-wrap: break-word; }
-            section { padding: 15px; margin-bottom: 20px; border-radius: 12px; }
-            h2 { font-size: 1.1em; }
-            .download-soon-img { max-width: 180px; margin: 20px auto; }
-            .dropdown-content { right: -10px; min-width: 200px; }
-            .modal-content { width: 95%; max-height: 90vh; }
-            .logo { max-width: 80px; margin-bottom: 10px; }
-            header { padding: 40px 10px; overflow-x: hidden; }
-            .tagline { font-size: 0.75em !important; line-height: 1.4; }
-            .ghost-btn { padding: 10px 20px; font-size: 0.8em; }
-            .signature-creator { font-size: 0.75em !important; }
-
-            /* ULTRA-MOBILE SLOT ENGINE REFINEMENT */
-            :root {
-                --box-size: clamp(8px, 5.2vw, 18px);
-            }
-            .spinning-char {
-                font-size: clamp(6px, 4.2vw, 14px);
-            }
-            .row-container {
-                gap: 0.3vw;
-            }
-        }
-
-        .support-box {
-            text-align: center;
-            border: 1px solid var(--ghost-neon-green);
-        }
-
-        .bear-img {
-            max-width: 150px;
-            border-radius: 50%;
-            border: 2px solid var(--ghost-neon-green);
-            margin-bottom: 20px;
-            transition: all 0.3s ease;
-            box-shadow: 0 0 15px rgba(39, 174, 96, 0.3);
-        }
-
-        .bear-img:hover {
-            box-shadow: 0 0 25px rgba(39, 174, 96, 0.6);
-        }
-
-        .bottom-bear {
-            max-width: 60px;
-            margin-top: 20px;
-            transition: all 0.3s ease;
-        }
-
-        .bottom-bear:hover {
-            filter: drop-shadow(0 0 8px var(--ghost-neon-green));
-        }
-
+        table { width: 100%; border-collapse: collapse; font-size: 0.85em; color: var(--ghost-cream); }
+        th, td { text-align: left; padding: 12px; border-bottom: 1px solid rgba(39, 174, 96, 0.2); }
+        th { color: var(--ghost-neon-green); text-transform: uppercase; }
         .highlight { color: var(--ghost-neon-green); font-weight: bold; }
 
-        .footer-signature {
-            font-size: 1.5em;
-            margin-top: 20px;
-            display: block;
+        /* PayPal Button */
+        .paypal-wrapper { margin: 25px 0; display: flex; justify-content: center; }
+        .paypal-btn { 
+            display: inline-block; transition: 0.3s; border-radius: 12px; overflow: hidden; 
+            height: 56px; border: 1px solid rgba(39, 174, 96, 0.3); 
         }
+        .paypal-btn:hover { transform: scale(1.05); box-shadow: 0 0 20px rgba(39, 174, 96, 0.4); border-color: var(--ghost-neon-green); }
 
-        footer {
-            text-align: center;
-            padding: 40px 20px;
-            font-size: 0.8em;
-            color: #777;
-            background: #050505;
-        }
+        /* Multi-Language Styling */
+        html[lang="de"] [lang="en"] { display: none; }
+        html[lang="en"] [lang="de"] { display: none; }
+        .lang-switch { position: absolute; top: 20px; left: 20px; z-index: 1000; }
+        .lang-btn { cursor: pointer; padding: 5px 10px; border: 1px solid var(--ghost-neon-green); background: var(--bg-black); color: var(--ghost-neon-green); font-size: 0.8em; }
+        .lang-btn.active { background: var(--ghost-neon-green); color: var(--bg-black); }
 
-        .signature-creator {
-            opacity: 0;
-            animation: fadeIn 0.5s ease-in 2.8s forwards;
-        }
+        footer { text-align: center; padding: 40px 20px; font-size: 0.8em; color: #777; background: #050505; }
+        .footer-signature { font-size: 1.5em; margin-top: 20px; display: block; }
     </style>
 </head>
 <body>
 
-    <!-- AI-FIX: Floating Navigation Menu -->
+    <div class="lang-switch">
+        <span class="lang-btn" id="btn-en" onclick="setLang('en')">EN</span>
+        <span class="lang-btn" id="btn-de" onclick="setLang('de')">DE</span>
+    </div>
+
     <div class="menu-container">
-        <img src="menu_icon.png" alt="Menu" class="menu-icon">
+        <div class="hamburger"></div>
         <div class="dropdown-content">
-            <a href="https://glokta1991.github.io/legal-docs/privacy.html" target="_blank">Privacy Policy</a>
-            <a href="https://glokta1991.github.io/legal-docs/terms.html" target="_blank">Terms of Service</a>
-            <a href="https://glokta1991.github.io/legal-docs/manifesto.html" target="_blank">Manifesto</a>
-            <a href="https://glokta1991.github.io/legal-docs/white_paper.html" target="_blank">White Paper</a>
-            <a href="https://glokta1991.github.io/legal-docs/transparency_report.html" target="_blank">Transparency Report</a>
-            <a id="cookiePolicyLink" style="cursor: pointer;">Cookie Policy</a>
-            <a id="impressumLink" style="cursor: pointer;">Impressum</a>
+            <a href="https://glokta1991.github.io/legal-docs/privacy.html">Privacy Policy</a>
+            <a href="https://glokta1991.github.io/legal-docs/manifesto.html">Manifesto</a>
+            <a href="https://glokta1991.github.io/legal-docs/white_paper.html">White Paper</a>
+            <a id="cookiePolicyLink">Cookie Policy</a>
+            <a id="impressumLink">Impressum</a>
         </div>
     </div>
 
-    <!-- MODAL FOR COOKIE POLICY -->
+    <!-- Cookie Modal -->
     <div id="cookieModal" class="modal-overlay">
         <div class="modal-content">
-            <div class="modal-header">
-                <h2>Cookie Transparency Policy</h2>
-                <button class="close-modal" id="closeCookieModalBtn">×</button>
-            </div>
-            <div class="modal-body">
-                <p><b>Status: Zero-Tracking Architecture</b></p>
-                <p>SecureMessenger is engineered for Stateless Privacy. I do not track user behavior, utilize Google Analytics, or deploy marketing pixels. While my code is cookie-free, I utilize Cloudflare for DDoS protection; you may occasionally see a strictly necessary security cookie used solely for bot protection. This is exempt from consent under <b>§ 25 para. 2 TDDDG</b>.</p>
-                <button id="acceptCookieBtn" class="accept-btn">✓ I ACCEPT THE COOKIE POLICY</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- MODAL FOR IMPRESSUM -->
-    <div id="impressumModal" class="modal-overlay">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2>Impressum</h2>
-                <button class="close-modal" id="closeImpressumModalBtn">×</button>
-            </div>
-            <div class="modal-body">
-                <p><b>Inhalte gemäß §5 DDG</b></p>
-                <p>Individual Entrepreneur</p>
-                <p>c/o IP-Management #9966<br>Ludwig-Erhard-Straße 18<br>20459 Hamburg</p>
-                <p><b>Kontaktdaten:</b><br>E-Mail: securemessenger0@gmail.com<br>Telefon: 00491749385199</p>
-                <p>Quelle: Impressum-Privatschutz</p>
-                <button id="closeImpressumAcceptBtn" class="accept-btn">✓ CLOSE</button>
-            </div>
+            <h2 lang="en">Cookie Policy</h2><h2 lang="de">Cookie-Richtlinie</h2>
+            <p lang="en">Status: Zero-Tracking Architecture active.</p>
+            <p lang="de">Status: Zero-Tracking-Architektur aktiv.</p>
+            <button id="acceptCookieBtn" class="accept-btn">✓ ACCEPT</button>
         </div>
     </div>
 
     <header>
-        <img src="glass_logo.png" alt="Secure Messenger Logo" class="logo">
-        <div id="title-container">
+        <img src="/glass_logo.png" alt="Secure Messenger Logo" class="logo">
+        <div id="title-container" style="display: flex; justify-content: center; align-items: center; min-height: 80px;">
             <div class="row-container" id="main-row">
                 <div class="outburst-layer" id="burst"></div>
-                <!-- 17 individual containers will be injected here -->
             </div>
         </div>
-        <p class="tagline">v10.8.9 | White Label Encrypted Zero Knowledge Communications Platform</p>
-        <p style="text-align: center; font-size: 0.8em; opacity: 0.7; margin-top: 10px;">Updated: July 10, 2026</p>
-
-        <div>
-            <a href="https://glokta1991.github.io/legal-docs/white_paper.html" class="ghost-btn">EXPLORE THE ARCHITECTURE</a>
-            <div class="signature-creator" style="margin-top: 15px; font-size: 0.85em; color: var(--ghost-cream); opacity: 0.8; line-height: 1.5; padding: 0 10px;">
-                Created, financed and designed by <span class="highlight">dQuantumBear</span><br>
-                Contact: <span class="highlight" style="word-break: break-all;">securemessenger0@gmail.com</span>
-            </div>
+        <p class="tagline">
+            <span lang="en">v26.1.0-STABLE (GHOST-PHOENIX-VI) | White Label Zero-Knowledge Communications</span>
+            <span lang="de">v26.1.0-STABLE (GHOST-PHOENIX-VI) | White-Label Zero-Knowledge Kommunikation</span>
+        </p>
+        <div style="margin-top: 20px;">
+            <a href="https://glokta1991.github.io/legal-docs/white_paper.html" class="ghost-btn" style="text-decoration: none; border: 2px solid var(--ghost-neon-green); padding: 10px 20px; color: var(--ghost-neon-green); font-weight: bold;">EXPLORE THE ARCHITECTURE</a>
         </div>
     </header>
 
-    <div class="container">
-
-        <span class="ghost-line">"To you, I am a conduit. To the world, you are a Ghost."</span>
-
-        <section>
-            <p>
-                Most "secure" apps still track your identity. They hold your phone number, sync your contacts, and log your patterns. SecureMessenger is different. This is a <b>White Label Communications Platform</b> engineered to be physically and mathematically incapable of watching you.
-            </p>
+    <div class="container" style="max-width: 850px; margin: 0 auto; padding: 20px;">
+        
+        <section style="margin: 40px 0; text-align: center;">
+            <p lang="en">"To you, I am a private bridge. To the world, you are a Ghost."</p>
+            <p lang="de">„Für dich bin ich eine private Brücke. Für die Welt bist du ein Geist.“</p>
         </section>
 
-        <section>
-            <h2>1. Identity Sovereignty (The 12-Word Master Key)</h2>
-            <p><b>The Advantage:</b> Unlike Signal or WhatsApp, SecureMessenger requires zero personal data.</p>
-            <ul>
-                <li><span class="highlight">Zero Identifiers:</span> No phone numbers, no SIM cards, and no email addresses.</li>
-                <li><span class="highlight">Local Generation:</span> Your identity is a private 12-word cryptographic seed generated entirely on your device.</li>
-                <li><span class="highlight">Total Ownership:</span> I do not store passwords. If you hold your 12 words, you hold your data. If you lose them, your account is unreachable forever.</li>
-            </ul>
-        </section>
+        <div class="technical-component">
+            <h3 lang="en">⚡ Feature Comparison</h3>
+            <h3 lang="de">⚡ Feature-Vergleich</h3>
+            <table>
+                <thead>
+                    <tr><th>Feature</th><th>Signal</th><th>SecureMessenger</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>Identity</td><td>Phone Number</td><td class="highlight">Zero Identifiers (BIP39)</td></tr>
+                    <tr><td>VoIP</td><td>Direct/P2P Sync</td><td class="highlight">RELAY_ONLY (No IP Leak)</td></tr>
+                    <tr><td>Persistence</td><td>Standard Delete</td><td class="highlight">3-Pass Forensic Shredder</td></tr>
+                </tbody>
+            </table>
+        </div>
 
-        <section>
-            <h2>2. The Blind Relay: Passing Through the Shadows</h2>
-            <p><b>The Advantage:</b> Traditional servers log IP addresses and timestamps. My "Blind Relay" doctrine makes the server a mere conduit.</p>
-            <ul>
-                <li><span class="highlight">IP Volatility:</span> Your IP address is processed in volatile RAM and instantly overwritten. No history. No trail.</li>
-                <li><span class="highlight">RAM-to-RAM Relay:</span> Messages exist on the server only until they reach the recipient's device, then they are purged instantly.</li>
-                <li><span class="highlight">Full-Spectrum Media Encryption:</span> Avatars, GIFs, Voice Notes, and Documents are encrypted locally before upload. To the cloud, your data is unrecognizable noise.</li>
-            </ul>
-        </section>
-
-        <section>
-            <h2>3. Forensic Shredding: User-Commanded Destruction</h2>
-            <p><b>The Advantage:</b> Standard "deletion" leaves traces on your phone's storage. SecureMessenger gives you a digital shredder.</p>
-            <ul>
-                <li><span class="highlight">Absolute Sovereignty:</span> I never automatically delete your data. You are the sole authority.</li>
-                <li><span class="highlight">Overwriting Protocol:</span> When you choose to delete a message or contact, my shredder overwrites the data with high-entropy noise before removal to defeat forensic recovery tools.</li>
-                <li><span class="highlight">Hardware Armor:</span> Your cryptographic keys are isolated inside your phone's Hardware Secure Element (TEE), remaining safe even if the physical device is compromised.</li>
-            </ul>
-        </section>
-
-        <section>
-            <h2>4. The Sovereign Handshake: Invisible by Default</h2>
-            <p><b>The Advantage:</b> Stop discovery probing. In SecureMessenger, you are invisible until you choose to be seen.</p>
-            <ul>
-                <li><span class="highlight">24-Hour Invites:</span> Add contacts using one-time, temporary 6-digit codes.</li>
-                <li><span class="highlight">Authoritative Stealth:</span> Ghost Mode freezes your status as "Offline" at the server level, allowing you to operate while remaining in the shadows.</li>
-                <li><span class="highlight">Quarantine Shield:</span> Blocking a user drops their data at the network border. They won't even know they've been quarantined.</li>
-            </ul>
-        </section>
-
-        <section>
-            <h2>5. Physical Sovereignty: Your Alibi in a Crisis</h2>
-            <p><b>The Advantage:</b> Security must hold even if your device is seized.</p>
-            <ul>
-                <li><span class="highlight">The Panic PIN:</span> A secondary password for high-pressure situations. Entering it triggers an immediate, irreversible "Nuclear Wipe" of all keys, contacts, and messages.</li>
-                <li><span class="highlight">The 503 Alibi:</span> After a Panic Wipe, the app displays a generic "Network Error (503)" to provide a plausible technical excuse for why it will not open.</li>
-                <li><span class="highlight">Screen Armor:</span> The app remains invisible to the task switcher and natively blocks all screenshot and screen-recording attempts.</li>
-            </ul>
-        </section>
-
-        <section>
-            <h2>6. Hardware Scarcity & Sovereign Migration</h2>
-            <p><b>The Advantage:</b> One phone, one soul. No spam bots, just bit-perfect restoration.</p>
-            <ul>
-                <li><span class="highlight">TEE Hardware Anchor:</span> Your identity is anchored to your phone's Secure Element. We use a salted cryptographic hash, ensuring account scarcity while maintaining total anonymity.</li>
-                <li><span class="highlight">The Single-Seat Rule:</span> You can only be active on one phone at a time. Activating a new device instantly kicks off the old one, preventing account cloning.</li>
-                <li><span class="highlight">Local Air-Bridge:</span> Move your messages, friends, and high-res media directly between phones via local Wi-Fi. It never touches the cloud, Google, or our servers.</li>
-                <li><span class="highlight">Silent Healing:</span> If you reinstall, your app silently handshakes with your contacts to restore their names and profiles in the background.</li>
-            </ul>
-        </section>
-
-        <section class="support-box">
-            <img src="bear_panic.png" alt="dQuantumBear" class="bear-img">
-            <h2>Built by One. Powered by You.</h2>
-            <p>
-                Secure Messenger is a project developed, designed and financed by One (1) individual with zero support from Big Tech, venture capital, or billionaire interests.
-            </p>
-            <p>
-                This project is fueled by the community. The Jar is thankful, and so am I.
-            </p>
-            <p>
-                <b>Forensic Isolation:</b> All donations are handled via external system browsers. SecureMessenger never touches your financial metadata, keeping your support 100% decoupled from your identity.
-            </p>
-            <p>
-                If you want to additionally support me my PayPal is <span class="highlight">nexus.mnemonic@gmail.com</span>
-            </p>
+        <section class="support-box" style="text-align: center; border: 1px solid var(--ghost-neon-green); padding: 40px; border-radius: 20px;">
+            <img src="/bear_panic.png" alt="dQuantumBear" style="max-width: 150px; border-radius: 50%; border: 2px solid var(--ghost-neon-green);">
+            <h2 lang="en">Built by One. Powered by You.</h2>
+            <h2 lang="de">Gebaut von Einem. Angetrieben von Ihnen.</h2>
+            
+            <div class="paypal-wrapper">
+                <a href="https://www.paypal.com/donate/?hosted_button_id=5BFMXH6TM5ZPN" target="_blank" class="paypal-btn">
+                    <img src="/paypal.png" alt="Support with PayPal">
+                </a>
+            </div>
+            
+            <p class="highlight">Contact: securemessenger4U@proton.me</p>
             <p class="highlight">— dQuantumBear</p>
-        </section>
-
-        <img src="playstore.png" alt="Download APK Soon" class="download-soon-img">
-
-        <section style="text-align: center; border: none; background: transparent;">
-            <div style="font-size: 0.9em; margin-bottom: 10px;">
-                <span class="highlight">NO PHONE NUMBERS</span> &bull; <span class="highlight">NO METADATA</span> &bull; <span class="highlight">NO SURVEILLANCE</span>
-            </div>
-            <div class="highlight" style="font-size: 1.1em; letter-spacing: 1px;">
-                COMPLETE PHYSICAL SOVEREIGNTY
-            </div>
-        </section>
-
-        <section id="cookie-policy" style="font-size: 0.85em; line-height: 1.6;">
-            <h2>Cookie Transparency Policy</h2>
-            <p><b>Status: Zero-Tracking Architecture</b></p>
-            <p>SecureMessenger is engineered for Stateless Privacy. I do not track user behavior, utilize Google Analytics, or deploy marketing pixels. While my code is cookie-free, I utilize Cloudflare for DDoS protection; you may occasionally see a strictly necessary security cookie used solely for bot protection. This is exempt from consent under <b>§ 25 para. 2 TDDDG</b>.</p>
-        </section>
-
-        <section id="impressum" style="font-size: 0.75em; opacity: 0.6; line-height: 1.6; border-top: 1px solid var(--ghost-dark-green); padding-top: 20px;">
-            <h2 style="font-size: 1.1em;">Impressum</h2>
-            <p>Inhalte gemäß §5 DDG</p>
-            <p>Individual Entrepreneur</p>
-            <p>c/o IP-Management #9966<br>Ludwig-Erhard-Straße 18<br>20459 Hamburg</p>
-            <p><b>Kontaktdaten:</b><br>E-Mail: securemessenger0@gmail.com<br>Telefon: 00491749385199</p>
-            <p>Quelle: Impressum-Privatschutz</p>
         </section>
 
     </div>
 
     <footer>
-        <img src="app_icon_bear.jpg" alt="Sovereign Bear" class="bottom-bear"><br>
+        <img src="/app_icon_bear.jpg" alt="Sovereign Bear" style="max-width: 60px;"><br>
         <span class="footer-signature">🐻❤️M</span><br><br>
         &copy; 2026 Secure Messenger Project. Engineered for Privacy.
     </footer>
 
-    <script>
-        const targetStr = "SECURE MESSENGER "; // Exactly 17 characters
-        const charset = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+-=[]{}|;:,.<>?";
+    <script is:inline>
+        // SLOT MACHINE LOGIC
+        const targetStr = "SECURE MESSENGER "; 
+        const charset = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()";
         const row = document.getElementById('main-row');
-        const burst = document.getElementById('burst');
         const containers = [];
 
-        // 1. Create 17 individual containers
         for (let i = 0; i < 17; i++) {
             const container = document.createElement('div');
             container.className = 'letter-container';
-
             const charSpan = document.createElement('span');
             charSpan.className = 'spinning-char';
-            charSpan.textContent = charset[Math.floor(Math.random() * charset.length)];
-
+            charSpan.textContent = charset[0];
             container.appendChild(charSpan);
             row.appendChild(container);
-
-            containers.push({
-                element: container,
-                textNode: charSpan,
-                target: targetStr[i],
-                isRevealed: false,
-                spinSpeed: 50 + Math.random() * 50 // ms per char change
-            });
+            containers.push({ element: container, textNode: charSpan, target: targetStr[i], isRevealed: false });
         }
 
-        // 2. Spinning Logic for each container
         function spin(index) {
             const c = containers[index];
             if (c.isRevealed) return;
-
-            // Change character randomly
             c.textNode.textContent = charset[Math.floor(Math.random() * charset.length)];
-
-            // Visual downward spin effect (slight nudge)
-            c.textNode.style.transform = `translateY(${Math.random() * 10}px)`;
-
-            setTimeout(() => spin(index), c.spinSpeed);
+            setTimeout(() => spin(index), 70);
         }
+        containers.forEach((_, i) => spin(i));
 
-        // Start all spinning
-        for (let i = 0; i < 17; i++) {
-            spin(i);
-        }
-
-        // 3. Sequential Reveal Logic (7-10 seconds total)
-        // We start revealing after 7 seconds, one by one.
-        const startRevealTime = 7000;
-        const revealInterval = 150; // 150ms between each letter reveal
-
-        function revealNext(index) {
-            if (index >= 17) {
-                // All revealed, trigger outburst
+        setTimeout(() => {
+            containers.forEach((c, i) => {
                 setTimeout(() => {
-                    burst.classList.add('active');
-                }, 200);
-                return;
-            }
-
-            const c = containers[index];
-
-            // Slow down simulation: just before revealing, we can "stutter" the spin
-            // But for simplicity and impact, we lock it to the target
-            c.isRevealed = true;
-            c.textNode.textContent = c.target;
-            c.element.classList.add('revealed');
-
-            setTimeout(() => revealNext(index + 1), revealInterval);
-        }
-
-        // Trigger the reveal sequence after 7 seconds
-        setTimeout(() => revealNext(0), startRevealTime);
-
-        const cookieModal = document.getElementById('cookieModal');
-        const impressumModal = document.getElementById('impressumModal');
-        const cookiePolicyLink = document.getElementById('cookiePolicyLink');
-        const impressumLink = document.getElementById('impressumLink');
-        const closeCookieBtn = document.getElementById('closeCookieModalBtn');
-        const closeImpressumBtn = document.getElementById('closeImpressumModalBtn');
-        const closeImpressumAcceptBtn = document.getElementById('closeImpressumAcceptBtn');
-
-        function openCookieModal() { cookieModal.style.display = 'flex'; document.body.style.overflow = 'hidden'; }
-        function closeCookieModal() { cookieModal.style.display = 'none'; document.body.style.overflow = ''; }
-        function openImpressumModal() { impressumModal.style.display = 'flex'; document.body.style.overflow = 'hidden'; }
-        function closeImpressumModal() { impressumModal.style.display = 'none'; document.body.style.overflow = ''; }
-
-        if (cookiePolicyLink) cookiePolicyLink.addEventListener('click', function(e) { e.preventDefault(); openCookieModal(); });
-        if (impressumLink) impressumLink.addEventListener('click', function(e) { e.preventDefault(); openImpressumModal(); });
-        if (closeCookieBtn) closeCookieBtn.addEventListener('click', closeCookieModal);
-        if (closeImpressumBtn) closeImpressumBtn.addEventListener('click', closeImpressumModal);
-        if (closeImpressumAcceptBtn) closeImpressumAcceptBtn.addEventListener('click', closeImpressumModal);
-
-        const acceptCookieBtn = document.getElementById('acceptCookieBtn');
-        if (acceptCookieBtn) {
-            acceptCookieBtn.addEventListener('click', function() {
-                closeCookieModal();
-                localStorage.setItem('cookiePolicyAccepted', 'true');
+                    c.isRevealed = true;
+                    c.textNode.textContent = c.target;
+                    c.element.classList.add('revealed');
+                }, i * 150);
             });
+        }, 3000);
+
+        // LANGUAGE TOGGLE
+        function setLang(lang) {
+            document.documentElement.lang = lang;
+            document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById('btn-' + lang).classList.add('active');
+            localStorage.setItem('preferred-lang', lang);
         }
+        setLang(localStorage.getItem('preferred-lang') || 'en');
 
-        window.addEventListener('click', function(e) {
-            if (e.target === cookieModal) closeCookieModal();
-            if (e.target === impressumModal) closeImpressumModal();
-        });
-
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
-                if (cookieModal.style.display === 'flex') closeCookieModal();
-                if (impressumModal.style.display === 'flex') closeImpressumModal();
-            }
-        });
+        // MODALS
+        const cookieModal = document.getElementById('cookieModal');
+        document.getElementById('cookiePolicyLink').onclick = () => cookieModal.style.display = 'flex';
+        document.getElementById('acceptCookieBtn').onclick = () => cookieModal.style.display = 'none';
     </script>
 </body>
 </html>
