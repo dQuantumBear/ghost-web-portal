@@ -1,336 +1,638 @@
----
-// index.astro - SecureMessenger Landing Page v26.1.0-STABLE (GHOST-PHOENIX-VI)
----
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Secure Messenger | White Label Zero-Knowledge Encrypted Communications Platform</title>
-    <style is:global>
-        :root {
-            --bg-black: #000000;
-            --ghost-dark-green: #004D00;
-            --ghost-neon-green: #27AE60;
-            --ghost-white: #FFFFFF;
-            --ghost-cream: #FFFDD0;
-            --ghost-red: #FF0000;
-            --ghost-dark-red: #8B0000;
-            --neon-bright: #39ff14;
-        }
+<!DOCTYPE html> <html lang="en"> <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>Secure Messenger | White Label Zero-Knowledge Encrypted Communications Platform</title> <style is:global> :root { --bg-black: #000000; --ghost-dark-green: #004D00; --ghost-neon-green: #27AE60; --ghost-white: #FFFFFF; --ghost-cream: #FFFDD0; --ghost-red: #FF0000; --ghost-dark-red: #8B0000; --neon-bright: #39ff14; }
+    html { scroll-behavior: smooth; }
 
-        html { scroll-behavior: smooth; }
+    body {
+        background-color: var(--bg-black);
+        color: var(--ghost-white);
+        font-family: 'Courier New', Courier, monospace;
+        margin: 0;
+        padding: 0;
+        line-height: 1.4;
+        position: relative;
+        overflow-x: hidden;
+        box-sizing: border-box;
+    }
 
-        body {
-            background-color: var(--bg-black);
-            color: var(--ghost-white);
-            font-family: 'Courier New', Courier, monospace;
-            margin: 0;
-            padding: 0;
-            line-height: 1.4;
-            position: relative;
-            overflow-x: hidden;
-            box-sizing: border-box;
-        }
+    *, *:before, *:after {
+        box-sizing: inherit;
+    }
 
-        *, *:before, *:after { box-sizing: inherit; }
+    /* Modal Overlay - Floating Window */
+    .modal-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.85);
+        backdrop-filter: blur(8px);
+        z-index: 2000;
+        justify-content: center;
+        align-items: center;
+    }
 
-        /* Navigation Menu */
-        .menu-container {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            z-index: 1000;
-            cursor: pointer;
-            padding: 10px;
-        }
+    .modal-content {
+        position: relative;
+        background-color: var(--bg-black);
+        border: 2px solid var(--ghost-neon-green);
+        border-radius: 16px;
+        max-width: 500px;
+        width: 90%;
+        max-height: 80vh;
+        overflow-y: auto;
+        box-shadow: 0 0 40px rgba(39, 174, 96, 0.5);
+        animation: modalFadeIn 0.3s ease-out;
+    }
 
-        .hamburger {
-            width: 30px;
-            height: 3px;
-            background-color: var(--ghost-neon-green);
-            position: relative;
-            transition: 0.3s;
-            box-shadow: 0 0 10px var(--ghost-neon-green);
-        }
+    @keyframes modalFadeIn {
+        from { opacity: 0; transform: scale(0.95); }
+        to { opacity: 1; transform: scale(1); }
+    }
 
-        .hamburger::before, .hamburger::after {
-            content: '';
-            position: absolute;
-            width: 30px;
-            height: 3px;
-            background-color: var(--ghost-neon-green);
-            transition: 0.3s;
-            box-shadow: 0 0 10px var(--ghost-neon-green);
-        }
+    .modal-header {
+        padding: 20px 25px 10px 25px;
+        border-bottom: 1px solid var(--ghost-dark-green);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
 
-        .hamburger::before { top: -10px; }
-        .hamburger::after { top: 10px; }
+    .modal-header h2 {
+        margin: 0;
+        color: var(--ghost-neon-green);
+        text-transform: uppercase;
+        font-size: 1.3em;
+        border: none;
+        padding: 0;
+    }
 
-        .menu-container:hover .hamburger, 
-        .menu-container:hover .hamburger::before, 
-        .menu-container:hover .hamburger::after { 
-            background-color: var(--ghost-white); 
-            box-shadow: 0 0 15px var(--ghost-white); 
-        }
+    .close-modal {
+        background: none;
+        border: none;
+        color: var(--ghost-neon-green);
+        font-size: 28px;
+        cursor: pointer;
+        padding: 0;
+        width: 32px;
+        height: 32px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        transition: 0.2s;
+    }
 
-        .dropdown-content {
-            display: none;
-            position: absolute;
-            right: 0;
-            top: 100%;
-            background-color: var(--bg-black);
-            min-width: 240px;
-            border: 2px solid var(--ghost-neon-green);
-            border-radius: 8px;
-            box-shadow: 0 0 20px rgba(39, 174, 96, 0.4);
-            padding: 10px 0;
-            z-index: 1001;
-        }
+    .close-modal:hover {
+        background-color: var(--ghost-dark-green);
+        transform: scale(1.1);
+    }
 
-        .menu-container:hover .dropdown-content { display: block; }
+    .modal-body {
+        padding: 20px 25px;
+        font-size: 0.9em;
+        line-height: 1.6;
+        color: var(--ghost-cream);
+    }
 
-        .dropdown-content a {
-            color: var(--ghost-white);
-            padding: 12px 20px;
-            text-decoration: none;
-            display: block;
-            font-size: 0.9em;
-            text-transform: uppercase;
-            font-weight: bold;
-            transition: 0.2s;
-            border-bottom: 1px solid rgba(39, 174, 96, 0.1);
-        }
+    .accept-btn {
+        display: block;
+        width: 100%;
+        padding: 12px;
+        margin-top: 20px;
+        background-color: transparent;
+        border: 2px solid var(--ghost-neon-green);
+        color: var(--ghost-neon-green);
+        font-weight: bold;
+        font-size: 1em;
+        cursor: pointer;
+        border-radius: 8px;
+        transition: 0.3s;
+        font-family: inherit;
+    }
 
-        .dropdown-content a:hover { background-color: var(--ghost-dark-green); color: var(--ghost-neon-green); }
+    .accept-btn:hover {
+        background-color: var(--ghost-dark-green);
+        color: var(--ghost-white);
+        box-shadow: 0 0 15px var(--ghost-neon-green);
+    }
 
-        /* Modals */
-        .modal-overlay {
-            display: none;
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background-color: rgba(0, 0, 0, 0.85);
-            backdrop-filter: blur(8px);
-            z-index: 2000;
-            justify-content: center;
-            align-items: center;
-        }
+    /* Floating Navigation Menu */
+    .menu-container {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        z-index: 1000;
+        cursor: pointer;
+        padding: 10px;
+    }
 
-        .modal-content {
-            background-color: var(--bg-black);
-            border: 2px solid var(--ghost-neon-green);
-            border-radius: 16px;
-            max-width: 500px;
-            width: 90%;
-            padding: 20px;
-            box-shadow: 0 0 40px rgba(39, 174, 96, 0.5);
-        }
+    .hamburger {
+        width: 30px;
+        height: 3px;
+        background-color: var(--ghost-neon-green);
+        position: relative;
+        transition: 0.3s;
+        box-shadow: 0 0 10px var(--ghost-neon-green);
+    }
 
-        .accept-btn { display: block; width: 100%; padding: 12px; margin-top: 20px; background-color: transparent; border: 2px solid var(--ghost-neon-green); color: var(--ghost-neon-green); font-weight: bold; cursor: pointer; border-radius: 8px; transition: 0.3s; }
-        .accept-btn:hover { background-color: var(--ghost-dark-green); color: var(--ghost-white); }
+    .hamburger::before, .hamburger::after {
+        content: '';
+        position: absolute;
+        width: 30px;
+        height: 3px;
+        background-color: var(--ghost-neon-green);
+        transition: 0.3s;
+        box-shadow: 0 0 10px var(--ghost-neon-green);
+    }
 
-        /* Header */
-        header {
-            padding: 60px 10px;
-            text-align: center;
-            background: linear-gradient(to bottom, var(--ghost-dark-green), var(--bg-black));
-            border-bottom: 1px solid var(--ghost-neon-green);
-        }
+    .hamburger::before { top: -10px; }
+    .hamburger::after { top: 10px; }
 
-        .logo { max-width: 120px; margin-bottom: 15px; animation: redToGreenGlow 3s ease-in-out infinite; }
+    .menu-container:hover .hamburger, 
+    .menu-container:hover .hamburger::before, 
+    .menu-container:hover .hamburger::after { 
+        background-color: var(--ghost-white); 
+        box-shadow: 0 0 15px var(--ghost-white); 
+    }
 
-        @keyframes redToGreenGlow {
-            0%, 100% { filter: drop-shadow(0 0 5px #FF0000); }
-            50% { filter: drop-shadow(0 0 20px #27AE60); }
-        }
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        right: 0;
+        top: 100%;
+        background-color: var(--bg-black);
+        min-width: 240px;
+        border: 2px solid var(--ghost-neon-green);
+        border-radius: 8px;
+        box-shadow: 0 0 20px rgba(39, 174, 96, 0.4);
+        padding: 10px 0;
+        z-index: 1001;
+    }
 
-        /* 17 Containers Slot Engine */
-        .row-container { display: flex; gap: 5px; justify-content: center; margin: 20px 0; }
-        .letter-container {
-            width: 50px; height: 50px;
-            background-color: #111;
-            border: 1px solid #333;
-            border-radius: 4px; overflow: hidden;
-            position: relative; display: flex;
-            justify-content: center; align-items: center;
-        }
+    .menu-container:hover .dropdown-content { display: block; }
 
-        .spinning-char { font-size: 32px; font-weight: bold; color: #fff; position: absolute; }
-        .letter-container.revealed .spinning-char {
-            color: var(--neon-bright);
-            text-shadow: 0 0 10px var(--neon-bright);
-            transform: translateY(0) !important;
-        }
+    .dropdown-content a {
+        color: var(--ghost-white);
+        padding: 12px 20px;
+        text-decoration: none;
+        display: block;
+        font-size: 0.9em;
+        text-transform: uppercase;
+        font-weight: bold;
+        transition: 0.2s;
+        border-bottom: 1px solid rgba(39, 174, 96, 0.1);
+    }
 
-        /* Technical Components */
-        .technical-component {
-            width: 100%; margin: 40px 0; border: 1px solid var(--ghost-neon-green); border-radius: 8px;
-            padding: 20px; background-color: rgba(0, 77, 0, 0.05); overflow-x: auto;
-        }
+    .dropdown-content a:hover {
+        background-color: var(--ghost-dark-green);
+        color: var(--ghost-neon-green);
+    }
 
-        table { width: 100%; border-collapse: collapse; font-size: 0.85em; color: var(--ghost-cream); }
-        th, td { text-align: left; padding: 12px; border-bottom: 1px solid rgba(39, 174, 96, 0.2); }
-        th { color: var(--ghost-neon-green); text-transform: uppercase; }
-        .highlight { color: var(--ghost-neon-green); font-weight: bold; }
+    header {
+        padding: 60px 10px;
+        text-align: center;
+        background: linear-gradient(to bottom, var(--ghost-dark-green), var(--bg-black));
+        border-bottom: 1px solid var(--ghost-neon-green);
+        overflow: hidden;
+    }
 
-        /* PayPal Button */
-        .paypal-wrapper { margin: 25px 0; display: flex; justify-content: center; }
-        .paypal-btn { 
-            display: inline-block; transition: 0.3s; border-radius: 12px; overflow: hidden; 
-            height: 56px; border: 1px solid rgba(39, 174, 96, 0.3); 
-        }
-        .paypal-btn:hover { transform: scale(1.05); box-shadow: 0 0 20px rgba(39, 174, 96, 0.4); border-color: var(--ghost-neon-green); }
+    .logo {
+        max-width: 120px;
+        height: auto;
+        margin-bottom: 15px;
+        animation: redToGreenGlow 3s ease-in-out infinite;
+        transition: transform 0.3s ease;
+    }
 
-        /* Multi-Language Styling */
-        html[lang="de"] [lang="en"] { display: none; }
-        html[lang="en"] [lang="de"] { display: none; }
-        .lang-switch { position: absolute; top: 20px; left: 20px; z-index: 1000; }
-        .lang-btn { cursor: pointer; padding: 5px 10px; border: 1px solid var(--ghost-neon-green); background: var(--bg-black); color: var(--ghost-neon-green); font-size: 0.8em; }
-        .lang-btn.active { background: var(--ghost-neon-green); color: var(--bg-black); }
+    @keyframes redToGreenGlow {
+        0%, 100% { filter: drop-shadow(0 0 5px #FF0000) drop-shadow(0 0 10px #FF0000); }
+        50% { filter: drop-shadow(0 0 20px #27AE60) drop-shadow(0 0 35px #27AE60); }
+    }
 
-        footer { text-align: center; padding: 40px 20px; font-size: 0.8em; color: #777; background: #050505; }
-        .footer-signature { font-size: 1.5em; margin-top: 20px; display: block; }
-    </style>
-</head>
-<body>
+    /* Slot Engine Logic - Tightly Restored */
+    .row-container {
+        display: flex;
+        flex-direction: row; gap: 5px;
+        position: relative; justify-content: center;
+    }
 
-    <div class="lang-switch">
-        <span class="lang-btn" id="btn-en" onclick="setLang('en')">EN</span>
-        <span class="lang-btn" id="btn-de" onclick="setLang('de')">DE</span>
+    .letter-container {
+        width: 50px; height: 50px;
+        background-color: #111;
+        border: 1px solid #333;
+        border-radius: 4px; overflow: hidden;
+        position: relative; display: flex;
+        justify-content: center; align-items: center;
+        box-shadow: inset 0 0 10px rgba(0,0,0,0.8);
+        flex-shrink: 0;
+    }
+
+    .spinning-char {
+        font-size: 32px; font-weight: bold;
+        color: #fff; position: absolute;
+        transition: transform 0.05s linear;
+    }
+
+    .letter-container.revealed .spinning-char {
+        color: var(--neon-bright);
+        text-shadow: 0 0 10px var(--neon-bright), 0 0 20px var(--neon-bright);
+        transform: translateY(0) !important;
+    }
+
+    .outburst-layer {
+        position: absolute; top: 50%; left: 50%;
+        transform: translate(-50%, -50%);
+        width: 100%; height: 100%;
+        pointer-events: none; z-index: 100; opacity: 0;
+    }
+
+    .outburst-layer.active { animation: neon-burst 0.7s ease-out forwards; }
+
+    @keyframes neon-burst {
+        0% { opacity: 0; box-shadow: 0 0 0px 0px var(--neon-bright); }
+        30% { opacity: 1; box-shadow: 0 0 100px 50px var(--neon-bright); }
+        100% { opacity: 0; box-shadow: 0 0 200px 100px rgba(57, 255, 20, 0); }
+    }
+
+    /* Mobile Slot Engine Refinement */
+    @media (max-width: 900px) {
+        .letter-container { width: clamp(8px, 4vw, 25px); height: clamp(8px, 4vw, 25px); }
+        .spinning-char { font-size: clamp(6px, 3.2vw, 20px); }
+        .row-container { gap: 0.2vw; }
+    }
+
+    @media (max-width: 600px) {
+        #title-container { font-size: 1.5em; min-height: 2.2em; }
+        .tagline { font-size: 0.8em !important; line-height: 1.4; }
+    }
+
+    #title-container {
+        color: var(--ghost-cream);
+        text-transform: uppercase;
+        letter-spacing: 3px;
+        font-size: 2.2em;
+        margin: 0;
+        min-height: 3.6em;
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        width: 100%;
+        opacity: 0;
+        animation: fadeInTitle 0.1s ease-out 0.1s forwards;
+    }
+
+    @keyframes fadeInTitle { to { opacity: 1; } }
+
+    .tagline {
+        color: var(--ghost-neon-green);
+        font-weight: bold;
+        font-size: 1em;
+        margin-top: 5px;
+        opacity: 0;
+        animation: fadeIn 0.5s ease-in 2.5s forwards;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    @keyframes fadeIn { to { opacity: 1; } }
+
+    .ghost-btn {
+        display: inline-block;
+        padding: 12px 24px;
+        margin-top: 25px;
+        border: 2px solid var(--ghost-neon-green);
+        color: var(--ghost-neon-green);
+        text-decoration: none;
+        font-weight: bold;
+        letter-spacing: 2px;
+        transition: 0.3s;
+        border-radius: 4px;
+        opacity: 0;
+        animation: fadeIn 0.5s ease-in 2.8s forwards;
+    }
+
+    .ghost-btn:hover {
+        background-color: var(--ghost-dark-green);
+        color: var(--ghost-white);
+        box-shadow: 0 0 15px var(--ghost-neon-green);
+    }
+
+    /* Content Sections Styling - Restored */
+    .container { max-width: 850px; margin: 0 auto; padding: 20px; }
+
+    section {
+        background-color: rgba(0, 77, 0, 0.1);
+        margin-bottom: 30px;
+        padding: 25px;
+        border-radius: 20px;
+        border: 1px solid rgba(39, 174, 96, 0.3);
+        transition: all 0.3s ease;
+        box-shadow: 0 0 20px rgba(39, 174, 96, 0.3);
+        opacity: 0;
+        animation: fadeInUp 0.5s ease-out forwards;
+        animation-delay: calc(2.5s + (var(--order, 0) * 0.1s));
+    }
+
+    @keyframes fadeInUp {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    section:hover { box-shadow: 0 0 30px rgba(39, 174, 96, 0.5); border-color: rgba(39, 174, 96, 0.6); }
+
+    h2 {
+        color: var(--ghost-neon-green);
+        text-transform: uppercase;
+        font-size: 1.2em;
+        border-bottom: 1px solid var(--ghost-dark-green);
+        padding-bottom: 10px;
+        margin-top: 0;
+    }
+
+    .ghost-line {
+        font-size: 1.5em;
+        color: var(--ghost-cream);
+        text-align: center;
+        font-weight: bold;
+        margin: 25px 0;
+        display: block;
+        opacity: 0;
+        animation: fadeIn 0.5s ease-in 2.3s forwards;
+    }
+
+    /* Technical Component & Diagrams */
+    .technical-component {
+        width: 100%;
+        margin: 40px 0;
+        border: 1px solid var(--ghost-neon-green);
+        border-radius: 8px;
+        padding: 20px;
+        background-color: rgba(0, 77, 0, 0.05);
+        overflow-x: auto;
+    }
+
+    .technical-component h3 {
+        color: var(--ghost-neon-green);
+        text-transform: uppercase;
+        font-size: 1em;
+        margin-top: 0;
+        margin-bottom: 20px;
+        text-align: center;
+        letter-spacing: 2px;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.85em;
+        color: var(--ghost-cream);
+    }
+
+    th, td {
+        text-align: left;
+        padding: 12px;
+        border-bottom: 1px solid rgba(39, 174, 96, 0.2);
+    }
+
+    th { color: var(--ghost-neon-green); text-transform: uppercase; }
+
+    /* PayPal Button */
+    .paypal-wrapper { margin: 25px 0; display: flex; justify-content: center; }
+    .paypal-btn {
+        display: inline-block;
+        transition: 0.3s;
+        cursor: pointer;
+        border-radius: 12px;
+        overflow: hidden;
+        height: 56px;
+        border: 1px solid rgba(39, 174, 96, 0.3);
+    }
+
+    .paypal-btn:hover {
+        transform: scale(1.05);
+        box-shadow: 0 0 20px rgba(39, 174, 96, 0.4);
+        border-color: var(--ghost-neon-green);
+    }
+
+    .paypal-btn img { height: 100%; width: auto; display: block; filter: brightness(1.2) contrast(1.1); }
+
+    /* Footer & Signature */
+    footer { text-align: center; padding: 40px 20px; font-size: 0.8em; color: #777; background: #050505; }
+    .footer-signature { font-size: 1.5em; margin-top: 20px; display: block; }
+    .bear-img { max-width: 150px; border-radius: 50%; border: 2px solid var(--ghost-neon-green); margin-bottom: 20px; box-shadow: 0 0 15px rgba(39, 174, 96, 0.3); }
+
+    /* Language Switching */
+    .lang-switch { position: absolute; top: 20px; left: 20px; z-index: 1000; }
+    .lang-btn { cursor: pointer; padding: 5px 10px; border: 1px solid var(--ghost-neon-green); background: var(--bg-black); color: var(--ghost-neon-green); transition: 0.2s; font-size: 0.8em; }
+    .lang-btn.active { background: var(--ghost-neon-green); color: var(--bg-black); }
+
+    html[lang="de"] [lang="en"] { display: none; }
+    html[lang="en"] [lang="de"] { display: none; }
+</style>
+</head> <body>
+<div class="lang-switch">
+    <span class="lang-btn" id="btn-en" onclick="setLang('en')">EN</span>
+    <span class="lang-btn" id="btn-de" onclick="setLang('de')">DE</span>
+</div>
+
+<div class="menu-container">
+    <div class="hamburger"></div>
+    <div class="dropdown-content">
+        <a href="https://glokta1991.github.io/legal-docs/privacy.html">Privacy Policy</a>
+        <a href="https://glokta1991.github.io/legal-docs/manifesto.html">Manifesto</a>
+        <a href="https://glokta1991.github.io/legal-docs/white_paper.html">White Paper</a>
+        <a id="cookiePolicyLink">Cookie Policy</a>
+        <a id="impressumLink">Impressum</a>
     </div>
+</div>
 
-    <div class="menu-container">
-        <div class="hamburger"></div>
-        <div class="dropdown-content">
-            <a href="https://glokta1991.github.io/legal-docs/privacy.html">Privacy Policy</a>
-            <a href="https://glokta1991.github.io/legal-docs/manifesto.html">Manifesto</a>
-            <a href="https://glokta1991.github.io/legal-docs/white_paper.html">White Paper</a>
-            <a id="cookiePolicyLink">Cookie Policy</a>
-            <a id="impressumLink">Impressum</a>
+<!-- Modals -->
+<div id="cookieModal" class="modal-overlay">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2><span lang="en">Cookie Policy</span><span lang="de">Cookie-Transparenz</span></h2>
+            <button class="close-modal" id="closeCookieModalBtn">×</button>
         </div>
-    </div>
-
-    <!-- Cookie Modal -->
-    <div id="cookieModal" class="modal-overlay">
-        <div class="modal-content">
-            <h2 lang="en">Cookie Policy</h2><h2 lang="de">Cookie-Richtlinie</h2>
-            <p lang="en">Status: Zero-Tracking Architecture active.</p>
-            <p lang="de">Status: Zero-Tracking-Architektur aktiv.</p>
+        <div class="modal-body">
+            <p><span lang="en">Status: Zero-Tracking Architecture.</span><span lang="de">Status: Zero-Tracking-Architektur.</span></p>
             <button id="acceptCookieBtn" class="accept-btn">✓ ACCEPT</button>
         </div>
     </div>
+</div>
 
-    <header>
-        <img src="/glass_logo.png" alt="Secure Messenger Logo" class="logo">
-        <div id="title-container" style="display: flex; justify-content: center; align-items: center; min-height: 80px;">
-            <div class="row-container" id="main-row">
-                <div class="outburst-layer" id="burst"></div>
-            </div>
+<header>
+    <img src="/glass_logo.png" alt="Secure Messenger Logo" class="logo">
+    <div id="title-container">
+        <div class="row-container" id="main-row">
+            <div class="outburst-layer" id="burst"></div>
         </div>
-        <p class="tagline">
-            <span lang="en">v26.1.0-STABLE (GHOST-PHOENIX-VI) | White Label Zero-Knowledge Communications</span>
-            <span lang="de">v26.1.0-STABLE (GHOST-PHOENIX-VI) | White-Label Zero-Knowledge Kommunikation</span>
+    </div>
+    <p class="tagline">
+        <span lang="en">v26.1.0-STABLE | GHOST-PHOENIX-VI | Zero-Knowledge Communications</span>
+        <span lang="de">v26.1.0-STABLE | GHOST-PHOENIX-VI | Zero-Knowledge Kommunikation</span>
+    </p>
+    <div style="margin-top: 15px;">
+        <a href="https://glokta1991.github.io/legal-docs/white_paper.html" class="ghost-btn">EXPLORE THE ARCHITECTURE</a>
+    </div>
+</header>
+
+<div class="container">
+
+    <span class="ghost-line">
+        <span lang="en">"To you, I am a private bridge. To the world, you are a Ghost."</span>
+        <span lang="de">„Für dich bin ich eine private Brücke. Für die Welt bist du ein Geist.“</span>
+    </span>
+
+    <!-- Section 1 -->
+    <section style="--order: 1;">
+        <h2>1. <span lang="en">Identity Sovereignty</span><span lang="de">Identitätssouveränität</span></h2>
+        <p>
+            <span lang="en">Most "secure" messengers require phone numbers. SecureMessenger is engineered to be <b>Blind by Default</b>. Your identity is a private 12-word seed generated on your device.</span>
+            <span lang="de">Die meisten Messenger erfordern Telefonnummern. SecureMessenger ist <b>Blind by Default</b> konzipiert. Ihre Identität ist ein privater 12-Wörter-Seed.</span>
         </p>
-        <div style="margin-top: 20px;">
-            <a href="https://glokta1991.github.io/legal-docs/white_paper.html" class="ghost-btn" style="text-decoration: none; border: 2px solid var(--ghost-neon-green); padding: 10px 20px; color: var(--ghost-neon-green); font-weight: bold;">EXPLORE THE ARCHITECTURE</a>
-        </div>
-    </header>
+    </section>
 
-    <div class="container" style="max-width: 850px; margin: 0 auto; padding: 20px;">
-        
-        <section style="margin: 40px 0; text-align: center;">
-            <p lang="en">"To you, I am a private bridge. To the world, you are a Ghost."</p>
-            <p lang="de">„Für dich bin ich eine private Brücke. Für die Welt bist du ein Geist.“</p>
-        </section>
-
-        <div class="technical-component">
-            <h3 lang="en">⚡ Feature Comparison</h3>
-            <h3 lang="de">⚡ Feature-Vergleich</h3>
-            <table>
-                <thead>
-                    <tr><th>Feature</th><th>Signal</th><th>SecureMessenger</th></tr>
-                </thead>
-                <tbody>
-                    <tr><td>Identity</td><td>Phone Number</td><td class="highlight">Zero Identifiers (BIP39)</td></tr>
-                    <tr><td>VoIP</td><td>Direct/P2P Sync</td><td class="highlight">RELAY_ONLY (No IP Leak)</td></tr>
-                    <tr><td>Persistence</td><td>Standard Delete</td><td class="highlight">3-Pass Forensic Shredder</td></tr>
-                </tbody>
-            </table>
-        </div>
-
-        <section class="support-box" style="text-align: center; border: 1px solid var(--ghost-neon-green); padding: 40px; border-radius: 20px;">
-            <img src="/bear_panic.png" alt="dQuantumBear" style="max-width: 150px; border-radius: 50%; border: 2px solid var(--ghost-neon-green);">
-            <h2 lang="en">Built by One. Powered by You.</h2>
-            <h2 lang="de">Gebaut von Einem. Angetrieben von Ihnen.</h2>
-            
-            <div class="paypal-wrapper">
-                <a href="https://www.paypal.com/donate/?hosted_button_id=5BFMXH6TM5ZPN" target="_blank" class="paypal-btn">
-                    <img src="/paypal.png" alt="Support with PayPal">
-                </a>
-            </div>
-            
-            <p class="highlight">Contact: securemessenger4U@proton.me</p>
-            <p class="highlight">— dQuantumBear</p>
-        </section>
-
+    <!-- Technical Diagram - v26.1.0 -->
+    <div class="technical-component">
+        <h3 lang="en">⚡ SecureMessenger vs Mainstream</h3>
+        <table>
+            <thead>
+                <tr><th>Feature</th><th>WhatsApp</th><th>SecureMessenger</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>Account Identity</td><td>Phone Number</td><td class="highlight">Zero Identifiers (BIP39)</td></tr>
+                <tr><td>Encrypted Voice</td><td>Exposes IP</td><td class="highlight">RELAY_ONLY (No IP Leak)</td></tr>
+                <tr><td>Local Persistence</td><td>Standard</td><td class="highlight">3-Pass Forensic Shredder</td></tr>
+            </tbody>
+        </table>
     </div>
 
-    <footer>
-        <img src="/app_icon_bear.jpg" alt="Sovereign Bear" style="max-width: 60px;"><br>
-        <span class="footer-signature">🐻❤️M</span><br><br>
-        &copy; 2026 Secure Messenger Project. Engineered for Privacy.
-    </footer>
+    <!-- Section 2 -->
+    <section style="--order: 2;">
+        <h2>2. <span lang="en">The Blind Relay</span><span lang="de">Das Blind-Relay</span></h2>
+        <ul>
+            <li><span class="highlight">IP Volatility:</span> <span lang="en">IP addresses are processed in volatile RAM and purged.</span><span lang="de">IP-Adressen werden im flüchtigen RAM verarbeitet.</span></li>
+            <li><span class="highlight">Blinded Routing:</span> <span lang="en">Recipients are hashed via HMAC-SHA256 before storage.</span><span lang="de">Empfänger werden vor der Speicherung gehasht.</span></li>
+        </ul>
+    </section>
 
-    <script is:inline>
-        // SLOT MACHINE LOGIC
-        const targetStr = "SECURE MESSENGER "; 
-        const charset = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()";
-        const row = document.getElementById('main-row');
-        const containers = [];
+    <!-- Section 3 -->
+    <section style="--order: 3;">
+        <h2>3. <span lang="en">Forensic Shredding</span><span lang="de">Forensische Schredderung</span></h2>
+        <p>
+            <span lang="en">Standard deletion leaves traces. SecureMessenger overwrites data with high-entropy noise using a 3-pass protocol before removal.</span>
+            <span lang="de">Löschen hinterlässt Spuren. SecureMessenger überschreibt Daten vor der Entfernung mit Rauschen.</span>
+        </p>
+    </section>
 
-        for (let i = 0; i < 17; i++) {
-            const container = document.createElement('div');
-            container.className = 'letter-container';
-            const charSpan = document.createElement('span');
-            charSpan.className = 'spinning-char';
-            charSpan.textContent = charset[0];
-            container.appendChild(charSpan);
-            row.appendChild(container);
-            containers.push({ element: container, textNode: charSpan, target: targetStr[i], isRevealed: false });
-        }
+    <!-- Section 4 -->
+    <section style="--order: 4;">
+        <h2>4. <span lang="en">Sovereign Handshake</span><span lang="de">Souveräner Handshake</span></h2>
+        <p>
+            <span lang="en">You are invisible until you choose to be seen. Accounts are physically hidden from search upon registration.</span>
+            <span lang="de">Sie sind unsichtbar, bis Sie sich entscheiden. Konten sind standardmäßig verborgen.</span>
+        </p>
+    </section>
 
-        function spin(index) {
+    <!-- Section 5 -->
+    <section style="--order: 5;">
+        <h2>5. <span lang="en">Physical Sovereignty</span><span lang="de">Physische Souveränität</span></h2>
+        <p>
+            <span class="highlight">The Panic PIN:</span> <span lang="en">Triggers a silent wipe and displays a simulated "Network Error (503)" for plausible deniability.</span>
+            <span lang="de">Löst eine stille Löschung aus und zeigt einen simulierten Fehler an.</span>
+        </p>
+    </section>
+
+    <!-- Section 6 -->
+    <section style="--order: 6;">
+        <h2>6. <span lang="en">Hardware Scarcity</span><span lang="de">Hardware-Knappheit</span></h2>
+        <p>
+            <span lang="en">Identity is anchored to your device's Secure Element (TEE), blocking automated bots while maintaining total anonymity.</span>
+            <span lang="de">Die Identität ist im Secure Element (TEE) verankert.</span>
+        </p>
+    </section>
+
+    <!-- Support Box -->
+    <section class="support-box" style="--order: 7;">
+        <img src="/bear_panic.png" alt="dQuantumBear" class="bear-img">
+        <h2>
+            <span lang="en">Built by One. Powered by You.</span>
+            <span lang="de">Gebaut von Einem. Angetrieben von Ihnen.</span>
+        </h2>
+        <div class="paypal-wrapper">
+            <a href="https://www.paypal.com/donate/?hosted_button_id=5BFMXH6TM5ZPN" target="_blank" class="paypal-btn">
+                <img src="/paypal.png" alt="Support with PayPal">
+            </a>
+        </div>
+        <p class="highlight">Contact: securemessenger4U@proton.me</p>
+        <p class="highlight">— dQuantumBear</p>
+    </section>
+
+    <img src="/playstore.png" alt="Download APK" style="display: block; margin: 40px auto; max-width: 200px;">
+
+</div>
+
+<footer>
+    <img src="/app_icon_bear.jpg" alt="Sovereign Bear" style="max-width: 60px;"><br>
+    <span class="footer-signature">🐻❤️M</span><br><br>
+    &copy; 2026 Secure Messenger Project. Engineered for Privacy.
+</footer>
+
+<script is:inline>
+    // Slot Machine Engine Logic
+    const targetStr = "SECURE MESSENGER "; 
+    const charset = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+-=[]{}|;:,.<>?";
+    const row = document.getElementById('main-row');
+    const burst = document.getElementById('burst');
+    const containers = [];
+
+    for (let i = 0; i < 17; i++) {
+        const container = document.createElement('div');
+        container.className = 'letter-container';
+        const charSpan = document.createElement('span');
+        charSpan.className = 'spinning-char';
+        charSpan.textContent = charset[Math.floor(Math.random() * charset.length)];
+        container.appendChild(charSpan);
+        row.appendChild(container);
+        containers.push({ element: container, textNode: charSpan, target: targetStr[i], isRevealed: false, spinSpeed: 50 + Math.random() * 50 });
+    }
+
+    function spin(index) {
+        const c = containers[index];
+        if (c.isRevealed) return;
+        c.textNode.textContent = charset[Math.floor(Math.random() * charset.length)];
+        c.textNode.style.transform = `translateY(${Math.random() * 10}px)`;
+        setTimeout(() => spin(index), c.spinSpeed);
+    }
+    for (let i = 0; i < 17; i++) { spin(i); }
+
+    setTimeout(() => {
+        function revealNext(index) {
+            if (index >= 17) { setTimeout(() => { burst.classList.add('active'); }, 200); return; }
             const c = containers[index];
-            if (c.isRevealed) return;
-            c.textNode.textContent = charset[Math.floor(Math.random() * charset.length)];
-            setTimeout(() => spin(index), 70);
+            c.isRevealed = true;
+            c.textNode.textContent = c.target;
+            c.element.classList.add('revealed');
+            setTimeout(() => revealNext(index + 1), 150);
         }
-        containers.forEach((_, i) => spin(i));
+        revealNext(0);
+    }, 7000);
 
-        setTimeout(() => {
-            containers.forEach((c, i) => {
-                setTimeout(() => {
-                    c.isRevealed = true;
-                    c.textNode.textContent = c.target;
-                    c.element.classList.add('revealed');
-                }, i * 150);
-            });
-        }, 3000);
+    // Lang Switch Logic
+    function setLang(lang) {
+        document.documentElement.lang = lang;
+        document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+        document.getElementById('btn-' + lang).classList.add('active');
+        localStorage.setItem('preferred-lang', lang);
+    }
+    setLang(localStorage.getItem('preferred-lang') || 'en');
 
-        // LANGUAGE TOGGLE
-        function setLang(lang) {
-            document.documentElement.lang = lang;
-            document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
-            document.getElementById('btn-' + lang).classList.add('active');
-            localStorage.setItem('preferred-lang', lang);
-        }
-        setLang(localStorage.getItem('preferred-lang') || 'en');
-
-        // MODALS
-        const cookieModal = document.getElementById('cookieModal');
-        document.getElementById('cookiePolicyLink').onclick = () => cookieModal.style.display = 'flex';
-        document.getElementById('acceptCookieBtn').onclick = () => cookieModal.style.display = 'none';
-    </script>
-</body>
-</html>
+    // Modal Logic
+    const cookieModal = document.getElementById('cookieModal');
+    document.getElementById('cookiePolicyLink').onclick = () => cookieModal.style.display = 'flex';
+    document.getElementById('closeCookieModalBtn').onclick = () => cookieModal.style.display = 'none';
+    document.getElementById('acceptCookieBtn').onclick = () => cookieModal.style.display = 'none';
+</script>
