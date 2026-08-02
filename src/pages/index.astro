@@ -622,6 +622,21 @@
             box-shadow: 0 0 20px var(--ghost-neon-green);
             transform: scale(1.02);
         }
+
+        /* Ghost Donate Icon — Zero External Scripts */
+        .donate-img {
+            max-width: 100px;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+            transition: 0.3s;
+            filter: drop-shadow(0 0 8px var(--ghost-neon-green));
+        }
+
+        .donate-img:hover {
+            transform: scale(1.08);
+            filter: drop-shadow(0 0 16px var(--ghost-neon-green));
+        }
     </style>
 </head>
 <body>
@@ -939,11 +954,11 @@
             <p>
                 <b>Forensic Isolation:</b> All donations are handled via external system browsers. SecureMessenger never touches your financial metadata, keeping your support 100% decoupled from your identity.
             </p>
-            <p>
-                If you want to additionally support me my PayPal is <span class="highlight">nexus.mnemonic@gmail.com</span>
-            </p>
             <p style="margin: 25px 0;">
-                <a href="https://www.paypal.com/donate?hosted_button_id=5BFMXH6TM5ZPN" class="donate-btn" target="_blank" rel="noopener noreferrer">⚡ SUPPORT THE PROJECT</a>
+                <a href="https://www.paypal.com/donate?hosted_button_id=5BFMXH6TM5ZPN" target="_blank" rel="noopener noreferrer">
+                    <img src="ghost_donate.png" alt="Donate" class="donate-img">
+                </a>
+                <span style="display: block; margin-top: 12px; color: var(--ghost-neon-green); font-weight: bold; letter-spacing: 3px; text-transform: uppercase; font-size: 0.95em; text-shadow: 0 0 10px rgba(39, 174, 96, 0.5);">DONATE</span>
             </p>
             <p class="highlight">— dQuantumBear</p>
         </section>
