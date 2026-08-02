@@ -46,6 +46,7 @@
             z-index: 2000;
             justify-content: center;
             align-items: center;
+            padding: 20px; /* FIX: prevents edge-touching & forces centering on mobile */
         }
 
         .modal-content {
@@ -59,6 +60,7 @@
             overflow-y: auto;
             box-shadow: 0 0 40px rgba(39, 174, 96, 0.5);
             animation: modalFadeIn 0.3s ease-out;
+            margin: auto; /* FIX: explicit centering fallback */
         }
 
         @keyframes modalFadeIn {
@@ -210,14 +212,13 @@
             text-align: center;
             background: linear-gradient(to bottom, var(--ghost-dark-green), var(--bg-black));
             border-bottom: 1px solid var(--ghost-neon-green);
-            overflow: hidden; /* Prevent horizontal scroll from pulsing glow or overflow */
+            overflow: hidden;
         }
 
         .logo {
             max-width: 120px;
             height: auto;
             margin-bottom: 15px;
-            /* RED TO GREEN PULSING GLOW ANIMATION */
             animation: redToGreenGlow 3s ease-in-out infinite;
             transition: transform 0.3s ease;
         }
@@ -227,7 +228,6 @@
             animation: redToGreenGlowFast 1.5s ease-in-out infinite;
         }
 
-        /* Main animation: Red to Green pulsing glow */
         @keyframes redToGreenGlow {
             0% {
                 filter: drop-shadow(0 0 5px #FF0000) drop-shadow(0 0 10px #FF0000);
@@ -251,7 +251,6 @@
             }
         }
 
-        /* Faster animation on hover for interactive feel */
         @keyframes redToGreenGlowFast {
             0% {
                 filter: drop-shadow(0 0 8px #FF0000) drop-shadow(0 0 15px #FF0000);
@@ -270,7 +269,7 @@
             }
         }
 
-        /* 17 Containers Slot Engine - Precisely from Snippet */
+        /* Slot Engine */
         :root {
             --neon-green: #39ff14;
             --bg-color: #000;
@@ -279,7 +278,6 @@
             --box-size: 50px;
         }
 
-        /* The row holding the 17 individual containers */
         .row-container {
             display: flex;
             flex-direction: row;
@@ -288,7 +286,6 @@
             justify-content: center;
         }
 
-        /* Individual Container for each letter */
         .letter-container {
             width: var(--box-size);
             height: var(--box-size);
@@ -312,14 +309,12 @@
             transition: transform 0.05s linear;
         }
 
-        /* Revealed state */
         .letter-container.revealed .spinning-char {
             color: var(--neon-green);
             text-shadow: 0 0 10px var(--neon-green), 0 0 20px var(--neon-green);
             transform: translateY(0) !important;
         }
 
-        /* Outburst Effect */
         .outburst-layer {
             position: absolute;
             top: 50%;
@@ -351,27 +346,26 @@
             }
         }
 
-        /* Mobile Responsive Slot Engine (v10.8.9 - Refined for Small Screens) */
         @media (max-width: 900px) {
             :root {
-                --box-size: clamp(8px, 4vw, 25px); /* REDUCED: Improved mobile fit */
+                --box-size: clamp(8px, 3.6vw, 22px);
             }
             .spinning-char {
-                font-size: clamp(6px, 3.2vw, 20px); /* REDUCED */
+                font-size: clamp(6px, 2.8vw, 18px);
             }
             .row-container {
-                gap: 0.2vw; /* REDUCED: Tighter spacing */
+                gap: 0.15vw;
                 flex-wrap: nowrap;
-                letter-spacing: normal; /* RESET: Prevent inheritance from title-container */
+                letter-spacing: normal;
             }
         }
 
         @media (max-width: 600px) {
             #title-container {
-                font-size: 1.5em; /* Adjusted for smaller screens */
-                min-height: 2.2em;
+                font-size: 1.15em;
+                min-height: 2.0em;
             }
-            .tagline { font-size: 0.8em !important; line-height: 1.4; }
+            .tagline { font-size: 0.75em !important; line-height: 1.4; }
         }
 
         #title-container {
@@ -388,11 +382,14 @@
             align-items: center;
             text-align: center;
             contain: paint;
-            min-height: 3.6em; /* 2x char height */
+            min-height: 3.6em;
             visibility: visible;
             opacity: 0;
             animation: fadeInTitle 0.1s ease-out 0.1s forwards;
             width: 100%;
+            cursor: pointer;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
         }
 
         @keyframes fadeInTitle {
@@ -415,12 +412,9 @@
         .mobile-break { display: none; }
 
         @keyframes fadeIn {
-            to {
-                opacity: 1;
-            }
+            to { opacity: 1; }
         }
 
-        /* Button Styling */
         .ghost-btn {
             display: inline-block;
             padding: 12px 24px;
@@ -520,7 +514,6 @@
             animation: fadeIn 0.5s ease-in 2.3s forwards;
         }
 
-        /* AI-FIX: Proportional Download Button & Mobile UI Refinements (v10.8.9) */
         @media (max-width: 480px) {
             .mobile-break { display: block; height: 0; }
             .ghost-line { font-size: 1.05em; white-space: normal !important; margin: 15px 0; overflow-wrap: break-word; }
@@ -528,23 +521,24 @@
             h2 { font-size: 1.1em; }
             .download-soon-img { max-width: 180px; margin: 20px auto; }
             .dropdown-content { right: -10px; min-width: 200px; }
-            .modal-content { width: 95%; max-height: 90vh; }
+            .modal-content { width: 92%; max-height: 90vh; margin: auto; }
             .logo { max-width: 80px; margin-bottom: 10px; }
             header { padding: 40px 10px; overflow-x: hidden; }
             .tagline { font-size: 0.75em !important; line-height: 1.4; }
             .ghost-btn { padding: 10px 20px; font-size: 0.8em; }
             .signature-creator { font-size: 0.75em !important; }
 
-            /* ULTRA-MOBILE SLOT ENGINE REFINEMENT */
             :root {
-                --box-size: clamp(8px, 5.2vw, 18px);
+                --box-size: clamp(8px, 4.5vw, 16px);
             }
             .spinning-char {
-                font-size: clamp(6px, 4.2vw, 14px);
+                font-size: clamp(6px, 3.6vw, 12px);
             }
             .row-container {
-                gap: 0.3vw;
+                gap: 0.2vw;
             }
+            body { font-size: 0.9em; }
+            p, li { font-size: 0.9em; }
         }
 
         .support-box {
@@ -596,7 +590,6 @@
             animation: fadeIn 0.5s ease-in 2.8s forwards;
         }
 
-        /* PayPal Donate Button — Forensic Isolation Compliant */
         .donate-btn {
             display: inline-block;
             padding: 14px 32px;
@@ -623,7 +616,6 @@
             transform: scale(1.02);
         }
 
-        /* Ghost Donate Icon — Zero External Scripts */
         .donate-img {
             max-width: 100px;
             height: auto;
@@ -641,7 +633,6 @@
 </head>
 <body>
 
-    <!-- AI-FIX: Floating Navigation Menu -->
     <div class="menu-container">
         <img src="menu_icon.png" alt="Menu" class="menu-icon">
         <div class="dropdown-content">
@@ -655,7 +646,6 @@
         </div>
     </div>
 
-    <!-- MODAL FOR COOKIE POLICY -->
     <div id="cookieModal" class="modal-overlay">
         <div class="modal-content">
             <div class="modal-header">
@@ -670,7 +660,6 @@
         </div>
     </div>
 
-    <!-- MODAL FOR IMPRESSUM -->
     <div id="impressumModal" class="modal-overlay">
         <div class="modal-content">
             <div class="modal-header">
@@ -693,7 +682,6 @@
         <div id="title-container">
             <div class="row-container" id="main-row">
                 <div class="outburst-layer" id="burst"></div>
-                <!-- 17 individual containers will be injected here -->
             </div>
         </div>
         <p class="tagline">v26.1.0-STABLE (GHOST-PHOENIX-VI) | White-Label Zero-Knowledge Encrypted Communications Platform</p>
@@ -998,79 +986,93 @@
     </footer>
 
     <script>
-        const targetStr = "SECURE MESSENGER "; // Exactly 17 characters
+        const targetStr = "SECURE-MESSENGER";
         const charset = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+-=[]{}|;:,.<>?";
         const row = document.getElementById('main-row');
         const burst = document.getElementById('burst');
-        const containers = [];
+        const titleContainer = document.getElementById('title-container');
+        let containers = [];
+        let spinTimers = [];
+        let currentGen = 0;
 
-        // 1. Create 17 individual containers
-        for (let i = 0; i < 17; i++) {
-            const container = document.createElement('div');
-            container.className = 'letter-container';
+        function buildSlots() {
+            containers = [];
+            spinTimers.forEach(t => clearTimeout(t));
+            spinTimers = [];
+            const old = row.querySelectorAll('.letter-container');
+            old.forEach(el => el.remove());
+            burst.classList.remove('active');
 
-            const charSpan = document.createElement('span');
-            charSpan.className = 'spinning-char';
-            charSpan.textContent = charset[Math.floor(Math.random() * charset.length)];
+            for (let i = 0; i < targetStr.length; i++) {
+                const container = document.createElement('div');
+                container.className = 'letter-container';
 
-            container.appendChild(charSpan);
-            row.appendChild(container);
+                const charSpan = document.createElement('span');
+                charSpan.className = 'spinning-char';
+                charSpan.textContent = charset[Math.floor(Math.random() * charset.length)];
 
-            containers.push({
-                element: container,
-                textNode: charSpan,
-                target: targetStr[i],
-                isRevealed: false,
-                spinSpeed: 50 + Math.random() * 50 // ms per char change
-            });
+                container.appendChild(charSpan);
+                row.appendChild(container);
+
+                containers.push({
+                    element: container,
+                    textNode: charSpan,
+                    target: targetStr[i],
+                    isRevealed: false,
+                    spinSpeed: 50 + Math.random() * 50
+                });
+            }
         }
 
-        // 2. Spinning Logic for each container
-        function spin(index) {
+        function spin(index, gen) {
+            if (gen !== currentGen) return;
             const c = containers[index];
-            if (c.isRevealed) return;
+            if (!c || c.isRevealed) return;
 
-            // Change character randomly
             c.textNode.textContent = charset[Math.floor(Math.random() * charset.length)];
-
-            // Visual downward spin effect (slight nudge)
             c.textNode.style.transform = `translateY(${Math.random() * 10}px)`;
 
-            setTimeout(() => spin(index), c.spinSpeed);
+            const t = setTimeout(() => spin(index, gen), c.spinSpeed);
+            spinTimers.push(t);
         }
 
-        // Start all spinning
-        for (let i = 0; i < 17; i++) {
-            spin(i);
-        }
-
-        // 3. Sequential Reveal Logic (7-10 seconds total)
-        // We start revealing after 7 seconds, one by one.
-        const startRevealTime = 7000;
-        const revealInterval = 150; // 150ms between each letter reveal
-
-        function revealNext(index) {
-            if (index >= 17) {
-                // All revealed, trigger outburst
-                setTimeout(() => {
-                    burst.classList.add('active');
+        function revealNext(index, gen) {
+            if (gen !== currentGen) return;
+            if (index >= containers.length) {
+                const t = setTimeout(() => {
+                    if (gen === currentGen) burst.classList.add('active');
                 }, 200);
+                spinTimers.push(t);
                 return;
             }
 
             const c = containers[index];
-
-            // Slow down simulation: just before revealing, we can "stutter" the spin
-            // But for simplicity and impact, we lock it to the target
             c.isRevealed = true;
             c.textNode.textContent = c.target;
             c.element.classList.add('revealed');
 
-            setTimeout(() => revealNext(index + 1), revealInterval);
+            const t = setTimeout(() => revealNext(index + 1, gen), 150);
+            spinTimers.push(t);
         }
 
-        // Trigger the reveal sequence after 7 seconds
-        setTimeout(() => revealNext(0), startRevealTime);
+        function startSequence() {
+            currentGen++;
+            const gen = currentGen;
+            buildSlots();
+
+            for (let i = 0; i < containers.length; i++) {
+                spin(i, gen);
+            }
+
+            const t = setTimeout(() => revealNext(0, gen), 7000);
+            spinTimers.push(t);
+        }
+
+        startSequence();
+
+        titleContainer.addEventListener('click', function() {
+            startSequence();
+        });
 
         const cookieModal = document.getElementById('cookieModal');
         const impressumModal = document.getElementById('impressumModal');
