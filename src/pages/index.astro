@@ -4,89 +4,46 @@ html { scroll-behavior: smooth; }
         background-color: var(--bg-black);
         color: var(--ghost-white);
         font-family: 'Courier New', Courier, monospace;
-        margin: 0;
-        padding: 0;
-        line-height: 1.4;
-        position: relative;
-        overflow-x: hidden;
-        box-sizing: border-box;
+        margin: 0; padding: 0; line-height: 1.4;
+        position: relative; overflow-x: hidden; box-sizing: border-box;
     }
 
     *, *:before, *:after { box-sizing: inherit; }
 
-    /* MODALS - RESTORED */
+    /* MODALS - FULL RESTORATION */
     .modal-overlay {
-        display: none;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.85);
-        backdrop-filter: blur(8px);
-        z-index: 2000;
-        justify-content: center;
-        align-items: center;
+        display: none; position: fixed; top: 0; left: 0;
+        width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.85);
+        backdrop-filter: blur(8px); z-index: 2000; justify-content: center; align-items: center;
     }
 
     .modal-content {
-        position: relative;
-        background-color: var(--bg-black);
-        border: 2px solid var(--ghost-neon-green);
-        border-radius: 16px;
-        max-width: 500px;
-        width: 90%;
-        max-height: 80vh;
-        overflow-y: auto;
-        box-shadow: 0 0 40px rgba(39, 174, 96, 0.5);
-        animation: modalFadeIn 0.3s ease-out;
+        position: relative; background-color: var(--bg-black);
+        border: 2px solid var(--ghost-neon-green); border-radius: 16px;
+        max-width: 500px; width: 90%; max-height: 80vh; overflow-y: auto;
+        box-shadow: 0 0 40px rgba(39, 174, 96, 0.5); animation: modalFadeIn 0.3s ease-out;
     }
 
     @keyframes modalFadeIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
 
-    .modal-header {
-        padding: 20px 25px 10px 25px;
-        border-bottom: 1px solid var(--ghost-dark-green);
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-
+    .modal-header { padding: 20px 25px 10px 25px; border-bottom: 1px solid var(--ghost-dark-green); display: flex; justify-content: space-between; align-items: center; }
     .modal-header h2 { margin: 0; color: var(--ghost-neon-green); text-transform: uppercase; font-size: 1.3em; border: none; padding: 0; }
-    .close-modal { background: none; border: none; color: var(--ghost-neon-green); font-size: 28px; cursor: pointer; padding: 0; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; border-radius: 50%; transition: 0.2s; }
+    .close-modal { background: none; border: none; color: var(--ghost-neon-green); font-size: 28px; cursor: pointer; display: flex; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: 50%; transition: 0.2s; }
     .close-modal:hover { background-color: var(--ghost-dark-green); transform: scale(1.1); }
-
     .modal-body { padding: 20px 25px; font-size: 0.9em; line-height: 1.6; color: var(--ghost-cream); }
-    .accept-btn { display: block; width: 100%; padding: 12px; margin-top: 20px; background-color: transparent; border: 2px solid var(--ghost-neon-green); color: var(--ghost-neon-green); font-weight: bold; font-size: 1em; cursor: pointer; border-radius: 8px; transition: 0.3s; font-family: inherit; }
-    .accept-btn:hover { background-color: var(--ghost-dark-green); color: var(--ghost-white); box-shadow: 0 0 15px var(--ghost-neon-green); }
+    .accept-btn { display: block; width: 100%; padding: 12px; margin-top: 20px; background-color: transparent; border: 2px solid var(--ghost-neon-green); color: var(--ghost-neon-green); font-weight: bold; cursor: pointer; border-radius: 8px; transition: 0.3s; }
 
-    /* FLOATING MENU - ARROW RESTORED */
+    /* FLOATING MENU - ORIGINAL ARROW RESTORED */
     .menu-container { position: absolute; top: 20px; right: 20px; z-index: 1000; }
-    .menu-icon {
-        width: 50px;
-        height: auto;
-        cursor: pointer;
-        filter: drop-shadow(0 0 5px var(--ghost-neon-green));
-        transition: 0.3s;
-    }
+    .menu-icon { width: 50px; height: auto; cursor: pointer; filter: drop-shadow(0 0 5px var(--ghost-neon-green)); transition: 0.3s; }
     .menu-icon:hover { transform: scale(1.1); }
 
     .dropdown-content {
-        display: none;
-        position: absolute;
-        right: 0;
-        top: 100%;
-        background-color: var(--bg-black);
-        min-width: 240px;
-        border: 2px solid var(--ghost-neon-green);
-        border-radius: 8px;
-        box-shadow: 0 0 20px rgba(39, 174, 96, 0.4);
-        padding: 10px 0;
-        z-index: 1001;
+        display: none; position: absolute; right: 0; top: 100%; background-color: var(--bg-black);
+        min-width: 240px; border: 2px solid var(--ghost-neon-green); border-radius: 8px; box-shadow: 0 0 20px rgba(39, 174, 96, 0.4); padding: 10px 0; z-index: 1001;
     }
-
     .menu-container:hover .dropdown-content { display: block; }
-    .dropdown-content a { color: var(--ghost-white); padding: 12px 20px; text-decoration: none; display: block; font-size: 0.9em; text-transform: uppercase; font-weight: bold; transition: 0.2s; border-bottom: 1px solid rgba(39, 174, 96, 0.1); }
+    .dropdown-content a { color: var(--ghost-white); padding: 12px 20px; text-decoration: none; display: block; font-size: 0.9em; text-transform: uppercase; font-weight: bold; transition: 0.2s; border-bottom: 1px solid rgba(39, 174, 96, 0.1); cursor: pointer; }
     .dropdown-content a:hover { background-color: var(--ghost-dark-green); color: var(--ghost-neon-green); }
 
     /* HEADER */
@@ -98,7 +55,7 @@ html { scroll-behavior: smooth; }
         100% { filter: drop-shadow(0 0 5px #FF0000) drop-shadow(0 0 10px #FF0000); opacity: 1; }
     }
 
-    /* SLOT ENGINE - RESTORED */
+    /* SLOT ENGINE - FULL ORIGINAL CSS RESTORED */
     .row-container { display: flex; flex-direction: row; gap: 5px; position: relative; justify-content: center; }
     .letter-container {
         width: var(--box-size); height: var(--box-size); background-color: var(--container-bg); border: 1px solid #333;
@@ -111,7 +68,7 @@ html { scroll-behavior: smooth; }
     .outburst-layer.active { animation: neon-burst 0.7s ease-out forwards; }
     @keyframes neon-burst { 0% { opacity: 0; box-shadow: 0 0 0px 0px var(--neon-green); } 30% { opacity: 1; box-shadow: 0 0 100px 50px var(--neon-green); } 100% { opacity: 0; box-shadow: 0 0 200px 100px rgba(57, 255, 20, 0); } }
 
-    /* MOBILE REFINEMENTS - v10.8.9 RESTORED */
+    /* MOBILE REFINEMENTS - ORIGINAL v10.8.9 RESTORED */
     @media (max-width: 900px) {
         :root { --box-size: clamp(8px, 4vw, 25px); }
         .spinning-char { font-size: clamp(6px, 3.2vw, 20px); }
@@ -131,7 +88,7 @@ html { scroll-behavior: smooth; }
     .ghost-btn { display: inline-block; padding: 12px 24px; margin-top: 25px; border: 2px solid var(--ghost-neon-green); color: var(--ghost-neon-green); text-decoration: none; font-weight: bold; letter-spacing: 2px; transition: 0.3s; border-radius: 4px; opacity: 0; animation: fadeIn 0.5s ease-in 2.8s forwards; }
     .ghost-btn:hover { background-color: var(--ghost-dark-green); color: var(--ghost-white); box-shadow: 0 0 15px var(--ghost-neon-green); }
 
-    /* SECTIONS */
+    /* CONTENT SECTIONS */
     .container { max-width: 850px; margin: 0 auto; padding: 20px; }
     section { background-color: rgba(0, 77, 0, 0.1); margin-bottom: 30px; padding: 25px; border-radius: 20px; border: 1px solid rgba(39, 174, 96, 0.3); transition: all 0.3s ease; box-shadow: 0 0 20px rgba(39, 174, 96, 0.3); opacity: 0; animation: fadeInUp 0.5s ease-out forwards; animation-delay: calc(2.5s + (var(--order, 0) * 0.1s)); }
     @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
@@ -150,6 +107,7 @@ html { scroll-behavior: smooth; }
     th { color: var(--ghost-neon-green); text-transform: uppercase; font-weight: bold; }
 
     /* PAYPAL SECTION */
+    .support-box { text-align: center; border: 1px solid var(--ghost-neon-green); }
     .paypal-wrapper { margin: 25px 0; display: flex; justify-content: center; }
     .paypal-btn { display: inline-block; transition: 0.3s; cursor: pointer; border-radius: 12px; height: 56px; border: 1px solid rgba(39, 174, 96, 0.3); overflow: hidden; }
     .paypal-btn:hover { transform: scale(1.05); box-shadow: 0 0 20px rgba(39, 174, 96, 0.4); border-color: var(--ghost-neon-green); }
@@ -181,7 +139,7 @@ html { scroll-behavior: smooth; }
     <span class="lang-btn" id="btn-de" onclick="setLang('de')">DE</span>
 </div>
 
-<!-- ORIGINAL ARROW MENU RESTORED -->
+<!-- ORIGINAL ARROW MENU ICON RESTORED -->
 <div class="menu-container">
     <img src="/menu_icon.png" alt="Menu" class="menu-icon">
     <div class="dropdown-content">
@@ -234,12 +192,12 @@ html { scroll-behavior: smooth; }
 
     <section style="--order: 1;">
         <p>
-            <span lang="en">Most "secure" messengers still collect user data. They force phone numbers during sign-up, index contacts on central servers, and expose user activity graphs. I engineered SecureMessenger under the strict doctrine of Blind by Default. My infrastructure operates purely as a stateless, zero-visibility transport relay. My server is structurally and mathematically incapable of seeing usernames, reading messages, viewing attachments, tracking IP addresses, or identifying user networks.</span>
+            <span lang="en">Most "secure" messengers still collect user data. They force phone numbers during sign-up, index contacts on central servers, and expose user activity graphs. I engineered SecureMessenger under the strict doctrine of <b>Blind by Default</b>. My infrastructure operates purely as a stateless, zero-visibility transport relay. My server is structurally and mathematically incapable of seeing usernames, reading messages, viewing attachments, tracking IP addresses, or identifying user networks.</span>
             <span lang="de">Die meisten Messenger sammeln immer noch Nutzerdaten. SecureMessenger wurde unter der Doktrin <b>Blind by Default</b> entwickelt. Meine Infrastruktur arbeitet rein als zustandsloses Zero-Visibility-Transport-Relay.</span>
         </p>
     </section>
 
-    <!-- FULL COMPARISON TABLE -->
+    <!-- FULL FEATURE COMPARISON TABLE -->
     <div class="technical-component">
         <h3 lang="en">⚡ Feature Comparison: SecureMessenger vs. Mainstream Apps</h3>
         <table>
@@ -262,93 +220,93 @@ html { scroll-behavior: smooth; }
     </div>
 
     <section style="--order: 2;">
-        <h2>NO PHONE NUMBERS. NO EMAIL ADDRESSES. ZERO DATA COLLECTION.</h2>
+        <h2 lang="en">NO PHONE NUMBERS. NO EMAIL ADDRESSES. ZERO DATA COLLECTION.</h2>
         <p>
-            Mainstream apps build central social graphs by harvesting your contact list, binding your identity to a SIM card, and logging server connection timestamps. SecureMessenger completely eliminates personal identifiers. You register without providing a phone number, email, or name. My network operates as a stateless transport layer: incoming transit data is held only until delivery (or for a maximum 72-hour TTL) before being permanently purged. Sender identifiers are stripped and replaced with generic labels ("GHOST"), and recipient lookup relies on client-blinded HMAC-SHA256 hashes. You are hidden from public search indexers by default, ensuring total insulation from metadata harvesting, central tracking, and network surveillance.
+            <span lang="en">Mainstream apps build central social graphs by harvesting your contact list, binding your identity to a SIM card, and logging server connection timestamps. SecureMessenger completely eliminates personal identifiers. You register without providing a phone number, email, or name. My network operates as a stateless transport layer: incoming transit data is held only until delivery (or for a maximum 72-hour TTL) before being permanently purged. Sender identifiers are stripped and replaced with generic labels ("GHOST"), and recipient lookup relies on client-blinded HMAC-SHA256 hashes. You are hidden from public search indexers by default, ensuring total insulation from metadata harvesting, central tracking, and network surveillance.</span>
         </p>
     </section>
 
     <section style="--order: 3;">
-        <h2>🌟 Unrivaled Market Advantage: Integrated File Management & Vault Sharing</h2>
+        <h2 lang="en">🌟 Unrivaled Market Advantage: Integrated File Management & Vault Sharing</h2>
         <p>
-            Unlike mainstream messengers or privacy-focused platforms like Signal and WhatsApp, SecureMessenger is the only platform on the market with a dedicated, fully embedded encrypted file manager built directly into the application. While other apps export sensitive attachments to your device's unencrypted public gallery or shared downloads folder, SecureMessenger isolates your documents, photos, audio, and videos inside a dedicated, cryptographically protected environment. You don't need third-party vault tools or risky external apps—everything is stored, managed, processed safely, and shred-deleted natively within my platform.
+            <span lang="en">Unlike mainstream messengers or privacy-focused platforms like Signal and WhatsApp, SecureMessenger is the only platform on the market with a dedicated, fully embedded encrypted file manager built directly into the application. While other apps export sensitive attachments to your device's unencrypted public gallery or shared downloads folder, SecureMessenger isolates your documents, photos, audio, and videos inside a dedicated, cryptographically protected environment. You don't need third-party vault tools or risky external apps—everything is stored, managed, processed safely, and shred-deleted natively within my platform.</span>
         </p>
         <p>
-            <span class="highlight">Direct Vault-to-User Sharing:</span> You can securely share any encrypted file stored inside your Private Vault or Encrypted Space directly with other SecureMessenger users. By utilizing existing cryptographic keys, files are re-wrapped and transmitted end-to-end without ever needing to expose raw data to the network.
+            <span class="highlight">Direct Vault-to-User Sharing:</span> <span lang="en">You can securely share any encrypted file stored inside your Private Vault or Encrypted Space directly with other SecureMessenger users. By utilizing existing cryptographic keys, files are re-wrapped and transmitted end-to-end without ever needing to expose raw data to the network.</span>
         </p>
     </section>
 
     <section style="--order: 4;">
-        <h2>🔑 The Master Key: Absolute Account Ownership</h2>
+        <h2 lang="en">🔑 The Master Key: Absolute Account Ownership</h2>
         <p>
-            Your 12-Word Mnemonic Seed is your Master Key—it is the absolute, unchallengeable proof of account ownership.
+            <span lang="en">Your 12-Word Mnemonic Seed is your Master Key—it is the absolute, unchallengeable proof of account ownership.</span>
         </p>
         <ul>
-            <li><span class="highlight">Zero-Knowledge Architecture:</span> I do not store your password, seed, or recovery details on my servers.</li>
-            <li><span class="highlight">Absolute Authority:</span> You, and only you, hold access to your identity and data.</li>
-            <li><span class="highlight">Irrecoverable by Design:</span> Because my server is completely blind, if you lose your 12-word sequence, even I as the developer cannot retrieve or restore your account. There are no backdoor resets, no admin overrides, and no customer support recoveries. Your 12 words are your only recovery tool—keep them offline and secure.</li>
+            <li><span class="highlight">Zero-Knowledge Architecture:</span> <span lang="en">I do not store your password, seed, or recovery details on my servers.</span></li>
+            <li><span class="highlight">Absolute Authority:</span> <span lang="en">You, and only you, hold access to your identity and data.</span></li>
+            <li><span class="highlight">Irrecoverable by Design:</span> <span lang="en">Because my server is completely blind, if you lose your 12-word sequence, even I as the developer cannot retrieve or restore your account. There are no backdoor resets, no admin overrides, and no customer support recoveries. Your 12 words are your only recovery tool—keep them offline and secure.</span></li>
         </ul>
     </section>
 
     <section style="--order: 5;">
-        <h2>🛡️ Complete Feature Breakdown & System Capabilities</h2>
+        <h2 lang="en">🛡️ Complete Feature Breakdown & System Capabilities</h2>
         
         <h3>1. Identity Sovereignty & Hardware Scarcity</h3>
         <ul>
-            <li><span class="highlight">Zero Personal Identifiers:</span> Registration requires no phone numbers, SIM cards, or email addresses.</li>
-            <li><span class="highlight">12-Word Master Key (BIP39):</span> Your 256-bit cryptographic seed generates your entire identity locally. Passwords can only be reset locally using your 12-word seed.</li>
-            <li><span class="highlight">TEE Hardware Anchor & Single-Seat Rule:</span> A permanent RSA-2048 key pair is generated inside your device’s Trusted Execution Environment (TEE). A hashed hardware fingerprint binds your account to your device, enforcing a One Account Per Phone policy that blocks automated bot networks.</li>
-            <li><span class="highlight">Safety Number & Blind Discovery:</span> Users are hidden from public search indexers by default. Connect using single-use 6-digit codes, QR codes, or direct 16-character Safety Numbers. Real contact names are exchanged via post-handshake end-to-end encryption (E2EE) so my relay remains blind.</li>
+            <li><span class="highlight">Zero Personal Identifiers:</span> <span lang="en">Registration requires no phone numbers, SIM cards, or email addresses.</span></li>
+            <li><span class="highlight">12-Word Master Key (BIP39):</span> <span lang="en">Your 256-bit cryptographic seed generates your entire identity locally. Passwords can only be reset locally using your 12-word seed.</span></li>
+            <li><span class="highlight">TEE Hardware Anchor & Single-Seat Rule:</span> <span lang="en">A permanent RSA-2048 key pair is generated inside your device’s Trusted Execution Environment (TEE). A hashed hardware fingerprint binds your account to your device, enforcing a One Account Per Phone policy that blocks automated bot networks.</span></li>
+            <li><span class="highlight">Safety Number & Blind Discovery:</span> <span lang="en">Users are hidden from public search indexers by default. Connect using single-use 6-digit codes, QR codes, or direct 16-character Safety Numbers. Real contact names are exchanged via post-handshake end-to-end encryption (E2EE) so my relay remains blind.</span></li>
         </ul>
 
         <h3>2. The Private Vault, Transcripts Encrypted Space & Direct Sharing</h3>
         <ul>
-            <li><span class="highlight">Private Vault Storage:</span> Isolated, high-security local file management for sensitive videos, audio, photos, and files—accessible directly above the main dock.</li>
-            <li><span class="highlight">Inter-User Encrypted File Sharing:</span> Send vaulted files directly to other contacts with a single tap. The platform re-uses zero-knowledge keys to deliver files seamlessly without exposing unencrypted media locally or to the network.</li>
-            <li><span class="highlight">Transcripts Encrypted Space (.transcripts_enclave):</span> Text archives are saved into an isolated encrypted space, bypassing the system clipboard to prevent keylogger interception.</li>
-            <li><span class="highlight">Forensic Media Processing:</span> Video playback streams directly through RAM without persistent disk writes. Audio notes utilize forensic-grade volatile caching with immediate cryptographic shredding upon completion. Sensitive buffers in vault and wipe operations are explicitly zero-filled after execution.</li>
-            <li><span class="highlight">Automated EXIF Metadata Scrubbing:</span> File headers, GPS tags, device details, and camera timestamps are stripped locally prior to encryption.</li>
-            <li><span class="highlight">Private .ghost Encrypted Export & Reshare:</span> Export any media item as an encrypted .ghost archive. Share .ghost packages directly via chat or the Vault; my platform delivers files with zero-knowledge continuity.</li>
+            <li><span class="highlight">Private Vault Storage:</span> <span lang="en">Isolated, high-security local file management for sensitive videos, audio, photos, and files—accessible directly above the main dock.</span></li>
+            <li><span class="highlight">Inter-User Encrypted File Sharing:</span> <span lang="en">Send vaulted files directly to other contacts with a single tap. The platform re-uses zero-knowledge keys to deliver files seamlessly without exposing unencrypted media locally or to the network.</span></li>
+            <li><span class="highlight">Transcripts Encrypted Space (.transcripts_enclave):</span> <span lang="en">Text archives are saved into an isolated encrypted space, bypassing the system clipboard to prevent keylogger interception.</span></li>
+            <li><span class="highlight">Forensic Media Processing:</span> <span lang="en">Video playback streams directly through RAM without persistent disk writes. Audio notes utilize forensic-grade volatile caching with immediate cryptographic shredding upon completion. Sensitive buffers in vault and wipe operations are explicitly zero-filled after execution.</span></li>
+            <li><span class="highlight">Automated EXIF Metadata Scrubbing:</span> <span lang="en">File headers, GPS tags, device details, and camera timestamps are stripped locally prior to encryption.</span></li>
+            <li><span class="highlight">Private .ghost Encrypted Export & Reshare:</span> <span lang="en">Export any media item as an encrypted .ghost archive. Share .ghost packages directly via chat or the Vault; my platform delivers files with zero-knowledge continuity.</span></li>
         </ul>
 
         <h3>3. Encrypted Ghost Voice (Voice-Only VoIP Protocol)</h3>
         <ul>
-            <li><span class="highlight">Zero-Trace Signaling:</span> Call initiation and setup are performed using the Signal Protocol (Double Ratchet) to wrap all signaling data (SDP/ICE), ensuring even the relay cannot identify who is calling whom.</li>
-            <li><span class="highlight">Proprietary Relay Infrastructure (Zero IP Leakage):</span> SecureMessenger utilizes a decentralized TURN relay infrastructure enforcing a strict RELAY_ONLY policy (IceTransportsType.RELAY). Your IP address is never exposed to the peer during a call.</li>
-            <li><span class="highlight">Forensic OS Masking:</span> Integrated with the Android Telecom Framework via a Self-Managed ConnectionService. All system-facing call metadata is hard-coded to sip:anonymous@localhost, ensuring call history remains completely empty in the device's native phone dialer logs (call history is stored strictly within your encrypted local app database).</li>
-            <li><span class="highlight">Hybrid AEC & Audio Hardening:</span> Features a custom acoustic engine with Hybrid Echo Cancellation (AEC3) and automatic hardware auditing. System volume is programmatically synchronized with the communication stream to prevent hardware clipping and acoustic leakage.</li>
-            <li><span class="highlight">Visual Protection (Screen Security):</span> Voice calls respect your Screen Security settings. When enabled, the OS is physically blocked from capturing active call screens in screenshots, screen recordings, or app-switcher previews.</li>
-            <li><span class="highlight">RAM-Only Media Stack:</span> Voice streams are encoded via Opus and transmitted via DTLS-SRTP. The native VoIP media stack operates strictly in non-swappable RAM; no audio fragments, diagnostic logs, or AEC dumps ever touch physical storage.</li>
+            <li><span class="highlight">Zero-Trace Signaling:</span> <span lang="en">Call initiation and setup are performed using the Signal Protocol (Double Ratchet) to wrap all signaling data (SDP/ICE), ensuring even the relay cannot identify who is calling whom.</span></li>
+            <li><span class="highlight">Proprietary Relay Infrastructure (Zero IP Leakage):</span> <span lang="en">SecureMessenger utilizes a decentralized TURN relay infrastructure enforcing a strict RELAY_ONLY policy (IceTransportsType.RELAY). Your IP address is never exposed to the peer during a call.</span></li>
+            <li><span class="highlight">Forensic OS Masking:</span> <span lang="en">Integrated with the Android Telecom Framework via a Self-Managed ConnectionService. All system-facing call metadata is hard-coded to sip:anonymous@localhost, ensuring call history remains completely empty in the device's native phone dialer logs (call history is stored strictly within your encrypted local app database).</span></li>
+            <li><span class="highlight">Hybrid AEC & Audio Hardening:</span> <span lang="en">Features a custom acoustic engine with Hybrid Echo Cancellation (AEC3) and automatic hardware auditing. System volume is programmatically synchronized with the communication stream to prevent hardware clipping and acoustic leakage.</span></li>
+            <li><span class="highlight">Visual Protection (Screen Security):</span> <span lang="en">Voice calls respect your Screen Security settings. When enabled, the OS is physically blocked from capturing active call screens in screenshots, screen recordings, or app-switcher previews.</span></li>
+            <li><span class="highlight">RAM-Only Media Stack:</span> <span lang="en">Voice streams are encoded via Opus and transmitted via DTLS-SRTP. The native VoIP media stack operates strictly in non-swappable RAM; no audio fragments, diagnostic logs, or AEC dumps ever touch physical storage.</span></li>
         </ul>
 
         <h3>4. Advanced Media, Link Previews & Multi-Attachment Encrypted Spaces</h3>
         <ul>
-            <li><span class="highlight">Multi-Attachment Encrypted Spaces:</span> Send bundles of images, videos, and documents within a single message. Recipients can swipe through the bundle in an isolated unit, with individual items decryptable and savable directly to their Private Vault.</li>
-            <li><span class="highlight">Dual-Tap Interactive Video:</span> Features a dual-interaction lifecycle: a First Tap initiates secure inline playback, while a Second Tap transitions into full-screen viewing with frame position preservation.</li>
-            <li><span class="highlight">Local Forensic Link Previews:</span> Web link previews are parsed locally on your device to protect your IP address. Metadata (title, description, image) is stored within the encrypted envelope without executing external scripts or tracking cookies.</li>
+            <li><span class="highlight">Multi-Attachment Encrypted Spaces:</span> <span lang="en">Send bundles of images, videos, and documents within a single message. Recipients can swipe through the bundle in an isolated unit, with individual items decryptable and savable directly to their Private Vault.</span></li>
+            <li><span class="highlight">Dual-Tap Interactive Video:</span> <span lang="en">Features a dual-interaction lifecycle: a First Tap initiates secure inline playback, while a Second Tap transitions into full-screen viewing with frame position preservation.</span></li>
+            <li><span class="highlight">Local Forensic Link Previews:</span> <span lang="en">Web link previews are parsed locally on your device to protect your IP address. Metadata (title, description, image) is stored within the encrypted envelope without executing external scripts or tracking cookies.</span></li>
         </ul>
 
         <h3>5. Forensic Destruction, Second Password & Scorched Earth</h3>
         <ul>
-            <li><span class="highlight">User-Controlled Local Persistence:</span> Local history remains stored on your device until explicitly deleted. Local file removal runs a multi-pass overwrite protocol with high-entropy random data to defeat forensic hardware recovery tools.</li>
-            <li><span class="highlight">Scorched Earth Protocol (Ghost Tombstone):</span> Initiated via Account Settings or Logout, this protocol purges all active invites, keys, and transit payloads from my relay. It registers a Ghost Tombstone—leaving your phone’s unique hardware signature "Occupied" by your Routing ID to preserve the single-seat policy while destroying all cloud-resident footprint data.</li>
-            <li><span class="highlight">The Second Password (Silent Data Protection):</span> Entering a pre-configured Second Password at unlock immediately triggers a silent emergency response. It scrubs the local database (replacing content with [SHREDDED]), purges cryptographic keys, deletes backend server records, and displays a simulated "Network Error (503)" interface.</li>
-            <li><span class="highlight">Biometric App Lock & Screen Security:</span> Automatically locks the vault when the app is minimized, operating on a strict 2-second grace period. Native screen security blocks screenshots, screen recording, and app-switcher preview caching.</li>
+            <li><span class="highlight">User-Controlled Local Persistence:</span> <span lang="en">Local history remains stored on your device until explicitly deleted. Local file removal runs a multi-pass overwrite protocol with high-entropy random data to defeat forensic hardware recovery tools.</span></li>
+            <li><span class="highlight">Scorched Earth Protocol (Ghost Tombstone):</span> <span lang="en">Initiated via Account Settings or Logout, this protocol purges all active invites, keys, and transit payloads from my relay. It registers a Ghost Tombstone—leaving your phone’s unique hardware signature "Occupied" by your Routing ID to preserve the single-seat policy while destroying all cloud-resident footprint data.</span></li>
+            <li><span class="highlight">The Second Password (Silent Data Protection):</span> <span lang="en">Entering a pre-configured Second Password at unlock immediately triggers a silent emergency response. It scrubs the local database (replacing content with [SHREDDED]), purges cryptographic keys, deletes backend server records, and displays a simulated "Network Error (503)" interface.</span></li>
+            <li><span class="highlight">Biometric App Lock & Screen Security:</span> <span lang="en">Automatically locks the vault when the app is minimized, operating on a strict 2-second grace period. Native screen security blocks screenshots, screen recording, and app-switcher preview caching.</span></li>
         </ul>
 
         <h3>6. Stealth Network Operations & Self-Healing</h3>
         <ul>
-            <li><span class="highlight">Ghost Mode (Network Invisibility):</span> Toggles a server-side stealth status and masks socket-layer presence to appear "Offline" (Red Dot). Users can send and receive messages invisibly without revealing online presence.</li>
-            <li><span class="highlight">Blacklist Quarantine Shield:</span> Blocked entities are moved to a local Blacklist shield. Packets from blacklisted sources are dropped at the network edge before device processing occurs.</li>
-            <li><span class="highlight">Ephemeral Transitory Relay & 72-Hour TTL:</span> Delivered payloads are purged from server staging immediately upon receipt confirmation (ACK). Undelivered transit data is subject to a 72-hour mandatory auto-shredding cycle on my server.</li>
-            <li><span class="highlight">Silent Session Repair:</span> If high-frequency signaling causes state desynchronization, the background engine executes IDENTITY_RESET handshakes to repair the session without dropping calls or requiring user intervention.</li>
-            <li><span class="highlight">Local P2P Air-Bridge Migration:</span> Transfer chat histories, vaults, and identities directly between devices using a local Wi-Fi tunnel to move the SQLCipher vault without cloud involvement.</li>
+            <li><span class="highlight">Ghost Mode (Network Invisibility):</span> <span lang="en">Toggles a server-side stealth status and masks socket-layer presence to appear "Offline" (Red Dot). Users can send and receive messages invisibly without revealing online presence.</span></li>
+            <li><span class="highlight">Blacklist Quarantine Shield:</span> <span lang="en">Blocked entities are moved to a local Blacklist shield. Packets from blacklisted sources are dropped at the network edge before device processing occurs.</span></li>
+            <li><span class="highlight">Ephemeral Transitory Relay & 72-Hour TTL:</span> <span lang="en">Delivered payloads are purged from server staging immediately upon receipt confirmation (ACK). Undelivered transit data is subject to a 72-hour mandatory auto-shredding cycle on my server.</span></li>
+            <li><span class="highlight">Silent Session Repair:</span> <span lang="en">If high-frequency signaling causes state desynchronization, the background engine executes IDENTITY_RESET handshakes to repair the session without dropping calls or requiring user intervention.</span></li>
+            <li><span class="highlight">Local P2P Air-Bridge Migration:</span> <span lang="en">Transfer chat histories, vaults, and identities directly between devices using a local Wi-Fi tunnel to move the SQLCipher vault without cloud involvement.</span></li>
         </ul>
     </section>
 
-    <!-- FULL CRYPTO SPECS TABLE -->
+    <!-- FULL TECHNICAL CRYPTOGRAPHIC SPECIFICATIONS -->
     <div class="technical-component">
-        <h3>🔬 Technical Cryptographic Specifications</h3>
+        <h3 lang="en">🔬 Technical Cryptographic Specifications</h3>
         <table>
             <thead>
                 <tr><th>Cryptographic Primitive</th><th>Standard / Implementation</th></tr>
@@ -365,7 +323,7 @@ html { scroll-behavior: smooth; }
                 <tr><td class="highlight">Hardware Security Layer</td><td>TEE RSA-2048 + Google Play Integrity Attestation</td></tr>
             </tbody>
         </table>
-        <p style="font-size: 0.85em; margin-top: 20px; text-align: left;">
+        <p style="font-size: 0.85em; margin-top: 20px;">
             <span class="highlight">Perfect Forward Secrecy (PFS):</span> Every message and call signaling exchange uses a unique key derived from the Double Ratchet engine.<br>
             <span class="highlight">Inside-Ratchet Identity Propagation:</span> Profile changes (avatars, display names) are transmitted inside the encrypted ratchet, preventing network metadata collection.<br>
             <span class="highlight">Sender ID Stripping:</span> Absender identifiers are purged from stored database records and replaced with a generic "GHOST" tag. Receiver devices identify true senders via client-side Trial Decryption.
@@ -374,8 +332,14 @@ html { scroll-behavior: smooth; }
 
     <section class="support-box" style="--order: 7;">
         <img src="/bear_panic.png" alt="dQuantumBear" class="bear-img">
-        <h2>Built by One. Powered by You.</h2>
-        <p>SecureMessenger is a project developed, designed and financed by One (1) individual with zero support from Big Tech, venture capital, or billionaire interests.</p>
+        <h2>
+            <span lang="en">Built by One. Powered by You.</span>
+            <span lang="de">Gebaut von Einem. Angetrieben von Ihnen.</span>
+        </h2>
+        <p>
+            <span lang="en">SecureMessenger is a project developed, designed and financed by One (1) individual with zero support from Big Tech, venture capital, or billionaire interests.</span>
+            <span lang="de">SecureMessenger ist ein Projekt, das von einer (1) Einzelperson entwickelt, entworfen und finanziert wurde, ohne jegliche Unterstützung von Big Tech oder Risikokapital.</span>
+        </p>
         
         <div class="paypal-wrapper">
             <a href="https://www.paypal.com/donate/?hosted_button_id=5BFMXH6TM5ZPN" target="_blank" class="paypal-btn">
@@ -393,12 +357,12 @@ html { scroll-behavior: smooth; }
 
 <footer>
     <img src="/app_icon_bear.jpg" alt="Sovereign Bear" style="max-width: 60px;"><br>
-    <span class="footer-signature">🐻❤️M</span><br><br>
+    <span class="footer-signature" style="font-size: 1.5em; margin-top: 20px; display: block;">🐻❤️M</span><br><br>
     &copy; 2026 Secure Messenger Project. Engineered for Privacy.
 </footer>
 
 <script is:inline>
-    // SLOT ENGINE SCRIPT - FULL ORIGINAL RESTORATION
+    // SLOT ENGINE SCRIPT - FULL ORIGINAL SCRIPT RESTORATION
     const targetStr = "SECURE MESSENGER "; 
     const charset = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+-=[]{}|;:,.<>?";
     const row = document.getElementById('main-row');
