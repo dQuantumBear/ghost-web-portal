@@ -1,7 +1,7 @@
 ---
-// StateZerØ Homepage — Astro Page Component
-// Place this file at: src/pages/index.astro
-// Place all sphere PNGs in the public/ folder
+// StateZerØ Homepage — Astro Page Component v5
+// Place at: src/pages/index.astro
+// Place sphere PNGs (s.png, t.png, a.png, e.png, z.png, r.png, 0.png) in public/
 ---
 
 <!DOCTYPE html>
@@ -641,60 +641,60 @@
             filter: drop-shadow(0 0 16px var(--ghost-neon-green));
         }
     
-        /* ===== STATEZER0 SLOT ENGINE v4 — COMPLETELY ISOLATED ===== */
+        /* ===== STATEZER0 SLOT ENGINE v5 — CLEAN SPHERES ===== */
         #slot-machine {
             display: flex;
             flex-direction: row;
-            gap: 8px;
+            gap: 12px;
             justify-content: center;
             align-items: center;
             position: relative;
-            padding: 15px 10px;
-            min-height: 130px;
+            padding: 30px 20px;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+        }
+
+        #slot-machine::-webkit-scrollbar {
+            display: none;
         }
 
         .sz-slot {
-            width: 110px;
-            height: 110px;
-            background: radial-gradient(circle at 35% 35%, rgba(0,50,0,0.5), rgba(0,15,0,0.95));
-            border: 2px solid rgba(39, 174, 96, 0.35);
-            border-radius: 10px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
             position: relative;
-            overflow: hidden;
-            box-shadow: inset 0 0 15px rgba(0,0,0,0.8), 0 0 10px rgba(39,174,96,0.15);
+            display: inline-block;
             flex-shrink: 0;
         }
 
-        .sz-slot-text {
-            font-size: 44px;
-            font-weight: bold;
-            color: #FFFDD0;
-            font-family: 'Courier New', Courier, monospace;
-            position: absolute;
-            z-index: 2;
-            text-shadow: 0 0 6px rgba(255,255,255,0.25);
-            transition: opacity 0.15s ease;
-        }
-
-        .sz-slot-img {
-            width: 92%;
-            height: 92%;
-            object-fit: contain;
-            position: absolute;
-            z-index: 3;
+        .sz-sphere {
+            width: 150px;
+            height: auto;
+            display: block;
             opacity: 0;
             transform: scale(0.5);
-            transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+            transition: all 0.7s cubic-bezier(0.34, 1.56, 0.64, 1);
             filter: drop-shadow(0 0 0px transparent);
         }
 
-        .sz-slot-img.visible {
+        .sz-sphere.visible {
             opacity: 1;
             transform: scale(1);
-            filter: drop-shadow(0 0 15px #39ff14) drop-shadow(0 0 30px rgba(57,255,20,0.4));
+            filter: drop-shadow(0 0 18px #39ff14) drop-shadow(0 0 40px rgba(57,255,20,0.45));
+        }
+
+        .sz-chaos {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 80px;
+            font-weight: bold;
+            color: #FFFDD0;
+            font-family: 'Courier New', Courier, monospace;
+            text-shadow: 0 0 10px rgba(255,255,255,0.3), 0 0 25px rgba(57,255,20,0.15);
+            z-index: 2;
+            pointer-events: none;
+            transition: opacity 0.2s ease;
+            white-space: nowrap;
         }
 
         .sz-burst {
@@ -715,20 +715,25 @@
 
         @keyframes sz-neon-burst {
             0% { opacity: 0; box-shadow: 0 0 0px 0px #39ff14; }
-            30% { opacity: 1; box-shadow: 0 0 140px 60px #39ff14; }
-            100% { opacity: 0; box-shadow: 0 0 280px 120px rgba(57, 255, 20, 0); }
+            30% { opacity: 1; box-shadow: 0 0 150px 70px #39ff14; }
+            100% { opacity: 0; box-shadow: 0 0 300px 140px rgba(57, 255, 20, 0); }
+        }
+
+        @media (max-width: 1200px) {
+            .sz-sphere { width: 130px; }
+            .sz-chaos { font-size: 68px; }
         }
 
         @media (max-width: 900px) {
-            .sz-slot { width: clamp(50px, 11vw, 80px); height: clamp(50px, 11vw, 80px); }
-            .sz-slot-text { font-size: clamp(32px, 7vw, 50px); }
-            #slot-machine { gap: 5px; min-height: clamp(60px, 12vw, 100px); }
+            .sz-sphere { width: clamp(65px, 13vw, 100px); }
+            .sz-chaos { font-size: clamp(38px, 8vw, 58px); }
+            #slot-machine { gap: 8px; padding: 20px 12px; }
         }
 
-        @media (max-width: 480px) {
-            .sz-slot { width: clamp(42px, 12vw, 60px); height: clamp(42px, 12vw, 60px); }
-            .sz-slot-text { font-size: clamp(26px, 8vw, 40px); }
-            #slot-machine { gap: 3px; min-height: clamp(50px, 13vw, 80px); padding: 8px 5px; }
+        @media (max-width: 600px) {
+            .sz-sphere { width: clamp(50px, 14vw, 80px); }
+            .sz-chaos { font-size: clamp(30px, 9vw, 46px); }
+            #slot-machine { gap: 5px; padding: 15px 10px; }
         }
     </style>
 </head>
@@ -928,115 +933,65 @@
             '0': '0.png'
         };
         const CHARSET = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#$%&*!?";
-        const SPIN_SPEED = 40;
-        const REVEAL_START_DELAY = 800;
-        const REVEAL_STAGGER = 220;
-        const BURST_DELAY = 500;
-
-        // Preload images and track success
-        function preloadImages(callback) {
-            var loaded = {};
-            var chars = Object.keys(IMAGE_MAP);
-            var pending = chars.length;
-
-            if (pending === 0) { callback(loaded); return; }
-
-            chars.forEach(function(char) {
-                var img = new Image();
-                img.onload = function() {
-                    loaded[char] = true;
-                    pending--;
-                    if (pending === 0) callback(loaded);
-                };
-                img.onerror = function() {
-                    loaded[char] = false;
-                    pending--;
-                    if (pending === 0) callback(loaded);
-                };
-                img.src = IMAGE_MAP[char];
-            });
-        }
+        const SPIN_SPEED = 42;
+        const REVEAL_START_DELAY = 700;
+        const REVEAL_STAGGER = 200;
+        const BURST_DELAY = 450;
 
         function initSlotMachine() {
             var machine = document.getElementById('slot-machine');
             var burst = document.getElementById('sz-burst');
             if (!machine || !burst) return;
 
-            // Reset
             burst.classList.remove('active');
-            // Keep only the burst div, remove all slots
             var children = Array.prototype.slice.call(machine.children);
             children.forEach(function(child) {
                 if (child.id !== 'sz-burst') machine.removeChild(child);
             });
 
-            // Preload then run
-            preloadImages(function(loaded) {
-                runAnimation(machine, burst, loaded);
-            });
-        }
-
-        function runAnimation(machine, burst, loaded) {
             var slots = [];
-
-            // Build slots
             TARGET.split('').forEach(function(char, i) {
                 var slot = document.createElement('div');
                 slot.className = 'sz-slot';
 
-                // Text layer
-                var textEl = document.createElement('div');
-                textEl.className = 'sz-slot-text';
-                textEl.textContent = CHARSET[Math.floor(Math.random() * CHARSET.length)];
+                var chaos = document.createElement('span');
+                chaos.className = 'sz-chaos';
+                chaos.textContent = CHARSET[Math.floor(Math.random() * CHARSET.length)];
 
-                // Image layer (only if loaded)
-                var imgEl = document.createElement('img');
-                imgEl.className = 'sz-slot-img';
-                imgEl.src = IMAGE_MAP[char];
-                imgEl.alt = char;
-                imgEl.draggable = false;
+                var img = document.createElement('img');
+                img.className = 'sz-sphere';
+                img.src = IMAGE_MAP[char];
+                img.alt = char;
+                img.draggable = false;
 
-                slot.appendChild(textEl);
-                slot.appendChild(imgEl);
+                img.onerror = function() {
+                    chaos.textContent = char;
+                    chaos.style.color = '#39ff14';
+                    chaos.style.textShadow = '0 0 12px #39ff14, 0 0 24px #39ff14';
+                    this.style.display = 'none';
+                };
+
+                slot.appendChild(chaos);
+                slot.appendChild(img);
                 machine.insertBefore(slot, burst);
 
-                slots.push({
-                    slot: slot,
-                    textEl: textEl,
-                    imgEl: imgEl,
-                    char: char,
-                    hasImage: loaded[char] === true
-                });
+                slots.push({ slot: slot, chaos: chaos, img: img, char: char });
             });
 
-            // Chaos spin
             var spinTimer = setInterval(function() {
                 slots.forEach(function(s) {
-                    if (s.textEl.style.opacity !== '0') {
-                        s.textEl.textContent = CHARSET[Math.floor(Math.random() * CHARSET.length)];
-                        var jitter = (Math.random() * 14) - 7;
-                        s.textEl.style.transform = 'translateY(' + jitter + 'px)';
+                    if (s.chaos.style.opacity !== '0') {
+                        s.chaos.textContent = CHARSET[Math.floor(Math.random() * CHARSET.length)];
                     }
                 });
             }, SPIN_SPEED);
 
-            // Lock-in sequence
             slots.forEach(function(s, i) {
                 setTimeout(function() {
-                    if (s.hasImage) {
-                        // Show image, hide text
-                        s.textEl.style.opacity = '0';
-                        s.textEl.style.transform = 'translateY(0)';
-                        s.imgEl.classList.add('visible');
-                    } else {
-                        // Image failed — show neon text instead
-                        s.textEl.textContent = s.char;
-                        s.textEl.style.color = '#39ff14';
-                        s.textEl.style.textShadow = '0 0 10px #39ff14, 0 0 20px #39ff14';
-                        s.textEl.style.transform = 'translateY(0)';
+                    if (s.img.style.display !== 'none') {
+                        s.chaos.style.opacity = '0';
+                        s.img.classList.add('visible');
                     }
-
-                    // Burst on last slot
                     if (i === slots.length - 1) {
                         setTimeout(function() {
                             burst.classList.add('active');
@@ -1045,11 +1000,9 @@
                 }, REVEAL_START_DELAY + (i * REVEAL_STAGGER));
             });
 
-            // Stop spin timer
-            var totalTime = REVEAL_START_DELAY + (slots.length * REVEAL_STAGGER) + BURST_DELAY + 1000;
             setTimeout(function() {
                 clearInterval(spinTimer);
-            }, totalTime);
+            }, REVEAL_START_DELAY + (slots.length * REVEAL_STAGGER) + BURST_DELAY + 1000);
         }
 
         function setupModals() {
