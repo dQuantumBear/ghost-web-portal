@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>StateZerØ | White-Label Zero-Knowledge Encrypted Communications Platform</title>
+    <title>StateZer0 | White-Label Zero-Knowledge Encrypted Communications Platform</title>
     <style>
         :root {
             --bg-black: #000000;
@@ -635,59 +635,108 @@
             filter: drop-shadow(0 0 16px var(--ghost-neon-green));
         }
     
-        /* ===== STATEZER0 SLOT ENGINE ENHANCEMENTS ===== */
+        /* ===== STATEZER0 SLOT ENGINE v2 — ROBUST ===== */
         :root {
-            --box-size: 90px;
+            --box-size: 110px;
         }
 
-        .slot-image {
-            width: 92%;
-            height: 92%;
+        .letter-container {
+            width: var(--box-size);
+            height: var(--box-size);
+            background-color: rgba(0, 20, 0, 0.4);
+            border: 1px solid rgba(39, 174, 96, 0.25);
+            border-radius: 8px;
+            overflow: hidden;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: inset 0 0 15px rgba(0,0,0,0.9), 0 0 8px rgba(39,174,96,0.15);
+            flex-shrink: 0;
+        }
+
+        .sz-text {
+            font-size: 42px;
+            font-weight: bold;
+            color: var(--ghost-cream);
+            position: absolute;
+            transition: transform 0.05s linear;
+            z-index: 3;
+            text-shadow: 0 0 5px rgba(255,255,255,0.3);
+            pointer-events: none;
+        }
+
+        .sz-text.locked {
+            display: none !important;
+        }
+
+        .sz-img {
+            width: 88%;
+            height: 88%;
             object-fit: contain;
             position: absolute;
             top: 50%;
             left: 50%;
-            transform: translate(-50%, -50%) scale(0.5);
+            transform: translate(-50%, -50%) scale(0.3);
             opacity: 0;
-            transition: all 0.55s cubic-bezier(0.34, 1.56, 0.64, 1);
+            transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
             pointer-events: none;
-            z-index: 2;
+            z-index: 4;
             filter: drop-shadow(0 0 0px transparent);
         }
 
-        .letter-container.revealed .slot-image {
+        .sz-img.locked {
             opacity: 1;
             transform: translate(-50%, -50%) scale(1);
-            filter: drop-shadow(0 0 12px var(--neon-green)) drop-shadow(0 0 28px rgba(57,255,20,0.45));
-        }
-
-        .letter-container.revealed .spinning-char {
-            opacity: 0;
-            transform: scale(0.7);
-            transition: opacity 0.18s ease, transform 0.18s ease;
+            filter: drop-shadow(0 0 15px var(--neon-green)) drop-shadow(0 0 35px rgba(57,255,20,0.5));
         }
 
         #title-container {
-            min-height: calc(var(--box-size) + 35px);
+            min-height: calc(var(--box-size) + 40px);
             height: auto;
-            padding: 10px 0;
+            padding: 15px 0;
+            cursor: pointer;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .outburst-layer {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 100;
+            opacity: 0;
+        }
+
+        .outburst-layer.active {
+            animation: neon-burst 0.8s ease-out forwards;
+        }
+
+        @keyframes neon-burst {
+            0% { opacity: 0; box-shadow: 0 0 0px 0px var(--neon-green); }
+            30% { opacity: 1; box-shadow: 0 0 120px 60px var(--neon-green); }
+            100% { opacity: 0; box-shadow: 0 0 250px 120px rgba(57, 255, 20, 0); }
         }
 
         @media (max-width: 900px) {
-            :root { --box-size: clamp(38px, 9vw, 68px); }
-            .spinning-char { font-size: clamp(26px, 6vw, 46px); }
-            .row-container { gap: 4px; }
+            :root { --box-size: clamp(48px, 11vw, 78px); }
+            .sz-text { font-size: clamp(32px, 7vw, 52px); }
+            .row-container { gap: 5px; }
         }
 
         @media (max-width: 600px) {
-            #title-container { min-height: 2.8em; font-size: 1.6em; }
+            #title-container { min-height: 3em; font-size: 1.5em; }
         }
 
         @media (max-width: 480px) {
-            :root { --box-size: clamp(32px, 10vw, 52px); }
-            .spinning-char { font-size: clamp(20px, 7vw, 36px); }
-            .row-container { gap: 2px; }
-            #title-container { min-height: 2.5em; padding: 5px 0; }
+            :root { --box-size: clamp(40px, 12vw, 60px); }
+            .sz-text { font-size: clamp(26px, 8vw, 42px); }
+            .row-container { gap: 3px; }
+            #title-container { min-height: 2.8em; padding: 8px 0; }
         }
 
     </style>
@@ -880,7 +929,7 @@
         'use strict';
 
         /* ============================================================
-           STATEZER0 SLOT MACHINE ENGINE
+           STATEZER0 SLOT MACHINE ENGINE v2 — ROBUST
            Target: "StateZer0" (9 characters)
            Images: s.png, t.png, a.png, e.png, z.png, r.png, 0.png
         ============================================================ */
@@ -896,58 +945,75 @@
             '0': '0.png'
         };
         const CHARSET = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#$%&*!?";
-        const SPIN_SPEED = 45;
-        const REVEAL_START_DELAY = 900;
-        const REVEAL_STAGGER = 240;
-        const BURST_DELAY = 350;
+        const SPIN_SPEED = 40;
+        const REVEAL_START_DELAY = 800;
+        const REVEAL_STAGGER = 220;
+        const BURST_DELAY = 400;
 
         function initSlotMachine() {
             const mainRow = document.getElementById('main-row');
             const burst = document.getElementById('burst');
             if (!mainRow || !burst) return;
 
+            // Reset
             burst.classList.remove('active');
             mainRow.innerHTML = '';
             mainRow.appendChild(burst);
 
             const slots = [];
 
+            // Build slots
             TARGET.split('').forEach((char, i) => {
                 const container = document.createElement('div');
                 container.className = 'letter-container';
 
+                // Spinning text character
                 const spinChar = document.createElement('div');
-                spinChar.className = 'spinning-char';
+                spinChar.className = 'sz-text';
                 spinChar.textContent = CHARSET[Math.floor(Math.random() * CHARSET.length)];
                 spinChar.style.transform = 'translateY(0)';
 
+                // Final sphere image
                 const img = document.createElement('img');
-                img.className = 'slot-image';
+                img.className = 'sz-img';
                 img.src = IMAGE_MAP[char];
                 img.alt = char;
                 img.draggable = false;
+                img.loading = 'eager';
+                img.onerror = function() {
+                    console.error('Failed to load slot image:', IMAGE_MAP[char]);
+                    this.style.display = 'none';
+                    spinChar.textContent = char;
+                    spinChar.style.color = 'var(--neon-green)';
+                    spinChar.style.textShadow = '0 0 10px var(--neon-green), 0 0 20px var(--neon-green)';
+                };
 
                 container.appendChild(spinChar);
                 container.appendChild(img);
                 mainRow.insertBefore(container, burst);
 
-                slots.push({ container, spinChar, char, index: i });
+                slots.push({ container, spinChar, img, char, index: i });
             });
 
+            // Chaos phase: rapidly cycle random characters with vertical jitter
             const spinTimer = setInterval(() => {
                 slots.forEach(slot => {
-                    if (!slot.container.classList.contains('revealed')) {
+                    if (!slot.spinChar.classList.contains('locked')) {
                         slot.spinChar.textContent = CHARSET[Math.floor(Math.random() * CHARSET.length)];
-                        const jitter = (Math.random() * 20) - 10;
+                        const jitter = (Math.random() * 18) - 9;
                         slot.spinChar.style.transform = `translateY(${jitter}px)`;
                     }
                 });
             }, SPIN_SPEED);
 
+            // Staggered lock-in (left to right)
             slots.forEach((slot, i) => {
                 setTimeout(() => {
-                    slot.container.classList.add('revealed');
-                    slot.spinChar.style.transform = 'translateY(0)';
+                    // Hide text, show image
+                    slot.spinChar.classList.add('locked');
+                    slot.img.classList.add('locked');
+
+                    // Trigger burst on final slot
                     if (i === slots.length - 1) {
                         setTimeout(() => {
                             burst.classList.add('active');
@@ -956,7 +1022,8 @@
                 }, REVEAL_START_DELAY + (i * REVEAL_STAGGER));
             });
 
-            const totalTime = REVEAL_START_DELAY + (slots.length * REVEAL_STAGGER) + BURST_DELAY + 500;
+            // Stop spinning after everything settles
+            const totalTime = REVEAL_START_DELAY + (slots.length * REVEAL_STAGGER) + BURST_DELAY + 600;
             setTimeout(() => {
                 clearInterval(spinTimer);
             }, totalTime);
