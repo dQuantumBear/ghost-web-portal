@@ -635,66 +635,68 @@
             filter: drop-shadow(0 0 16px var(--ghost-neon-green));
         }
     
-        /* ===== STATEZER0 SLOT ENGINE v2 — ROBUST ===== */
+        /* ===== STATEZER0 SLOT ENGINE v3 — BULLETPROOF ===== */
         :root {
-            --box-size: 110px;
+            --slot-size: 120px;
         }
 
         .letter-container {
-            width: var(--box-size);
-            height: var(--box-size);
-            background-color: rgba(0, 20, 0, 0.4);
-            border: 1px solid rgba(39, 174, 96, 0.25);
-            border-radius: 8px;
+            width: var(--slot-size);
+            height: var(--slot-size);
+            background: radial-gradient(circle at 30% 30%, rgba(0,40,0,0.6), rgba(0,10,0,0.9));
+            border: 2px solid rgba(39, 174, 96, 0.4);
+            border-radius: 12px;
             overflow: hidden;
             position: relative;
             display: flex;
             justify-content: center;
             align-items: center;
-            box-shadow: inset 0 0 15px rgba(0,0,0,0.9), 0 0 8px rgba(39,174,96,0.15);
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.9), 0 0 12px rgba(39,174,96,0.2);
             flex-shrink: 0;
+            transition: border-color 0.3s, box-shadow 0.3s;
         }
 
-        .sz-text {
-            font-size: 42px;
+        .letter-container:hover {
+            border-color: rgba(39, 174, 96, 0.7);
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.9), 0 0 20px rgba(39,174,96,0.4);
+        }
+
+        .slot-text {
+            font-size: 48px;
             font-weight: bold;
             color: var(--ghost-cream);
             position: absolute;
-            transition: transform 0.05s linear;
-            z-index: 3;
-            text-shadow: 0 0 5px rgba(255,255,255,0.3);
+            z-index: 5;
+            text-shadow: 0 0 8px rgba(255,255,255,0.2);
             pointer-events: none;
+            font-family: 'Courier New', Courier, monospace;
         }
 
-        .sz-text.locked {
-            display: none !important;
-        }
-
-        .sz-img {
-            width: 88%;
-            height: 88%;
+        .slot-img {
+            width: 90%;
+            height: 90%;
             object-fit: contain;
             position: absolute;
             top: 50%;
             left: 50%;
-            transform: translate(-50%, -50%) scale(0.3);
+            transform: translate(-50%, -50%) scale(0.4);
             opacity: 0;
-            transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+            transition: all 0.7s cubic-bezier(0.34, 1.56, 0.64, 1);
             pointer-events: none;
-            z-index: 4;
+            z-index: 10;
             filter: drop-shadow(0 0 0px transparent);
         }
 
-        .sz-img.locked {
+        .slot-img.show {
             opacity: 1;
             transform: translate(-50%, -50%) scale(1);
-            filter: drop-shadow(0 0 15px var(--neon-green)) drop-shadow(0 0 35px rgba(57,255,20,0.5));
+            filter: drop-shadow(0 0 18px var(--neon-green)) drop-shadow(0 0 40px rgba(57,255,20,0.5));
         }
 
         #title-container {
-            min-height: calc(var(--box-size) + 40px);
+            min-height: calc(var(--slot-size) + 50px);
             height: auto;
-            padding: 15px 0;
+            padding: 20px 0;
             cursor: pointer;
             user-select: none;
             -webkit-tap-highlight-color: transparent;
@@ -713,30 +715,30 @@
         }
 
         .outburst-layer.active {
-            animation: neon-burst 0.8s ease-out forwards;
+            animation: neon-burst 0.9s ease-out forwards;
         }
 
         @keyframes neon-burst {
             0% { opacity: 0; box-shadow: 0 0 0px 0px var(--neon-green); }
-            30% { opacity: 1; box-shadow: 0 0 120px 60px var(--neon-green); }
-            100% { opacity: 0; box-shadow: 0 0 250px 120px rgba(57, 255, 20, 0); }
+            25% { opacity: 1; box-shadow: 0 0 150px 70px var(--neon-green); }
+            100% { opacity: 0; box-shadow: 0 0 300px 150px rgba(57, 255, 20, 0); }
         }
 
         @media (max-width: 900px) {
-            :root { --box-size: clamp(48px, 11vw, 78px); }
-            .sz-text { font-size: clamp(32px, 7vw, 52px); }
-            .row-container { gap: 5px; }
+            :root { --slot-size: clamp(55px, 12vw, 85px); }
+            .slot-text { font-size: clamp(36px, 8vw, 56px); }
+            .row-container { gap: 6px; }
         }
 
         @media (max-width: 600px) {
-            #title-container { min-height: 3em; font-size: 1.5em; }
+            #title-container { min-height: 3.2em; font-size: 1.6em; }
         }
 
         @media (max-width: 480px) {
-            :root { --box-size: clamp(40px, 12vw, 60px); }
-            .sz-text { font-size: clamp(26px, 8vw, 42px); }
-            .row-container { gap: 3px; }
-            #title-container { min-height: 2.8em; padding: 8px 0; }
+            :root { --slot-size: clamp(45px, 13vw, 65px); }
+            .slot-text { font-size: clamp(28px, 9vw, 44px); }
+            .row-container { gap: 4px; }
+            #title-container { min-height: 3em; padding: 10px 0; }
         }
 
     </style>
@@ -929,9 +931,8 @@
         'use strict';
 
         /* ============================================================
-           STATEZER0 SLOT MACHINE ENGINE v2 — ROBUST
-           Target: "StateZer0" (9 characters)
-           Images: s.png, t.png, a.png, e.png, z.png, r.png, 0.png
+           STATEZER0 SLOT MACHINE ENGINE v3 — BULLETPROOF
+           Uses direct inline styles. No CSS class specificity wars.
         ============================================================ */
 
         const TARGET = "StateZer0";
@@ -945,10 +946,10 @@
             '0': '0.png'
         };
         const CHARSET = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#$%&*!?";
-        const SPIN_SPEED = 40;
-        const REVEAL_START_DELAY = 800;
-        const REVEAL_STAGGER = 220;
-        const BURST_DELAY = 400;
+        const SPIN_SPEED = 42;
+        const REVEAL_START_DELAY = 700;
+        const REVEAL_STAGGER = 200;
+        const BURST_DELAY = 450;
 
         function initSlotMachine() {
             const mainRow = document.getElementById('main-row');
@@ -963,139 +964,145 @@
             const slots = [];
 
             // Build slots
-            TARGET.split('').forEach((char, i) => {
-                const container = document.createElement('div');
+            TARGET.split('').forEach(function(char, i) {
+                var container = document.createElement('div');
                 container.className = 'letter-container';
 
-                // Spinning text character
-                const spinChar = document.createElement('div');
-                spinChar.className = 'sz-text';
-                spinChar.textContent = CHARSET[Math.floor(Math.random() * CHARSET.length)];
-                spinChar.style.transform = 'translateY(0)';
+                // Text layer (chaos phase)
+                var textEl = document.createElement('div');
+                textEl.className = 'slot-text';
+                textEl.textContent = CHARSET[Math.floor(Math.random() * CHARSET.length)];
+                textEl.style.display = 'block';
 
-                // Final sphere image
-                const img = document.createElement('img');
-                img.className = 'sz-img';
-                img.src = IMAGE_MAP[char];
-                img.alt = char;
-                img.draggable = false;
-                img.loading = 'eager';
-                img.onerror = function() {
-                    console.error('Failed to load slot image:', IMAGE_MAP[char]);
+                // Image layer (hidden until lock)
+                var imgEl = document.createElement('img');
+                imgEl.className = 'slot-img';
+                imgEl.src = IMAGE_MAP[char];
+                imgEl.alt = char;
+                imgEl.draggable = false;
+                imgEl.style.opacity = '0';
+                imgEl.style.transform = 'translate(-50%, -50%) scale(0.4)';
+
+                // If image fails, show neon text fallback
+                imgEl.onerror = function() {
                     this.style.display = 'none';
-                    spinChar.textContent = char;
-                    spinChar.style.color = 'var(--neon-green)';
-                    spinChar.style.textShadow = '0 0 10px var(--neon-green), 0 0 20px var(--neon-green)';
+                    textEl.textContent = char;
+                    textEl.style.color = '#39ff14';
+                    textEl.style.textShadow = '0 0 12px #39ff14, 0 0 24px #39ff14';
+                    textEl.style.display = 'block';
                 };
 
-                container.appendChild(spinChar);
-                container.appendChild(img);
+                container.appendChild(textEl);
+                container.appendChild(imgEl);
                 mainRow.insertBefore(container, burst);
 
-                slots.push({ container, spinChar, img, char, index: i });
+                slots.push({ container: container, textEl: textEl, imgEl: imgEl, char: char });
             });
 
-            // Chaos phase: rapidly cycle random characters with vertical jitter
-            const spinTimer = setInterval(() => {
-                slots.forEach(slot => {
-                    if (!slot.spinChar.classList.contains('locked')) {
-                        slot.spinChar.textContent = CHARSET[Math.floor(Math.random() * CHARSET.length)];
-                        const jitter = (Math.random() * 18) - 9;
-                        slot.spinChar.style.transform = `translateY(${jitter}px)`;
+            // Chaos spin timer
+            var spinTimer = setInterval(function() {
+                slots.forEach(function(slot) {
+                    if (slot.textEl.style.display !== 'none') {
+                        slot.textEl.textContent = CHARSET[Math.floor(Math.random() * CHARSET.length)];
+                        var jitter = (Math.random() * 16) - 8;
+                        slot.textEl.style.transform = 'translateY(' + jitter + 'px)';
                     }
                 });
             }, SPIN_SPEED);
 
-            // Staggered lock-in (left to right)
-            slots.forEach((slot, i) => {
-                setTimeout(() => {
-                    // Hide text, show image
-                    slot.spinChar.classList.add('locked');
-                    slot.img.classList.add('locked');
+            // Lock-in sequence
+            slots.forEach(function(slot, i) {
+                setTimeout(function() {
+                    // HIDE text completely
+                    slot.textEl.style.display = 'none';
+                    slot.textEl.style.transform = 'translateY(0)';
 
-                    // Trigger burst on final slot
+                    // SHOW image with elastic animation
+                    slot.imgEl.style.opacity = '1';
+                    slot.imgEl.style.transform = 'translate(-50%, -50%) scale(1)';
+                    slot.imgEl.style.filter = 'drop-shadow(0 0 18px #39ff14) drop-shadow(0 0 40px rgba(57,255,20,0.5))';
+
+                    // Final slot triggers burst
                     if (i === slots.length - 1) {
-                        setTimeout(() => {
+                        setTimeout(function() {
                             burst.classList.add('active');
                         }, BURST_DELAY);
                     }
                 }, REVEAL_START_DELAY + (i * REVEAL_STAGGER));
             });
 
-            // Stop spinning after everything settles
-            const totalTime = REVEAL_START_DELAY + (slots.length * REVEAL_STAGGER) + BURST_DELAY + 600;
-            setTimeout(() => {
+            // Cleanup
+            var totalTime = REVEAL_START_DELAY + (slots.length * REVEAL_STAGGER) + BURST_DELAY + 800;
+            setTimeout(function() {
                 clearInterval(spinTimer);
             }, totalTime);
         }
 
         function setupModals() {
-            const cookieModal = document.getElementById('cookieModal');
-            const impressumModal = document.getElementById('impressumModal');
+            var cookieModal = document.getElementById('cookieModal');
+            var impressumModal = document.getElementById('impressumModal');
 
-            document.getElementById('cookiePolicyLink')?.addEventListener('click', (e) => {
+            document.getElementById('cookiePolicyLink').addEventListener('click', function(e) {
                 e.preventDefault();
                 cookieModal.style.display = 'flex';
             });
-            document.getElementById('impressumLink')?.addEventListener('click', (e) => {
+            document.getElementById('impressumLink').addEventListener('click', function(e) {
                 e.preventDefault();
                 impressumModal.style.display = 'flex';
             });
 
-            ['closeCookieModalBtn', 'acceptCookieBtn'].forEach(id => {
-                document.getElementById(id)?.addEventListener('click', () => {
-                    cookieModal.style.display = 'none';
-                });
+            ['closeCookieModalBtn', 'acceptCookieBtn'].forEach(function(id) {
+                var el = document.getElementById(id);
+                if (el) el.addEventListener('click', function() { cookieModal.style.display = 'none'; });
             });
-            ['closeImpressumModalBtn', 'closeImpressumAcceptBtn'].forEach(id => {
-                document.getElementById(id)?.addEventListener('click', () => {
-                    impressumModal.style.display = 'none';
-                });
+            ['closeImpressumModalBtn', 'closeImpressumAcceptBtn'].forEach(function(id) {
+                var el = document.getElementById(id);
+                if (el) el.addEventListener('click', function() { impressumModal.style.display = 'none'; });
             });
 
-            document.querySelectorAll('.modal-overlay').forEach(overlay => {
-                overlay.addEventListener('click', (e) => {
+            document.querySelectorAll('.modal-overlay').forEach(function(overlay) {
+                overlay.addEventListener('click', function(e) {
                     if (e.target === overlay) overlay.style.display = 'none';
                 });
             });
         }
 
         function setupMenu() {
-            const menuContainer = document.querySelector('.menu-container');
-            const menuIcon = document.querySelector('.menu-icon');
-            const dropdown = menuContainer?.querySelector('.dropdown-content');
+            var menuContainer = document.querySelector('.menu-container');
+            var menuIcon = document.querySelector('.menu-icon');
+            var dropdown = menuContainer ? menuContainer.querySelector('.dropdown-content') : null;
             if (!menuContainer || !menuIcon || !dropdown) return;
 
-            let open = false;
-            menuIcon.addEventListener('click', (e) => {
+            var open = false;
+            menuIcon.addEventListener('click', function(e) {
                 e.stopPropagation();
                 open = !open;
                 dropdown.style.display = open ? 'block' : 'none';
             });
-            document.addEventListener('click', (e) => {
+            document.addEventListener('click', function(e) {
                 if (!menuContainer.contains(e.target)) {
                     open = false;
                     dropdown.style.display = 'none';
                 }
             });
-            menuContainer.addEventListener('mouseenter', () => {
+            menuContainer.addEventListener('mouseenter', function() {
                 if (window.innerWidth > 768) dropdown.style.display = 'block';
             });
-            menuContainer.addEventListener('mouseleave', () => {
+            menuContainer.addEventListener('mouseleave', function() {
                 if (window.innerWidth > 768) dropdown.style.display = 'none';
             });
         }
 
         function setupReplay() {
-            const titleContainer = document.getElementById('title-container');
+            var titleContainer = document.getElementById('title-container');
             if (titleContainer) {
-                titleContainer.addEventListener('click', () => {
+                titleContainer.addEventListener('click', function() {
                     initSlotMachine();
                 });
             }
         }
 
-        document.addEventListener('DOMContentLoaded', () => {
+        document.addEventListener('DOMContentLoaded', function() {
             initSlotMachine();
             setupModals();
             setupMenu();
