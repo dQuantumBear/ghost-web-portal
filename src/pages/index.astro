@@ -1,17 +1,11 @@
----
-// StateZerØ Homepage — Astro Page Component v5
-// Place at: src/pages/index.astro
-// Place sphere PNGs (s.png, t.png, a.png, e.png, z.png, r.png, 0.png) in public/
----
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>StateZer0 | White-Label Zero-Knowledge Encrypted Communications Platform</title>
-    <style is:global>
-:root {
+    <title>StateZerØ | White-Label Zero-Knowledge Encrypted Communications Platform</title>
+    <style>
+        :root {
             --bg-black: #000000;
             --ghost-dark-green: #004D00;
             --ghost-neon-green: #27AE60;
@@ -641,104 +635,67 @@
             filter: drop-shadow(0 0 16px var(--ghost-neon-green));
         }
     
-        /* ===== STATEZER0 SLOT ENGINE v5 — CLEAN SPHERES ===== */
-        #slot-machine {
-            display: flex;
-            flex-direction: row;
-            gap: 12px;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-            padding: 30px 20px;
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
-            scrollbar-width: none;
+        /* ===== STATEZER0 SLOT ENGINE ENHANCEMENTS ===== */
+        :root {
+            --box-size: 90px;
         }
 
-        #slot-machine::-webkit-scrollbar {
-            display: none;
-        }
-
-        .sz-slot {
-            position: relative;
-            display: inline-block;
-            flex-shrink: 0;
-        }
-
-        .sz-sphere {
-            width: 150px;
-            height: auto;
-            display: block;
+        .slot-image {
+            width: 92%;
+            height: 92%;
+            object-fit: contain;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.5);
             opacity: 0;
-            transform: scale(0.5);
-            transition: all 0.7s cubic-bezier(0.34, 1.56, 0.64, 1);
+            transition: all 0.55s cubic-bezier(0.34, 1.56, 0.64, 1);
+            pointer-events: none;
+            z-index: 2;
             filter: drop-shadow(0 0 0px transparent);
         }
 
-        .sz-sphere.visible {
+        .letter-container.revealed .slot-image {
             opacity: 1;
-            transform: scale(1);
-            filter: drop-shadow(0 0 18px #39ff14) drop-shadow(0 0 40px rgba(57,255,20,0.45));
+            transform: translate(-50%, -50%) scale(1);
+            filter: drop-shadow(0 0 12px var(--neon-green)) drop-shadow(0 0 28px rgba(57,255,20,0.45));
         }
 
-        .sz-chaos {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 80px;
-            font-weight: bold;
-            color: #FFFDD0;
-            font-family: 'Courier New', Courier, monospace;
-            text-shadow: 0 0 10px rgba(255,255,255,0.3), 0 0 25px rgba(57,255,20,0.15);
-            z-index: 2;
-            pointer-events: none;
-            transition: opacity 0.2s ease;
-            white-space: nowrap;
-        }
-
-        .sz-burst {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 50;
+        .letter-container.revealed .spinning-char {
             opacity: 0;
+            transform: scale(0.7);
+            transition: opacity 0.18s ease, transform 0.18s ease;
         }
 
-        .sz-burst.active {
-            animation: sz-neon-burst 0.9s ease-out forwards;
-        }
-
-        @keyframes sz-neon-burst {
-            0% { opacity: 0; box-shadow: 0 0 0px 0px #39ff14; }
-            30% { opacity: 1; box-shadow: 0 0 150px 70px #39ff14; }
-            100% { opacity: 0; box-shadow: 0 0 300px 140px rgba(57, 255, 20, 0); }
-        }
-
-        @media (max-width: 1200px) {
-            .sz-sphere { width: 130px; }
-            .sz-chaos { font-size: 68px; }
+        #title-container {
+            min-height: calc(var(--box-size) + 35px);
+            height: auto;
+            padding: 10px 0;
         }
 
         @media (max-width: 900px) {
-            .sz-sphere { width: clamp(65px, 13vw, 100px); }
-            .sz-chaos { font-size: clamp(38px, 8vw, 58px); }
-            #slot-machine { gap: 8px; padding: 20px 12px; }
+            :root { --box-size: clamp(38px, 9vw, 68px); }
+            .spinning-char { font-size: clamp(26px, 6vw, 46px); }
+            .row-container { gap: 4px; }
         }
 
         @media (max-width: 600px) {
-            .sz-sphere { width: clamp(50px, 14vw, 80px); }
-            .sz-chaos { font-size: clamp(30px, 9vw, 46px); }
-            #slot-machine { gap: 5px; padding: 15px 10px; }
+            #title-container { min-height: 2.8em; font-size: 1.6em; }
         }
+
+        @media (max-width: 480px) {
+            :root { --box-size: clamp(32px, 10vw, 52px); }
+            .spinning-char { font-size: clamp(20px, 7vw, 36px); }
+            .row-container { gap: 2px; }
+            #title-container { min-height: 2.5em; padding: 5px 0; }
+        }
+
     </style>
+<base target="_blank">
 </head>
 <body>
-<div class="menu-container">
+
+    <div class="menu-container">
         <img src="menu_icon.png" alt="Menu" class="menu-icon">
         <div class="dropdown-content">
             <a href="https://glokta1991.github.io/legal-docs/privacy.html" target="_blank">Privacy Policy</a>
@@ -785,8 +742,8 @@
     <header>
         <img src="glass_logo.png" alt="StateZerØ Logo" class="logo">
         <div id="title-container">
-            <div id="slot-machine">
-                <div class="sz-burst" id="sz-burst"></div>
+            <div class="row-container" id="main-row">
+                <div class="outburst-layer" id="burst"></div>
             </div>
         </div>
         <p class="tagline">v26.1.0-STABLE (GHOST-PHOENIX-VI) | StateZer0 — White-Label Zero-Knowledge Encrypted Communications Platform</p>
@@ -919,8 +876,14 @@
     </footer>
 
     <script>
-(function() {
+    (function() {
         'use strict';
+
+        /* ============================================================
+           STATEZER0 SLOT MACHINE ENGINE
+           Target: "StateZer0" (9 characters)
+           Images: s.png, t.png, a.png, e.png, z.png, r.png, 0.png
+        ============================================================ */
 
         const TARGET = "StateZer0";
         const IMAGE_MAP = {
@@ -933,143 +896,139 @@
             '0': '0.png'
         };
         const CHARSET = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#$%&*!?";
-        const SPIN_SPEED = 42;
-        const REVEAL_START_DELAY = 700;
-        const REVEAL_STAGGER = 200;
-        const BURST_DELAY = 450;
+        const SPIN_SPEED = 45;
+        const REVEAL_START_DELAY = 900;
+        const REVEAL_STAGGER = 240;
+        const BURST_DELAY = 350;
 
         function initSlotMachine() {
-            var machine = document.getElementById('slot-machine');
-            var burst = document.getElementById('sz-burst');
-            if (!machine || !burst) return;
+            const mainRow = document.getElementById('main-row');
+            const burst = document.getElementById('burst');
+            if (!mainRow || !burst) return;
 
             burst.classList.remove('active');
-            var children = Array.prototype.slice.call(machine.children);
-            children.forEach(function(child) {
-                if (child.id !== 'sz-burst') machine.removeChild(child);
-            });
+            mainRow.innerHTML = '';
+            mainRow.appendChild(burst);
 
-            var slots = [];
-            TARGET.split('').forEach(function(char, i) {
-                var slot = document.createElement('div');
-                slot.className = 'sz-slot';
+            const slots = [];
 
-                var chaos = document.createElement('span');
-                chaos.className = 'sz-chaos';
-                chaos.textContent = CHARSET[Math.floor(Math.random() * CHARSET.length)];
+            TARGET.split('').forEach((char, i) => {
+                const container = document.createElement('div');
+                container.className = 'letter-container';
 
-                var img = document.createElement('img');
-                img.className = 'sz-sphere';
+                const spinChar = document.createElement('div');
+                spinChar.className = 'spinning-char';
+                spinChar.textContent = CHARSET[Math.floor(Math.random() * CHARSET.length)];
+                spinChar.style.transform = 'translateY(0)';
+
+                const img = document.createElement('img');
+                img.className = 'slot-image';
                 img.src = IMAGE_MAP[char];
                 img.alt = char;
                 img.draggable = false;
 
-                img.onerror = function() {
-                    chaos.textContent = char;
-                    chaos.style.color = '#39ff14';
-                    chaos.style.textShadow = '0 0 12px #39ff14, 0 0 24px #39ff14';
-                    this.style.display = 'none';
-                };
+                container.appendChild(spinChar);
+                container.appendChild(img);
+                mainRow.insertBefore(container, burst);
 
-                slot.appendChild(chaos);
-                slot.appendChild(img);
-                machine.insertBefore(slot, burst);
-
-                slots.push({ slot: slot, chaos: chaos, img: img, char: char });
+                slots.push({ container, spinChar, char, index: i });
             });
 
-            var spinTimer = setInterval(function() {
-                slots.forEach(function(s) {
-                    if (s.chaos.style.opacity !== '0') {
-                        s.chaos.textContent = CHARSET[Math.floor(Math.random() * CHARSET.length)];
+            const spinTimer = setInterval(() => {
+                slots.forEach(slot => {
+                    if (!slot.container.classList.contains('revealed')) {
+                        slot.spinChar.textContent = CHARSET[Math.floor(Math.random() * CHARSET.length)];
+                        const jitter = (Math.random() * 20) - 10;
+                        slot.spinChar.style.transform = `translateY(${jitter}px)`;
                     }
                 });
             }, SPIN_SPEED);
 
-            slots.forEach(function(s, i) {
-                setTimeout(function() {
-                    if (s.img.style.display !== 'none') {
-                        s.chaos.style.opacity = '0';
-                        s.img.classList.add('visible');
-                    }
+            slots.forEach((slot, i) => {
+                setTimeout(() => {
+                    slot.container.classList.add('revealed');
+                    slot.spinChar.style.transform = 'translateY(0)';
                     if (i === slots.length - 1) {
-                        setTimeout(function() {
+                        setTimeout(() => {
                             burst.classList.add('active');
                         }, BURST_DELAY);
                     }
                 }, REVEAL_START_DELAY + (i * REVEAL_STAGGER));
             });
 
-            setTimeout(function() {
+            const totalTime = REVEAL_START_DELAY + (slots.length * REVEAL_STAGGER) + BURST_DELAY + 500;
+            setTimeout(() => {
                 clearInterval(spinTimer);
-            }, REVEAL_START_DELAY + (slots.length * REVEAL_STAGGER) + BURST_DELAY + 1000);
+            }, totalTime);
         }
 
         function setupModals() {
-            var cookieModal = document.getElementById('cookieModal');
-            var impressumModal = document.getElementById('impressumModal');
+            const cookieModal = document.getElementById('cookieModal');
+            const impressumModal = document.getElementById('impressumModal');
 
-            document.getElementById('cookiePolicyLink').addEventListener('click', function(e) {
+            document.getElementById('cookiePolicyLink')?.addEventListener('click', (e) => {
                 e.preventDefault();
                 cookieModal.style.display = 'flex';
             });
-            document.getElementById('impressumLink').addEventListener('click', function(e) {
+            document.getElementById('impressumLink')?.addEventListener('click', (e) => {
                 e.preventDefault();
                 impressumModal.style.display = 'flex';
             });
 
-            ['closeCookieModalBtn', 'acceptCookieBtn'].forEach(function(id) {
-                var el = document.getElementById(id);
-                if (el) el.addEventListener('click', function() { cookieModal.style.display = 'none'; });
+            ['closeCookieModalBtn', 'acceptCookieBtn'].forEach(id => {
+                document.getElementById(id)?.addEventListener('click', () => {
+                    cookieModal.style.display = 'none';
+                });
             });
-            ['closeImpressumModalBtn', 'closeImpressumAcceptBtn'].forEach(function(id) {
-                var el = document.getElementById(id);
-                if (el) el.addEventListener('click', function() { impressumModal.style.display = 'none'; });
+            ['closeImpressumModalBtn', 'closeImpressumAcceptBtn'].forEach(id => {
+                document.getElementById(id)?.addEventListener('click', () => {
+                    impressumModal.style.display = 'none';
+                });
             });
 
-            document.querySelectorAll('.modal-overlay').forEach(function(overlay) {
-                overlay.addEventListener('click', function(e) {
+            document.querySelectorAll('.modal-overlay').forEach(overlay => {
+                overlay.addEventListener('click', (e) => {
                     if (e.target === overlay) overlay.style.display = 'none';
                 });
             });
         }
 
         function setupMenu() {
-            var menuContainer = document.querySelector('.menu-container');
-            var menuIcon = document.querySelector('.menu-icon');
-            var dropdown = menuContainer ? menuContainer.querySelector('.dropdown-content') : null;
+            const menuContainer = document.querySelector('.menu-container');
+            const menuIcon = document.querySelector('.menu-icon');
+            const dropdown = menuContainer?.querySelector('.dropdown-content');
             if (!menuContainer || !menuIcon || !dropdown) return;
 
-            var open = false;
-            menuIcon.addEventListener('click', function(e) {
+            let open = false;
+            menuIcon.addEventListener('click', (e) => {
                 e.stopPropagation();
                 open = !open;
                 dropdown.style.display = open ? 'block' : 'none';
             });
-            document.addEventListener('click', function(e) {
+            document.addEventListener('click', (e) => {
                 if (!menuContainer.contains(e.target)) {
                     open = false;
                     dropdown.style.display = 'none';
                 }
             });
-            menuContainer.addEventListener('mouseenter', function() {
+            menuContainer.addEventListener('mouseenter', () => {
                 if (window.innerWidth > 768) dropdown.style.display = 'block';
             });
-            menuContainer.addEventListener('mouseleave', function() {
+            menuContainer.addEventListener('mouseleave', () => {
                 if (window.innerWidth > 768) dropdown.style.display = 'none';
             });
         }
 
         function setupReplay() {
-            var titleContainer = document.getElementById('title-container');
+            const titleContainer = document.getElementById('title-container');
             if (titleContainer) {
-                titleContainer.addEventListener('click', function() {
+                titleContainer.addEventListener('click', () => {
                     initSlotMachine();
                 });
             }
         }
 
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', () => {
             initSlotMachine();
             setupModals();
             setupMenu();
