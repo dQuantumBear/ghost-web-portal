@@ -1,11 +1,17 @@
+---
+// StateZerØ Homepage — Astro Page Component
+// Place this file at: src/pages/index.astro
+// Place all sphere PNGs in the public/ folder
+---
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>StateZer0 | White-Label Zero-Knowledge Encrypted Communications Platform</title>
-    <style>
-        :root {
+    <style is:global>
+:root {
             --bg-black: #000000;
             --ghost-dark-green: #004D00;
             --ghost-neon-green: #27AE60;
@@ -635,74 +641,63 @@
             filter: drop-shadow(0 0 16px var(--ghost-neon-green));
         }
     
-        /* ===== STATEZER0 SLOT ENGINE v3 — BULLETPROOF ===== */
-        :root {
-            --slot-size: 120px;
+        /* ===== STATEZER0 SLOT ENGINE v4 — COMPLETELY ISOLATED ===== */
+        #slot-machine {
+            display: flex;
+            flex-direction: row;
+            gap: 8px;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            padding: 15px 10px;
+            min-height: 130px;
         }
 
-        .letter-container {
-            width: var(--slot-size);
-            height: var(--slot-size);
-            background: radial-gradient(circle at 30% 30%, rgba(0,40,0,0.6), rgba(0,10,0,0.9));
-            border: 2px solid rgba(39, 174, 96, 0.4);
-            border-radius: 12px;
-            overflow: hidden;
-            position: relative;
+        .sz-slot {
+            width: 110px;
+            height: 110px;
+            background: radial-gradient(circle at 35% 35%, rgba(0,50,0,0.5), rgba(0,15,0,0.95));
+            border: 2px solid rgba(39, 174, 96, 0.35);
+            border-radius: 10px;
             display: flex;
             justify-content: center;
             align-items: center;
-            box-shadow: inset 0 0 20px rgba(0,0,0,0.9), 0 0 12px rgba(39,174,96,0.2);
+            position: relative;
+            overflow: hidden;
+            box-shadow: inset 0 0 15px rgba(0,0,0,0.8), 0 0 10px rgba(39,174,96,0.15);
             flex-shrink: 0;
-            transition: border-color 0.3s, box-shadow 0.3s;
         }
 
-        .letter-container:hover {
-            border-color: rgba(39, 174, 96, 0.7);
-            box-shadow: inset 0 0 20px rgba(0,0,0,0.9), 0 0 20px rgba(39,174,96,0.4);
-        }
-
-        .slot-text {
-            font-size: 48px;
+        .sz-slot-text {
+            font-size: 44px;
             font-weight: bold;
-            color: var(--ghost-cream);
-            position: absolute;
-            z-index: 5;
-            text-shadow: 0 0 8px rgba(255,255,255,0.2);
-            pointer-events: none;
+            color: #FFFDD0;
             font-family: 'Courier New', Courier, monospace;
+            position: absolute;
+            z-index: 2;
+            text-shadow: 0 0 6px rgba(255,255,255,0.25);
+            transition: opacity 0.15s ease;
         }
 
-        .slot-img {
-            width: 90%;
-            height: 90%;
+        .sz-slot-img {
+            width: 92%;
+            height: 92%;
             object-fit: contain;
             position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%) scale(0.4);
+            z-index: 3;
             opacity: 0;
-            transition: all 0.7s cubic-bezier(0.34, 1.56, 0.64, 1);
-            pointer-events: none;
-            z-index: 10;
+            transform: scale(0.5);
+            transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
             filter: drop-shadow(0 0 0px transparent);
         }
 
-        .slot-img.show {
+        .sz-slot-img.visible {
             opacity: 1;
-            transform: translate(-50%, -50%) scale(1);
-            filter: drop-shadow(0 0 18px var(--neon-green)) drop-shadow(0 0 40px rgba(57,255,20,0.5));
+            transform: scale(1);
+            filter: drop-shadow(0 0 15px #39ff14) drop-shadow(0 0 30px rgba(57,255,20,0.4));
         }
 
-        #title-container {
-            min-height: calc(var(--slot-size) + 50px);
-            height: auto;
-            padding: 20px 0;
-            cursor: pointer;
-            user-select: none;
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        .outburst-layer {
+        .sz-burst {
             position: absolute;
             top: 50%;
             left: 50%;
@@ -710,43 +705,35 @@
             width: 100%;
             height: 100%;
             pointer-events: none;
-            z-index: 100;
+            z-index: 50;
             opacity: 0;
         }
 
-        .outburst-layer.active {
-            animation: neon-burst 0.9s ease-out forwards;
+        .sz-burst.active {
+            animation: sz-neon-burst 0.9s ease-out forwards;
         }
 
-        @keyframes neon-burst {
-            0% { opacity: 0; box-shadow: 0 0 0px 0px var(--neon-green); }
-            25% { opacity: 1; box-shadow: 0 0 150px 70px var(--neon-green); }
-            100% { opacity: 0; box-shadow: 0 0 300px 150px rgba(57, 255, 20, 0); }
+        @keyframes sz-neon-burst {
+            0% { opacity: 0; box-shadow: 0 0 0px 0px #39ff14; }
+            30% { opacity: 1; box-shadow: 0 0 140px 60px #39ff14; }
+            100% { opacity: 0; box-shadow: 0 0 280px 120px rgba(57, 255, 20, 0); }
         }
 
         @media (max-width: 900px) {
-            :root { --slot-size: clamp(55px, 12vw, 85px); }
-            .slot-text { font-size: clamp(36px, 8vw, 56px); }
-            .row-container { gap: 6px; }
-        }
-
-        @media (max-width: 600px) {
-            #title-container { min-height: 3.2em; font-size: 1.6em; }
+            .sz-slot { width: clamp(50px, 11vw, 80px); height: clamp(50px, 11vw, 80px); }
+            .sz-slot-text { font-size: clamp(32px, 7vw, 50px); }
+            #slot-machine { gap: 5px; min-height: clamp(60px, 12vw, 100px); }
         }
 
         @media (max-width: 480px) {
-            :root { --slot-size: clamp(45px, 13vw, 65px); }
-            .slot-text { font-size: clamp(28px, 9vw, 44px); }
-            .row-container { gap: 4px; }
-            #title-container { min-height: 3em; padding: 10px 0; }
+            .sz-slot { width: clamp(42px, 12vw, 60px); height: clamp(42px, 12vw, 60px); }
+            .sz-slot-text { font-size: clamp(26px, 8vw, 40px); }
+            #slot-machine { gap: 3px; min-height: clamp(50px, 13vw, 80px); padding: 8px 5px; }
         }
-
     </style>
-<base target="_blank">
 </head>
 <body>
-
-    <div class="menu-container">
+<div class="menu-container">
         <img src="menu_icon.png" alt="Menu" class="menu-icon">
         <div class="dropdown-content">
             <a href="https://glokta1991.github.io/legal-docs/privacy.html" target="_blank">Privacy Policy</a>
@@ -793,8 +780,8 @@
     <header>
         <img src="glass_logo.png" alt="StateZerØ Logo" class="logo">
         <div id="title-container">
-            <div class="row-container" id="main-row">
-                <div class="outburst-layer" id="burst"></div>
+            <div id="slot-machine">
+                <div class="sz-burst" id="sz-burst"></div>
             </div>
         </div>
         <p class="tagline">v26.1.0-STABLE (GHOST-PHOENIX-VI) | StateZer0 — White-Label Zero-Knowledge Encrypted Communications Platform</p>
@@ -927,13 +914,8 @@
     </footer>
 
     <script>
-    (function() {
+(function() {
         'use strict';
-
-        /* ============================================================
-           STATEZER0 SLOT MACHINE ENGINE v3 — BULLETPROOF
-           Uses direct inline styles. No CSS class specificity wars.
-        ============================================================ */
 
         const TARGET = "StateZer0";
         const IMAGE_MAP = {
@@ -946,83 +928,115 @@
             '0': '0.png'
         };
         const CHARSET = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#$%&*!?";
-        const SPIN_SPEED = 42;
-        const REVEAL_START_DELAY = 700;
-        const REVEAL_STAGGER = 200;
-        const BURST_DELAY = 450;
+        const SPIN_SPEED = 40;
+        const REVEAL_START_DELAY = 800;
+        const REVEAL_STAGGER = 220;
+        const BURST_DELAY = 500;
+
+        // Preload images and track success
+        function preloadImages(callback) {
+            var loaded = {};
+            var chars = Object.keys(IMAGE_MAP);
+            var pending = chars.length;
+
+            if (pending === 0) { callback(loaded); return; }
+
+            chars.forEach(function(char) {
+                var img = new Image();
+                img.onload = function() {
+                    loaded[char] = true;
+                    pending--;
+                    if (pending === 0) callback(loaded);
+                };
+                img.onerror = function() {
+                    loaded[char] = false;
+                    pending--;
+                    if (pending === 0) callback(loaded);
+                };
+                img.src = IMAGE_MAP[char];
+            });
+        }
 
         function initSlotMachine() {
-            const mainRow = document.getElementById('main-row');
-            const burst = document.getElementById('burst');
-            if (!mainRow || !burst) return;
+            var machine = document.getElementById('slot-machine');
+            var burst = document.getElementById('sz-burst');
+            if (!machine || !burst) return;
 
             // Reset
             burst.classList.remove('active');
-            mainRow.innerHTML = '';
-            mainRow.appendChild(burst);
+            // Keep only the burst div, remove all slots
+            var children = Array.prototype.slice.call(machine.children);
+            children.forEach(function(child) {
+                if (child.id !== 'sz-burst') machine.removeChild(child);
+            });
 
-            const slots = [];
+            // Preload then run
+            preloadImages(function(loaded) {
+                runAnimation(machine, burst, loaded);
+            });
+        }
+
+        function runAnimation(machine, burst, loaded) {
+            var slots = [];
 
             // Build slots
             TARGET.split('').forEach(function(char, i) {
-                var container = document.createElement('div');
-                container.className = 'letter-container';
+                var slot = document.createElement('div');
+                slot.className = 'sz-slot';
 
-                // Text layer (chaos phase)
+                // Text layer
                 var textEl = document.createElement('div');
-                textEl.className = 'slot-text';
+                textEl.className = 'sz-slot-text';
                 textEl.textContent = CHARSET[Math.floor(Math.random() * CHARSET.length)];
-                textEl.style.display = 'block';
 
-                // Image layer (hidden until lock)
+                // Image layer (only if loaded)
                 var imgEl = document.createElement('img');
-                imgEl.className = 'slot-img';
+                imgEl.className = 'sz-slot-img';
                 imgEl.src = IMAGE_MAP[char];
                 imgEl.alt = char;
                 imgEl.draggable = false;
-                imgEl.style.opacity = '0';
-                imgEl.style.transform = 'translate(-50%, -50%) scale(0.4)';
 
-                // If image fails, show neon text fallback
-                imgEl.onerror = function() {
-                    this.style.display = 'none';
-                    textEl.textContent = char;
-                    textEl.style.color = '#39ff14';
-                    textEl.style.textShadow = '0 0 12px #39ff14, 0 0 24px #39ff14';
-                    textEl.style.display = 'block';
-                };
+                slot.appendChild(textEl);
+                slot.appendChild(imgEl);
+                machine.insertBefore(slot, burst);
 
-                container.appendChild(textEl);
-                container.appendChild(imgEl);
-                mainRow.insertBefore(container, burst);
-
-                slots.push({ container: container, textEl: textEl, imgEl: imgEl, char: char });
+                slots.push({
+                    slot: slot,
+                    textEl: textEl,
+                    imgEl: imgEl,
+                    char: char,
+                    hasImage: loaded[char] === true
+                });
             });
 
-            // Chaos spin timer
+            // Chaos spin
             var spinTimer = setInterval(function() {
-                slots.forEach(function(slot) {
-                    if (slot.textEl.style.display !== 'none') {
-                        slot.textEl.textContent = CHARSET[Math.floor(Math.random() * CHARSET.length)];
-                        var jitter = (Math.random() * 16) - 8;
-                        slot.textEl.style.transform = 'translateY(' + jitter + 'px)';
+                slots.forEach(function(s) {
+                    if (s.textEl.style.opacity !== '0') {
+                        s.textEl.textContent = CHARSET[Math.floor(Math.random() * CHARSET.length)];
+                        var jitter = (Math.random() * 14) - 7;
+                        s.textEl.style.transform = 'translateY(' + jitter + 'px)';
                     }
                 });
             }, SPIN_SPEED);
 
             // Lock-in sequence
-            slots.forEach(function(slot, i) {
+            slots.forEach(function(s, i) {
                 setTimeout(function() {
-                    // HIDE text completely
-                    slot.textEl.style.display = 'none';
-                    slot.textEl.style.transform = 'translateY(0)';
+                    if (s.hasImage) {
+                        // Show image, hide text
+                        s.textEl.style.opacity = '0';
+                        s.textEl.style.transform = 'translateY(0)';
+                        s.imgEl.classList.add('visible');
+                    } else {
+                        // Image failed — show neon text instead
+                        s.textEl.textContent = s.char;
+                        s.textEl.style.color = '#39ff14';
+                        s.textEl.style.textShadow = '0 0 10px #39ff14, 0 0 20px #39ff14';
+                        s.textEl.style.transform = 'translateY(0)';
+                    }
 
-                    // SHOW image with elastic animation
-                    slot.imgEl.style.opacity = '1';
-                    slot.imgEl.style.transform = 'translate(-50%, -50%) scale(1)';
-                    slot.imgEl.style.filter = 'drop-shadow(0 0 18px #39ff14) drop-shadow(0 0 40px rgba(57,255,20,0.5))';
-
-                    // Final slot triggers burst
+                    // Burst on last slot
                     if (i === slots.length - 1) {
                         setTimeout(function() {
                             burst.classList.add('active');
@@ -1031,8 +1045,8 @@
                 }, REVEAL_START_DELAY + (i * REVEAL_STAGGER));
             });
 
-            // Cleanup
-            var totalTime = REVEAL_START_DELAY + (slots.length * REVEAL_STAGGER) + BURST_DELAY + 800;
+            // Stop spin timer
+            var totalTime = REVEAL_START_DELAY + (slots.length * REVEAL_STAGGER) + BURST_DELAY + 1000;
             setTimeout(function() {
                 clearInterval(spinTimer);
             }, totalTime);
