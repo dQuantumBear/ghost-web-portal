@@ -275,20 +275,20 @@
             }
         }
 
-        /* Slot Engine - StateZerØ Image Reel v2.0 */
+        /* Slot Engine - StateZerØ Image Reel v3.0 */
         :root {
             --neon-green: #39ff14;
             --bg-color: #000;
             --container-bg: #111;
             --text-color: #fff;
-            --box-size: 78px;
+            --box-size: 82px;
         }
 
         .row-container {
             display: flex;
             flex-direction: row;
             flex-wrap: nowrap;
-            gap: 10px;
+            gap: 8px;
             position: relative;
             justify-content: center;
             align-items: center;
@@ -300,47 +300,37 @@
         .letter-container {
             width: var(--box-size);
             height: var(--box-size);
-            background-color: rgba(17, 17, 17, 0.65);
-            border: 1px solid rgba(51, 51, 51, 0.5);
-            border-radius: 16px;
-            overflow: hidden;
+            background-color: transparent;
+            border: none;
+            border-radius: 50%;
+            overflow: visible;
             position: relative;
             display: flex;
             justify-content: center;
             align-items: center;
-            box-shadow: inset 0 0 14px rgba(0,0,0,0.9);
             flex-shrink: 0;
-            transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: filter 0.35s ease, transform 0.35s ease;
         }
 
         .letter-container img {
             position: absolute;
             top: 50%;
             left: 50%;
-            width: 96%;
-            height: 96%;
-            max-width: 96%;
-            max-height: 96%;
+            width: 100%;
+            height: 100%;
             object-fit: contain;
             display: block;
-            transition: all 0.06s linear;
-            filter: brightness(0.4) saturate(0.7);
+            filter: brightness(0.5) saturate(0.8);
             pointer-events: none;
             user-select: none;
             -webkit-user-drag: none;
-            transform: translate(-50%, -50%);
-        }
-
-        .letter-container.revealed {
-            border-color: rgba(57, 255, 20, 0.45);
-            box-shadow: 0 0 24px rgba(57, 255, 20, 0.2), inset 0 0 14px rgba(0,0,0,0.9);
-            background-color: rgba(17, 17, 17, 0.85);
-            transform: scale(1.06);
+            transform: translate(-50%, -50%) scale(1);
+            will-change: transform, filter;
         }
 
         .letter-container.revealed img {
-            filter: brightness(1.2) saturate(1.3) drop-shadow(0 0 10px var(--neon-green)) drop-shadow(0 0 22px var(--neon-green));
-            transform: translate(-50%, -50%) rotate(0deg) scale(1.12) !important;
+            filter: brightness(1.15) saturate(1.25) drop-shadow(0 0 10px var(--neon-green)) drop-shadow(0 0 20px var(--neon-green));
+            transform: translate(-50%, -50%) scale(1.05);
         }
 
         .outburst-layer {
@@ -348,8 +338,8 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 130%;
-            height: 130%;
+            width: 140%;
+            height: 140%;
             pointer-events: none;
             z-index: 100;
             opacity: 0;
@@ -376,10 +366,10 @@
 
         @media (max-width: 900px) {
             :root {
-                --box-size: clamp(48px, 9vw, 72px);
+                --box-size: clamp(44px, 7.5vw, 64px);
             }
             .row-container {
-                gap: 6px;
+                gap: 5px;
             }
         }
 
@@ -553,13 +543,10 @@
             .signature-creator { font-size: 0.75em !important; }
 
             :root {
-                --box-size: clamp(38px, 11vw, 54px);
-            }
-            .letter-container {
-                border-radius: 12px;
+                --box-size: clamp(30px, 7.5vw, 38px);
             }
             .row-container {
-                gap: 5px;
+                gap: 3px;
             }
             body { font-size: 0.9em; }
             p, li { font-size: 0.9em; }
@@ -1010,17 +997,18 @@
     </footer>
 
     <script>
-        // StateZerØ Image Reel Engine v2.0 - Forensic Rebuild
+        // StateZerØ Image Reel Engine v3.0 — Smooth Interval Spin
         const targetSequence = ['/s.png', '/t.png', '/a.png', '/t.png', '/e.png', '/z.png', '/e.png', '/r.png', '/0.png'];
         const imagePool = ['/0.png', '/r.png', '/z.png', '/e.png', '/a.png', '/t.png', '/s.png'];
         const row = document.getElementById('main-row');
         const burst = document.getElementById('burst');
         const titleContainer = document.getElementById('title-container');
         let containers = [];
-        let spinTimers = [];
+        let spinIntervals = [];
+        let revealTimers = [];
         let currentGen = 0;
 
-        // Preload all image assets to prevent spin-time flicker / decode lag
+        // Preload all image assets to prevent spin-time flicker
         const preloaded = new Set();
         function preloadAll() {
             const allSrcs = [...new Set([...imagePool, ...targetSequence])];
@@ -1033,10 +1021,16 @@
             });
         }
 
+        function clearAllTimers() {
+            spinIntervals.forEach(clearInterval);
+            spinIntervals = [];
+            revealTimers.forEach(clearTimeout);
+            revealTimers = [];
+        }
+
         function buildSlots() {
+            clearAllTimers();
             containers = [];
-            spinTimers.forEach(t => clearTimeout(t));
-            spinTimers = [];
             const old = row.querySelectorAll('.letter-container');
             old.forEach(el => el.remove());
             burst.classList.remove('active');
@@ -1059,35 +1053,42 @@
                     element: container,
                     imgNode: img,
                     target: targetSequence[i],
-                    isRevealed: false,
-                    spinSpeed: 40 + Math.random() * 60
+                    isRevealed: false
                 });
             }
         }
 
-        function spin(index, gen) {
-            if (gen !== currentGen) return;
-            const c = containers[index];
-            if (!c || c.isRevealed) return;
+        function startSequence() {
+            currentGen++;
+            const gen = currentGen;
+            buildSlots();
 
-            c.imgNode.src = imagePool[Math.floor(Math.random() * imagePool.length)];
-            const offsetY = Math.random() * 6 - 3;
-            const offsetX = Math.random() * 6 - 3;
-            const rotate = Math.random() * 8 - 4;
-            const scale = 0.88 + Math.random() * 0.08;
-            c.imgNode.style.transform = `translate(calc(-50% + ${offsetX}px), calc(-50% + ${offsetY}px)) rotate(${rotate}deg) scale(${scale})`;
+            // Start one clean interval per slot — consistent speed, no timer pile-up
+            containers.forEach((c, i) => {
+                const speed = 55 + Math.random() * 45; // 55–100ms per slot
+                const interval = setInterval(() => {
+                    if (gen !== currentGen || c.isRevealed) {
+                        clearInterval(interval);
+                        return;
+                    }
+                    c.imgNode.src = imagePool[Math.floor(Math.random() * imagePool.length)];
+                }, speed);
+                spinIntervals.push(interval);
+            });
 
-            const t = setTimeout(() => spin(index, gen), c.spinSpeed);
-            spinTimers.push(t);
+            // Begin reveal chain after 7s
+            const revealStart = setTimeout(() => revealNext(0, gen), 7000);
+            revealTimers.push(revealStart);
         }
 
         function revealNext(index, gen) {
             if (gen !== currentGen) return;
+
             if (index >= containers.length) {
-                const t = setTimeout(() => {
+                const burstTimer = setTimeout(() => {
                     if (gen === currentGen) burst.classList.add('active');
                 }, 250);
-                spinTimers.push(t);
+                revealTimers.push(burstTimer);
                 return;
             }
 
@@ -1096,23 +1097,9 @@
             c.imgNode.src = c.target;
             c.imgNode.alt = c.target.replace('.png', '').toUpperCase();
             c.element.classList.add('revealed');
-            c.imgNode.style.transform = 'translate(-50%, -50%) rotate(0deg) scale(1.12)';
 
-            const t = setTimeout(() => revealNext(index + 1, gen), 220);
-            spinTimers.push(t);
-        }
-
-        function startSequence() {
-            currentGen++;
-            const gen = currentGen;
-            buildSlots();
-
-            for (let i = 0; i < containers.length; i++) {
-                spin(i, gen);
-            }
-
-            const t = setTimeout(() => revealNext(0, gen), 7000);
-            spinTimers.push(t);
+            const nextTimer = setTimeout(() => revealNext(index + 1, gen), 220);
+            revealTimers.push(nextTimer);
         }
 
         preloadAll();
