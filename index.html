@@ -1,0 +1,1178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script type='text/javascript' src='https://prod-chat-kimi.tos-cn-beijing.volces.com/aVb-Pedebo2bQYtxku7lL7kYdsvXc7UVs6otKyx52aA20xavIa-J9HCWua7bMCpQH0FosvAZ6vbNkUBIc-FeOre_DS7EIg45Lxntq0_uVnoXkto9QQUjnnIuwGqSpN-QJjcpKtQBM-8paqabNn58NAmoXxYnq6bnMq2PwXRkLgsMhr04bHbFNxD5qqvUhhPAv4ttQLRWNJMD_KpXeffMWUFlX8RCHe3zi1ZKzn_OPX2vtdUhaVw_T4Ndx1hvC_6aj5hBuBsKfbvp4K5YHZXTEBjlks9c1Q4oBF2c5_fD-Kc5wbwKdOtDbLNcNA3W6pN-ckVh__wetMN2Z4DAhIHDrWwbBGBWy7paV9w_idgjPcZ6uu6YEtoLcfVslw1Zi7OZW4MqMNipDaObSKZkwEWkMjJYckID9322cv5xxrlUQbag52B0rPWFbrsh3PfI1ZhpoSMOKS1G7Fyyo-BBLGQ3BysEbSSBOudasQrZmkFmMQB81LTGkpo_cklM8EZG8A7NRkwChRo8zCN6A7f86ejwRFyK3rtisn0iaaReBK1iXovGApO09IMxYhddjSYFQ-iG75-bgDIFnSrl_1rmi-aN7gofvCVPEAAT4l8-3kp1ScobUw-WG_whKIj6Pu4jRLhkz6ReXjRZKWPB54PijgealCbx_0W_SAA9M78_y4q_f15dpLA5Hynr0VzL3dW-cU8O4qixTBms3L6P-0PmhJzxkqQP1hYEoDCJof_XJpc_5DhLW8_SRn0NznvRYM_CgffVW43XdZ5BMdEHbiDNIsEFPD6Nqw5djYONPyYW2A84HpwYRUfxBcJezHrWEdlfwNm6HYfbimUYR225I0qWf0o9YHL5yA5OssKkbOU-LuifcA-yR1UqlqXzC2jQbXRz0KF3W5Mp9SZcwtZdJzpqgZbgGRshswWrab4hWqkhStsufWdaOnIkMmOfFVnZEvffh_MXT05csHzNwkNvrQVlNQbLrsY5tFOcwhgjnQW1s7dZBZO62tdLQx1OSx0W2tyrf60kb0laZSlpYwXAdb3bnQfb3_U'></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StateZerØ | White-Label Zero-Knowledge Encrypted Communications Platform</title>
+    <style>
+        :root {
+            --bg-black: #000000;
+            --ghost-dark-green: #004D00;
+            --ghost-neon-green: #27AE60;
+            --ghost-white: #FFFFFF;
+            --ghost-cream: #FFFDD0;
+            --ghost-red: #FF0000;
+            --ghost-dark-red: #8B0000;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            background-color: var(--bg-black);
+            color: var(--ghost-white);
+            font-family: 'Courier New', Courier, monospace;
+            margin: 0;
+            padding: 0;
+            line-height: 1.4;
+            position: relative;
+            overflow-x: hidden;
+            box-sizing: border-box;
+        }
+
+        *, *:before, *:after {
+            box-sizing: inherit;
+        }
+
+        /* Modal Overlay - Floating Window */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(8px);
+            z-index: 2000;
+        }
+
+        .modal-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: var(--bg-black);
+            border: 2px solid var(--ghost-neon-green);
+            border-radius: 16px;
+            max-width: 500px;
+            width: calc(100% - 40px);
+            max-height: calc(100vh - 40px);
+            overflow-y: auto;
+            box-shadow: 0 0 40px rgba(39, 174, 96, 0.5);
+            animation: modalFadeIn 0.3s ease-out;
+        }
+
+        @keyframes modalFadeIn {
+            from {
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(1);
+            }
+        }
+
+        .modal-header {
+            padding: 20px 25px 10px 25px;
+            border-bottom: 1px solid var(--ghost-dark-green);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-header h2 {
+            margin: 0;
+            color: var(--ghost-neon-green);
+            text-transform: uppercase;
+            font-size: 1.3em;
+            border: none;
+            padding: 0;
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            color: var(--ghost-neon-green);
+            font-size: 28px;
+            cursor: pointer;
+            padding: 0;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: 0.2s;
+        }
+
+        .close-modal:hover {
+            background-color: var(--ghost-dark-green);
+            transform: scale(1.1);
+        }
+
+        .modal-body {
+            padding: 20px 25px;
+            font-size: 0.9em;
+            line-height: 1.6;
+            color: var(--ghost-cream);
+            overflow-wrap: break-word;
+            word-break: break-word;
+        }
+
+        .modal-body p {
+            margin: 10px 0;
+        }
+
+        .modal-body code {
+            background: rgba(39, 174, 96, 0.2);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: monospace;
+            color: var(--ghost-neon-green);
+        }
+
+        .accept-btn {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            margin-top: 20px;
+            background-color: transparent;
+            border: 2px solid var(--ghost-neon-green);
+            color: var(--ghost-neon-green);
+            font-weight: bold;
+            font-size: 1em;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: 0.3s;
+            font-family: inherit;
+        }
+
+        .accept-btn:hover {
+            background-color: var(--ghost-dark-green);
+            color: var(--ghost-white);
+            box-shadow: 0 0 15px var(--ghost-neon-green);
+        }
+
+        /* AI-FIX: Secure Menu Navigation (v8.2.2) */
+        .menu-container {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+
+        .menu-icon {
+            width: 50px;
+            height: auto;
+            cursor: pointer;
+            filter: drop-shadow(0 0 5px var(--ghost-neon-green));
+            transition: 0.3s;
+        }
+
+        .menu-icon:hover { transform: scale(1.1); }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            right: 0;
+            top: 100%;
+            background-color: var(--bg-black);
+            min-width: 240px;
+            border: 2px solid var(--ghost-neon-green);
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(39, 174, 96, 0.4);
+            padding: 10px 0;
+            z-index: 1001;
+        }
+
+        .menu-container:hover .dropdown-content { display: block; }
+
+        .dropdown-content a {
+            color: var(--ghost-white);
+            padding: 12px 20px;
+            text-decoration: none;
+            display: block;
+            font-size: 0.9em;
+            text-transform: uppercase;
+            font-weight: bold;
+            transition: 0.2s;
+            border-bottom: 1px solid rgba(39, 174, 96, 0.1);
+            cursor: pointer;
+        }
+
+        .dropdown-content a:last-child { border-bottom: none; }
+
+        .dropdown-content a:hover {
+            background-color: var(--ghost-dark-green);
+            color: var(--ghost-neon-green);
+        }
+
+        header {
+            padding: 60px 10px;
+            text-align: center;
+            background: linear-gradient(to bottom, var(--ghost-dark-green), var(--bg-black));
+            border-bottom: 1px solid var(--ghost-neon-green);
+            overflow: hidden;
+        }
+
+        .logo {
+            max-width: 120px;
+            height: auto;
+            margin-bottom: 15px;
+            animation: redToGreenGlow 3s ease-in-out infinite;
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+            animation: redToGreenGlowFast 1.5s ease-in-out infinite;
+        }
+
+        @keyframes redToGreenGlow {
+            0% {
+                filter: drop-shadow(0 0 5px #FF0000) drop-shadow(0 0 10px #FF0000);
+                opacity: 1;
+            }
+            25% {
+                filter: drop-shadow(0 0 15px #FF4500) drop-shadow(0 0 25px #FF4500);
+                opacity: 0.95;
+            }
+            50% {
+                filter: drop-shadow(0 0 20px #27AE60) drop-shadow(0 0 35px #27AE60);
+                opacity: 1;
+            }
+            75% {
+                filter: drop-shadow(0 0 15px #00FF00) drop-shadow(0 0 25px #00FF00);
+                opacity: 0.95;
+            }
+            100% {
+                filter: drop-shadow(0 0 5px #FF0000) drop-shadow(0 0 10px #FF0000);
+                opacity: 1;
+            }
+        }
+
+        @keyframes redToGreenGlowFast {
+            0% {
+                filter: drop-shadow(0 0 8px #FF0000) drop-shadow(0 0 15px #FF0000);
+            }
+            25% {
+                filter: drop-shadow(0 0 20px #FF4500) drop-shadow(0 0 35px #FF4500);
+            }
+            50% {
+                filter: drop-shadow(0 0 25px #27AE60) drop-shadow(0 0 45px #27AE60);
+            }
+            75% {
+                filter: drop-shadow(0 0 20px #00FF00) drop-shadow(0 0 35px #00FF00);
+            }
+            100% {
+                filter: drop-shadow(0 0 8px #FF0000) drop-shadow(0 0 15px #FF0000);
+            }
+        }
+
+        /* Slot Engine - StateZerØ Image Reel v3.0 */
+        :root {
+            --neon-green: #39ff14;
+            --bg-color: #000;
+            --container-bg: #111;
+            --text-color: #fff;
+            --box-size: 110px;
+        }
+
+        .row-container {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            gap: 0px;
+            position: relative;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            max-width: 100%;
+            overflow: visible;
+        }
+
+        .letter-container {
+            width: var(--box-size);
+            height: var(--box-size);
+            background-color: transparent;
+            border: none;
+            border-radius: 50%;
+            overflow: visible;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-shrink: 0;
+            margin: 0 -6px;
+            transition: filter 0.35s ease, transform 0.35s ease;
+        }
+
+        .letter-container img {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 125%;
+            height: 125%;
+            object-fit: contain;
+            display: block;
+            filter: none;
+            pointer-events: none;
+            user-select: none;
+            -webkit-user-drag: none;
+            transform: translate(-50%, -50%);
+            will-change: transform;
+        }
+
+        .letter-container.revealed img {
+            filter: drop-shadow(0 0 10px rgba(57, 255, 20, 0.65)) drop-shadow(0 0 22px rgba(57, 255, 20, 0.35));
+            transform: translate(-50%, -50%) scale(1.06);
+        }
+
+        .outburst-layer {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            height: 130%;
+            border-radius: 20px;
+            pointer-events: none;
+            z-index: 100;
+            opacity: 0;
+        }
+
+        .outburst-layer.active {
+            /* centralized burst removed — per-button burst handles all slots */
+        }
+
+        @keyframes slot-burst {
+            0% {
+                box-shadow: 0 0 0px 0px rgba(57, 255, 20, 0);
+            }
+            30% {
+                box-shadow: 0 0 50px 18px rgba(57, 255, 20, 0.35);
+            }
+            100% {
+                box-shadow: 0 0 0px 0px rgba(57, 255, 20, 0);
+            }
+        }
+
+        @keyframes slot-burst-mobile {
+            0% {
+                box-shadow: 0 0 0px 0px rgba(57, 255, 20, 0);
+            }
+            30% {
+                box-shadow: 0 0 22px 8px rgba(57, 255, 20, 0.35);
+            }
+            100% {
+                box-shadow: 0 0 0px 0px rgba(57, 255, 20, 0);
+            }
+        }
+
+        .letter-container.burst {
+            animation: slot-burst 0.85s ease-out forwards;
+        }
+
+        @media (max-width: 900px) {
+            :root {
+                --box-size: clamp(58px, 8vw, 84px);
+            }
+            .row-container {
+                gap: 0px;
+            }
+            .letter-container.revealed {
+                box-shadow: 0 0 8px 2px rgba(57, 255, 20, 0.35), 0 0 14px 3px rgba(57, 255, 20, 0.18);
+            }
+            .letter-container.revealed img {
+                filter: none;
+            }
+            .letter-container.burst {
+                animation: slot-burst-mobile 0.85s ease-out forwards;
+            }
+        }
+
+        @media (max-width: 600px) {
+            #title-container {
+                font-size: 1.15em;
+                min-height: calc(var(--box-size) + 20px);
+            }
+            .tagline { font-size: 0.75em !important; line-height: 1.4; }
+        }
+
+        #title-container {
+            color: var(--ghost-cream);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-size: 2.2em;
+            margin: 0;
+            height: auto;
+            overflow: visible !important;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            contain: paint;
+            min-height: calc(var(--box-size) + 28px);
+            visibility: visible;
+            opacity: 0;
+            animation: fadeInTitle 0.1s ease-out 0.1s forwards;
+            width: 100%;
+            cursor: pointer;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+            padding: 8px 0;
+        }
+
+        @keyframes fadeInTitle {
+            to { opacity: 1; }
+        }
+
+        .tagline {
+            color: var(--ghost-neon-green);
+            font-weight: bold;
+            font-size: 1em;
+            margin-top: 5px;
+            opacity: 0;
+            animation: fadeIn 0.5s ease-in 2.5s forwards;
+            max-width: 100%;
+            display: inline-block;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .mobile-break { display: none; }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        .ghost-btn {
+            display: inline-block;
+            padding: 12px 24px;
+            margin-top: 25px;
+            border: 2px solid var(--ghost-neon-green);
+            color: var(--ghost-neon-green);
+            text-decoration: none;
+            font-weight: bold;
+            letter-spacing: 2px;
+            transition: 0.3s;
+            border-radius: 4px;
+            font-size: 0.9em;
+            opacity: 0;
+            animation: fadeIn 0.5s ease-in 2.8s forwards;
+        }
+
+        .ghost-btn:hover {
+            background-color: var(--ghost-dark-green);
+            color: var(--ghost-white);
+            box-shadow: 0 0 15px var(--ghost-neon-green);
+        }
+
+        .download-soon-img {
+            width: 100%;
+            max-width: 200px;
+            margin: 20px auto;
+            display: block;
+            transition: 0.3s;
+        }
+
+        .download-soon-img:hover {
+            transform: scale(1.05);
+            filter: drop-shadow(0 0 10px var(--ghost-neon-green));
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        section {
+            background-color: rgba(0, 77, 0, 0.1);
+            margin-bottom: 30px;
+            padding: 25px;
+            border-radius: 20px;
+            border: 1px solid rgba(39, 174, 96, 0.3);
+            transition: all 0.3s ease;
+            box-shadow: 0 0 20px rgba(39, 174, 96, 0.3);
+            opacity: 0;
+            animation: fadeInUp 0.5s ease-out forwards;
+            animation-delay: calc(2.5s + (var(--order, 0) * 0.1s));
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        section:nth-child(1) { --order: 1; }
+        section:nth-child(2) { --order: 2; }
+        section:nth-child(3) { --order: 3; }
+        section:nth-child(4) { --order: 4; }
+        section:nth-child(5) { --order: 5; }
+        section:nth-child(6) { --order: 6; }
+        section:nth-child(7) { --order: 7; }
+
+        section:hover {
+            box-shadow: 0 0 30px rgba(39, 174, 96, 0.5);
+            border-color: rgba(39, 174, 96, 0.6);
+        }
+
+        h2 {
+            color: var(--ghost-neon-green);
+            text-transform: uppercase;
+            font-size: 1.2em;
+            border-bottom: 1px solid var(--ghost-dark-green);
+            padding-bottom: 10px;
+            margin-top: 0;
+        }
+
+        .ghost-line {
+            font-size: 1.5em;
+            color: var(--ghost-cream);
+            text-align: center;
+            font-weight: bold;
+            white-space: nowrap;
+            margin: 25px 0;
+            display: block;
+            opacity: 0;
+            animation: fadeIn 0.5s ease-in 2.3s forwards;
+        }
+
+        @media (max-width: 480px) {
+            .mobile-break { display: block; height: 0; }
+            .ghost-line { font-size: 1.05em; white-space: normal !important; margin: 15px 0; overflow-wrap: break-word; }
+            section { padding: 15px; margin-bottom: 20px; border-radius: 12px; }
+            h2 { font-size: 1.1em; }
+            .download-soon-img { max-width: 180px; margin: 20px auto; }
+            .dropdown-content { right: -10px; min-width: 200px; }
+            .modal-content { width: calc(100% - 40px); max-height: calc(100vh - 40px); }
+            .logo { max-width: 80px; margin-bottom: 10px; }
+            header { padding: 40px 2px; overflow-x: hidden; }
+            .tagline { font-size: 0.75em !important; line-height: 1.4; }
+            .ghost-btn { padding: 10px 20px; font-size: 0.8em; }
+            .signature-creator { font-size: 0.75em !important; }
+
+            :root {
+                --box-size: clamp(42px, 12.5vw, 54px);
+            }
+            .row-container {
+                gap: 0px;
+                margin: 0 -2px;
+            }
+            .letter-container {
+                margin: 0 -5px;
+            }
+            .letter-container img {
+                width: 155%;
+                height: 155%;
+                filter: none;
+            }
+            body { font-size: 0.9em; }
+            p, li { font-size: 0.9em; }
+        }
+
+        .support-box {
+            text-align: center;
+            border: 1px solid var(--ghost-neon-green);
+        }
+
+        .bear-img {
+            max-width: 150px;
+            border-radius: 50%;
+            border: 2px solid var(--ghost-neon-green);
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 15px rgba(39, 174, 96, 0.3);
+        }
+
+        .bear-img:hover {
+            box-shadow: 0 0 25px rgba(39, 174, 96, 0.6);
+        }
+
+        .bottom-bear {
+            max-width: 60px;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .bottom-bear:hover {
+            filter: drop-shadow(0 0 8px var(--ghost-neon-green));
+        }
+
+        .highlight { color: var(--ghost-neon-green); font-weight: bold; }
+
+        .footer-signature {
+            font-size: 1.5em;
+            margin-top: 20px;
+            display: block;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            font-size: 0.8em;
+            color: #777;
+            background: #050505;
+        }
+
+        .signature-creator {
+            opacity: 0;
+            animation: fadeIn 0.5s ease-in 2.8s forwards;
+        }
+
+        .donate-btn {
+            display: inline-block;
+            padding: 14px 32px;
+            margin: 10px 0;
+            border: 2px solid var(--ghost-neon-green);
+            color: var(--ghost-neon-green);
+            background-color: transparent;
+            text-decoration: none;
+            font-weight: bold;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            transition: 0.3s;
+            border-radius: 4px;
+            font-size: 0.95em;
+            cursor: pointer;
+            font-family: 'Courier New', Courier, monospace;
+            white-space: nowrap;
+        }
+
+        .donate-btn:hover {
+            background-color: var(--ghost-dark-green);
+            color: var(--ghost-white);
+            box-shadow: 0 0 20px var(--ghost-neon-green);
+            transform: scale(1.02);
+        }
+
+        .donate-img {
+            max-width: 100px;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+            transition: 0.3s;
+            filter: drop-shadow(0 0 8px var(--ghost-neon-green));
+        }
+
+        .donate-img:hover {
+            transform: scale(1.08);
+            filter: drop-shadow(0 0 16px var(--ghost-neon-green));
+        }
+    </style>
+</head>
+<body>
+
+    <div class="menu-container">
+        <img src="/public/menu_icon.png" alt="Menu" class="menu-icon">
+        <div class="dropdown-content">
+            <a href="https://glokta1991.github.io/legal-docs/privacy.html" target="_blank">Privacy Policy</a>
+            <a href="https://glokta1991.github.io/legal-docs/terms.html" target="_blank">Terms of Service</a>
+            <a href="https://glokta1991.github.io/legal-docs/manifesto.html" target="_blank">Manifesto</a>
+            <a href="https://glokta1991.github.io/legal-docs/white_paper.html" target="_blank">White Paper</a>
+            <a href="https://glokta1991.github.io/legal-docs/transparency_report.html" target="_blank">Transparency Report</a>
+            <a id="cookiePolicyLink" style="cursor: pointer;">Cookie Policy</a>
+            <a id="impressumLink" style="cursor: pointer;">Impressum</a>
+        </div>
+    </div>
+
+    <div id="cookieModal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Cookie Transparency Policy</h2>
+                <button class="close-modal" id="closeCookieModalBtn">×</button>
+            </div>
+            <div class="modal-body">
+                <p><b>Status: Zero-Tracking Architecture</b></p>
+                <p>StateZerØ is engineered for Stateless Privacy. I do not track user behavior, utilize Google Analytics, or deploy marketing pixels. While my code is cookie-free, I utilize Cloudflare for DDoS protection; you may occasionally see a strictly necessary security cookie used solely for bot protection. This is exempt from consent under <b>§ 25 para. 2 TDDDG</b>.</p>
+                <button id="acceptCookieBtn" class="accept-btn">✓ I ACCEPT THE COOKIE POLICY</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="impressumModal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Impressum</h2>
+                <button class="close-modal" id="closeImpressumModalBtn">×</button>
+            </div>
+            <div class="modal-body">
+                <p><b>Inhalte gemäß §5 DDG</b></p>
+                <p>Individual Entrepreneur</p>
+                <p>c/o IP-Management #9966<br>Ludwig-Erhard-Straße 18<br>20459 Hamburg</p>
+                <p><b>Kontaktdaten:</b><br>E-Mail: statezer0@proton.me<br>Telefon: 00491749385199</p>
+                <p>Quelle: Impressum-Privatschutz</p>
+                <button id="closeImpressumAcceptBtn" class="accept-btn">✓ CLOSE</button>
+            </div>
+        </div>
+    </div>
+
+    <header>
+        <img src="/public/glass_logo.png" alt="StateZerØ Logo" class="logo">
+        <div id="title-container">
+            <div class="row-container" id="main-row">
+                <div class="outburst-layer" id="burst"></div>
+            </div>
+        </div>
+        <p class="tagline">v26.1.0-STABLE (GHOST-PHOENIX-VI) | White-Label Zero-Knowledge Encrypted Communications Platform</p>
+        <p style="text-align: center; font-size: 0.8em; opacity: 0.7; margin-top: 10px;">Updated: August 02, 2026</p>
+
+        <div>
+            <a href="https://glokta1991.github.io/legal-docs/white_paper.html" class="ghost-btn">EXPLORE THE ARCHITECTURE</a>
+            <div class="signature-creator" style="margin-top: 15px; font-size: 0.85em; color: var(--ghost-cream); opacity: 0.8; line-height: 1.5; padding: 0 10px;">
+                Created, financed and designed by <span class="highlight">dQuantumBear</span><br>
+                Contact: <span class="highlight" style="word-break: break-all;">statezer0@proton.me</span>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+
+        <span class="ghost-line">"To you, I am a private bridge. To the world, you are a Ghost."</span>
+
+        <section>
+            <p>Most "secure" messengers still collect user data. They force phone numbers during sign-up, index contacts on central servers, and expose user activity graphs. I engineered StateZerØ under the strict doctrine of Blind by Default. My infrastructure operates purely as a stateless, zero-visibility transport relay. My server is structurally and mathematically incapable of seeing usernames, reading messages, viewing attachments, tracking IP addresses, or identifying user networks.</p>
+            
+            <h3 style="color: var(--ghost-neon-green); text-transform: uppercase; font-size: 1.1em; margin-top: 25px; border-bottom: 1px solid var(--ghost-dark-green); padding-bottom: 8px;">⚡ Feature Comparison: StateZerØ vs. Mainstream Apps</h3>
+            <div style="overflow-x: auto; -webkit-overflow-scrolling: touch; margin: 15px 0; border: 1px solid var(--ghost-neon-green);">
+                <table style="width: 100%; border-collapse: collapse; font-size: 0.85em; font-family: 'Courier New', Courier, monospace; min-width: 600px;">
+                    <thead>
+                        <tr style="background-color: rgba(39, 174, 96, 0.2);">
+                            <th style="border: 1px solid var(--ghost-neon-green); padding: 8px; text-align: left; color: var(--ghost-neon-green); text-transform: uppercase;">Feature</th>
+                            <th style="border: 1px solid var(--ghost-neon-green); padding: 8px; text-align: left; color: var(--ghost-neon-green); text-transform: uppercase;">WhatsApp</th>
+                            <th style="border: 1px solid var(--ghost-neon-green); padding: 8px; text-align: left; color: var(--ghost-neon-green); text-transform: uppercase;">Signal</th>
+                            <th style="border: 1px solid var(--ghost-neon-green); padding: 8px; text-align: left; color: var(--ghost-neon-green); text-transform: uppercase;">StateZerØ</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="border: 1px solid var(--ghost-neon-green); padding: 8px;"><b>Account Identity</b></td>
+                            <td style="border: 1px solid var(--ghost-neon-green); padding: 8px;">Mandatory Phone Number</td>
+                            <td style="border: 1px solid var(--ghost-neon-green); padding: 8px;">Mandatory Phone Number</td>
+                            <td style="border: 1px solid var(--ghost-neon-green); padding: 8px;"><span class="highlight">Zero Identifiers (12-Word Master Key)</span></td>
+                        </tr>
+                        <tr style="background-color: rgba(0, 77, 0, 0.1);">
+                            <td style="border: 1px solid var(--ghost-neon-green); padding: 8px;"><b>Account Ownership</b></td>
+                            <td style="border: 1px solid var(--ghost-neon-green); padding: 8px;">Phone / SMS Verification</td>
+                            <td style="border: 1px solid var(--ghost-neon-green); padding: 8px;">Phone / SMS Verification</td>
+                            <td style="border: 1px solid var(--ghost-neon-green); padding: 8px;"><span class="highlight">12-Word Master Key (Absolute Owner Authority)</span></td>
+                        </tr>
+                        <tr>
+                            <td style="border: 1px solid var(--ghost-neon-green); padding: 8px;"><b>Encrypted Voice Calls</b></td>
+                            <td style="border: 1px solid var(--ghost-neon-green); padding: 8px;">Direct P2P (Exposes IP)</td>
+                            <td style="border: 1px solid var(--ghost-neon-green); padding: 8px;">Mandatory Phone Sync</td>
+                            <td style="border: 1px solid var(--ghost-neon-green); padding: 8px;"><span class="highlight">Encrypted Ghost Voice (RELAY_ONLY Zero IP Leakage)</span></td>
+                        </tr>
+                        <tr style="background-color: rgba(0, 77, 0, 0.1);">
+                            <td style="border: 1px solid var(--ghost-neon-green); padding: 8px;"><b>Network Metadata</b></td>
+                            <td style="border: 1px solid var(--ghost-neon-green); padding: 8px;">Centralized Logs</td>
+                            <td style="border: 1px solid var(--ghost-neon-green); padding: 8px;">Central Timestamps</td>
+                            <td style="border: 1px solid var(--ghost-neon-green); padding: 8px;"><span class="highlight">Stateless Blind Relay (HMAC-SHA256 Hashes)</span></td>
+                        </tr>
+                        <tr>
+                            <td style="border: 1px solid var(--ghost-neon-green); padding: 8px;"><b>Public Searchability</b></td>
+                            <td style="border: 1px solid var(--ghost-neon-green); padding: 8px;">Publicly Discoverable</td>
+                            <td style="border: 1px solid var(--ghost-neon-green); padding: 8px;">Phone Number Sync</td>
+                            <td style="border: 1px solid var(--ghost-neon-green); padding: 8px;"><span class="highlight">Hidden by Default (Explicit Opt-In)</span></td>
+                        </tr>
+                        <tr style="background-color: rgba(0, 77, 0, 0.1);">
+                            <td style="border: 1px solid var(--ghost-neon-green); padding: 8px;"><b>Embedded File Manager</b></td>
+                            <td style="border: 1px solid var(--ghost-neon-green); padding: 8px;">Standard Public Storage</td>
+                            <td style="border: 1px solid var(--ghost-neon-green); padding: 8px;">Shared Device Storage</td>
+                            <td style="border: 1px solid var(--ghost-neon-green); padding: 8px;"><span class="highlight">Dedicated Native Encrypted Vault (Embedded)</span></td>
+                        </tr>
+                        <tr>
+                            <td style="border: 1px solid var(--ghost-neon-green); padding: 8px;"><b>Local Data Control</b></td>
+                            <td style="border: 1px solid var(--ghost-neon-green); padding: 8px;">Standard Deletion</td>
+                            <td style="border: 1px solid var(--ghost-neon-green); padding: 8px;">Basic Clear</td>
+                            <td style="border: 1px solid var(--ghost-neon-green); padding: 8px;"><span class="highlight">Multi-Pass High-Entropy Forensic Shredder</span></td>
+                        </tr>
+                        <tr style="background-color: rgba(0, 77, 0, 0.1);">
+                            <td style="border: 1px solid var(--ghost-neon-green); padding: 8px;"><b>Emergency Network Wipe</b></td>
+                            <td style="border: 1px solid var(--ghost-neon-green); padding: 8px;">None</td>
+                            <td style="border: 1px solid var(--ghost-neon-green); padding: 8px;">None</td>
+                            <td style="border: 1px solid var(--ghost-neon-green); padding: 8px;"><span class="highlight">Scorched Earth (Ghost Tombstone Protocol)</span></td>
+                        </tr>
+                        <tr>
+                            <td style="border: 1px solid var(--ghost-neon-green); padding: 8px;"><b>Second Password Action</b></td>
+                            <td style="border: 1px solid var(--ghost-neon-green); padding: 8px;">None</td>
+                            <td style="border: 1px solid var(--ghost-neon-green); padding: 8px;">None</td>
+                            <td style="border: 1px solid var(--ghost-neon-green); padding: 8px;"><span class="highlight">Second Password (Silent Shredder & 503 Network Alibi)</span></td>
+                        </tr>
+                        <tr style="background-color: rgba(0, 77, 0, 0.1);">
+                            <td style="border: 1px solid var(--ghost-neon-green); padding: 8px;"><b>Encrypted Media Export</b></td>
+                            <td style="border: 1px solid var(--ghost-neon-green); padding: 8px;">Plain Text / Media Export</td>
+                            <td style="border: 1px solid var(--ghost-neon-green); padding: 8px;">None</td>
+                            <td style="border: 1px solid var(--ghost-neon-green); padding: 8px;"><span class="highlight">Private .ghost Encrypted Archives</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3 style="color: var(--ghost-neon-green); text-transform: uppercase; font-size: 1.1em; margin-top: 25px; border-bottom: 1px solid var(--ghost-dark-green); padding-bottom: 8px;">NO PHONE NUMBERS. NO EMAIL ADDRESSES. ZERO DATA COLLECTION.</h3>
+            <p>Mainstream apps build central social graphs by harvesting your contact list, binding your identity to a SIM card, and logging server connection timestamps. StateZerØ completely eliminates personal identifiers. You register without providing a phone number, email, or name. My network operates as a stateless transport layer: incoming transit data is held only until delivery (or for a maximum 72-hour TTL) before being permanently purged. Sender identifiers are stripped and replaced with generic labels ("GHOST"), and recipient lookup relies on client-blinded HMAC-SHA256 hashes. You are hidden from public search indexers by default, ensuring total insulation from metadata harvesting, central tracking, and network surveillance.</p>
+        </section>
+
+        <section>
+            <h2>🌟 Unrivaled Market Advantage: Integrated File Management & Vault Sharing</h2>
+            <p>Unlike mainstream messengers or privacy-focused platforms like Signal and WhatsApp, StateZerØ is the only platform on the market with a dedicated, fully embedded encrypted file manager built directly into the application.</p>
+            <p>While other apps export sensitive attachments to your device's unencrypted public gallery or shared downloads folder, StateZerØ isolates your documents, photos, audio, and videos inside a dedicated, cryptographically protected environment. You don't need third-party vault tools or risky external apps—everything is stored, managed, processed safely, and shred-deleted natively within my platform.</p>
+            <p><span class="highlight">Direct Vault-to-User Sharing:</span> You can securely share any encrypted file stored inside your Private Vault or Encrypted Space directly with other StateZerØ users. By utilizing existing cryptographic keys, files are re-wrapped and transmitted end-to-end without ever needing to expose raw data to the network.</p>
+        </section>
+
+        <section>
+            <h2>🔑 The Master Key: Absolute Account Ownership</h2>
+            <p>Your 12-Word Mnemonic Seed is your Master Key—it is the absolute, unchallengeable proof of account ownership.</p>
+            <ul>
+                <li><span class="highlight">Zero-Knowledge Architecture:</span> I do not store your password, seed, or recovery details on my servers.</li>
+                <li><span class="highlight">Absolute Authority:</span> You, and only you, hold access to your identity and data.</li>
+                <li><span class="highlight">Irrecoverable by Design:</span> Because my server is completely blind, if you lose your 12-word sequence, even I as the developer cannot retrieve or restore your account. There are no backdoor resets, no admin overrides, and no customer support recoveries. Your 12 words are your only recovery tool—keep them offline and secure.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>🛡️ Complete Feature Breakdown & System Capabilities</h2>
+            <h3 style="color: var(--ghost-neon-green); margin-top: 15px; font-size: 1.05em; border-bottom: 1px solid var(--ghost-dark-green); padding-bottom: 8px; text-transform: uppercase;">1. Identity Sovereignty & Hardware Scarcity</h3>
+            <ul>
+                <li><span class="highlight">Zero Personal Identifiers:</span> Registration requires no phone numbers, SIM cards, or email addresses.</li>
+                <li><span class="highlight">12-Word Master Key (BIP39):</span> Your 256-bit cryptographic seed generates your entire identity locally. Passwords can only be reset locally using your 12-word seed.</li>
+                <li><span class="highlight">TEE Hardware Anchor & Single-Seat Rule:</span> A permanent RSA-2048 key pair is generated inside your device's Trusted Execution Environment (TEE). A hashed hardware fingerprint binds your account to your device, enforcing a One Account Per Phone policy that blocks automated bot networks.</li>
+                <li><span class="highlight">Safety Number & Blind Discovery:</span> Users are hidden from public search indexers by default. Connect using single-use 6-digit codes, QR codes, or direct 16-character Safety Numbers. Real contact names are exchanged via post-handshake end-to-end encryption (E2EE) so my relay remains blind.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>2. The Private Vault, Transcripts Encrypted Space & Direct Sharing</h2>
+            <ul>
+                <li><span class="highlight">Private Vault Storage:</span> Isolated, high-security local file management for sensitive videos, audio, photos, and files—accessible directly above the main dock.</li>
+                <li><span class="highlight">Inter-User Encrypted File Sharing:</span> Send vaulted files directly to other contacts with a single tap. The platform re-uses zero-knowledge keys to deliver files seamlessly without exposing unencrypted media locally or to the network.</li>
+                <li><span class="highlight">Transcripts Encrypted Space (.transcripts_enclave):</span> Text archives are saved into an isolated encrypted space, bypassing the system clipboard to prevent keylogger interception.</li>
+                <li><span class="highlight">Forensic Media Processing:</span> Video playback streams directly through RAM without persistent disk writes. Audio notes utilize forensic-grade volatile caching with immediate cryptographic shredding upon completion. Sensitive buffers in vault and wipe operations are explicitly zero-filled after execution.</li>
+                <li><span class="highlight">Automated EXIF Metadata Scrubbing:</span> File headers, GPS tags, device details, and camera timestamps are stripped locally prior to encryption.</li>
+                <li><span class="highlight">Private .ghost Encrypted Export & Reshare:</span> Export any media item as an encrypted .ghost archive. Share .ghost packages directly via chat or the Vault; my platform delivers files with zero-knowledge continuity.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>3. Encrypted Ghost Voice (Voice-Only VoIP Protocol)</h2>
+            <ul>
+                <li><span class="highlight">Zero-Trace Signaling:</span> Call initiation and setup are performed using the Signal Protocol (Double Ratchet) to wrap all signaling data (SDP/ICE), ensuring even the relay cannot identify who is calling whom.</li>
+                <li><span class="highlight">Proprietary Relay Infrastructure (Zero IP Leakage):</span> StateZerØ utilizes a decentralized TURN relay infrastructure enforcing a strict RELAY_ONLY policy (IceTransportsType.RELAY). Your IP address is never exposed to the peer during a call.</li>
+                <li><span class="highlight">Forensic OS Masking:</span> Integrated with the Android Telecom Framework via a Self-Managed ConnectionService. All system-facing call metadata is hard-coded to sip:anonymous@localhost, ensuring call history remains completely empty in the device's native phone dialer logs (call history is stored strictly within your encrypted local app database).</li>
+                <li><span class="highlight">Hybrid AEC & Audio Hardening:</span> Features a custom acoustic engine with Hybrid Echo Cancellation (AEC3) and automatic hardware auditing. System volume is programmatically synchronized with the communication stream to prevent hardware clipping and acoustic leakage.</li>
+                <li><span class="highlight">Visual Protection (Screen Security):</span> Voice calls respect your Screen Security settings. When enabled, the OS is physically blocked from capturing active call screens in screenshots, screen recordings, or app-switcher previews.</li>
+                <li><span class="highlight">RAM-Only Media Stack:</span> Voice streams are encoded via Opus and transmitted via DTLS-SRTP. The native VoIP media stack operates strictly in non-swappable RAM; no audio fragments, diagnostic logs, or AEC dumps ever touch physical storage.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>4. Advanced Media, Link Previews & Multi-Attachment Encrypted Spaces</h2>
+            <ul>
+                <li><span class="highlight">Multi-Attachment Encrypted Spaces:</span> Send bundles of images, videos, and documents within a single message. Recipients can swipe through the bundle in an isolated unit, with individual items decryptable and savable directly to their Private Vault.</li>
+                <li><span class="highlight">Dual-Tap Interactive Video:</span> Features a dual-interaction lifecycle: a First Tap initiates secure inline playback, while a Second Tap transitions into full-screen viewing with frame position preservation.</li>
+                <li><span class="highlight">Local Forensic Link Previews:</span> Web link previews are parsed locally on your device to protect your IP address. Metadata (title, description, image) is stored within the encrypted envelope without executing external scripts or tracking cookies.</li>
+            </ul>
+        </section>
+
+        <section style="--order: 8;">
+            <h2>5. Forensic Destruction, Second Password & Scorched Earth</h2>
+            <ul>
+                <li><span class="highlight">User-Controlled Local Persistence:</span> Local history remains stored on your device until explicitly deleted. Local file removal runs a multi-pass overwrite protocol with high-entropy random data to defeat forensic hardware recovery tools.</li>
+                <li><span class="highlight">Scorched Earth Protocol (Ghost Tombstone):</span> Initiated via Account Settings or Logout, this protocol purges all active invites, keys, and transit payloads from my relay. It registers a Ghost Tombstone—leaving your phone's unique hardware signature "Occupied" by your Routing ID to preserve the single-seat policy while destroying all cloud-resident footprint data.</li>
+                <li><span class="highlight">The Second Password (Silent Data Protection):</span> Entering a pre-configured Second Password at unlock immediately triggers a silent emergency response. It scrubs the local database (replacing content with [SHREDDED]), purges cryptographic keys, deletes backend server records, and displays a simulated "Network Error (503)" interface.</li>
+                <li><span class="highlight">Biometric App Lock & Screen Security:</span> Automatically locks the vault when the app is minimized, operating on a strict 2-second grace period. Native screen security blocks screenshots, screen recording, and app-switcher preview caching.</li>
+            </ul>
+        </section>
+
+        <section style="--order: 9;">
+            <h2>6. Stealth Network Operations & Self-Healing</h2>
+            <ul>
+                <li><span class="highlight">Ghost Mode (Network Invisibility):</span> Toggles a server-side stealth status and masks socket-layer presence to appear "Offline" (Red Dot). Users can send and receive messages invisibly without revealing online presence.</li>
+                <li><span class="highlight">Blacklist Quarantine Shield:</span> Blocked entities are moved to a local Blacklist shield. Packets from blacklisted sources are dropped at the network edge before device processing occurs.</li>
+                <li><span class="highlight">Ephemeral Transitory Relay & 72-Hour TTL:</span> Delivered payloads are purged from server staging immediately upon receipt confirmation (ACK). Undelivered transit data is subject to a 72-hour mandatory auto-shredding cycle on my server.</li>
+                <li><span class="highlight">Silent Session Repair:</span> If high-frequency signaling causes state desynchronization, the background engine executes IDENTITY_RESET handshakes to repair the session without dropping calls or requiring user intervention.</li>
+                <li><span class="highlight">Local P2P Air-Bridge Migration:</span> Transfer chat histories, vaults, and identities directly between devices using a local Wi-Fi tunnel to move the SQLCipher vault without cloud involvement.</li>
+            </ul>
+        </section>
+
+        <section style="--order: 10;">
+            <h2>🔬 Technical Cryptographic Specifications</h2>
+            <div style="overflow-x: auto; -webkit-overflow-scrolling: touch; margin: 15px 0; border: 1px solid var(--ghost-neon-green);">
+                <table style="width: 100%; border-collapse: collapse; font-size: 0.85em; font-family: 'Courier New', Courier, monospace; min-width: 500px;">
+                    <thead>
+                        <tr style="background-color: rgba(39, 174, 96, 0.2);">
+                            <th style="border: 1px solid var(--ghost-neon-green); padding: 8px; text-align: left; color: var(--ghost-neon-green);">Cryptographic Primitive</th>
+                            <th style="border: 1px solid var(--ghost-neon-green); padding: 8px; text-align: left; color: var(--ghost-neon-green);">Standard / Implementation</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="border: 1px solid var(--ghost-neon-green); padding: 8px;">Master Identity Seed</td>
+                            <td style="border: 1px solid var(--ghost-neon-green); padding: 8px;">BIP39 (12-Word Mnemonic, 256-bit Entropy)</td>
+                        </tr>
+                        <tr style="background-color: rgba(0, 77, 0, 0.1);">
+                            <td style="border: 1px solid var(--ghost-neon-green); padding: 8px;">Derivation Function</td>
+                            <td style="border: 1px solid var(--ghost-neon-green); padding: 8px;">PBKDF2 with Hardened Iteration Salt</td>
+                        </tr>
+                        <tr>
+                            <td style="border: 1px solid var(--ghost-neon-green); padding: 8px;">Key Exchange Protocol</td>
+                            <td style="border: 1px solid var(--ghost-neon-green); padding: 8px;">Extended Triple Diffie-Hellman (X3DH)</td>
+                        </tr>
+                        <tr style="background-color: rgba(0, 77, 0, 0.1);">
+                            <td style="border: 1px solid var(--ghost-neon-green); padding: 8px;">Session Encryption</td>
+                            <td style="border: 1px solid var(--ghost-neon-green); padding: 8px;">Double Ratchet Algorithm (DH + Symmetric Ratchet)</td>
+                        </tr>
+                        <tr>
+                            <td style="border: 1px solid var(--ghost-neon-green); padding: 8px;">VoIP Transport Encryption</td>
+                            <td style="border: 1px solid var(--ghost-neon-green); padding: 8px;">DTLS-SRTP / Opus Audio Codec</td>
+                        </tr>
+                        <tr style="background-color: rgba(0, 77, 0, 0.1);">
+                            <td style="border: 1px solid var(--ghost-neon-green); padding: 8px;">Payload Encryption</td>
+                            <td style="border: 1px solid var(--ghost-neon-green); padding: 8px;">AES-256-GCM / SQLCipher (AES-256-CBC)</td>
+                        </tr>
+                        <tr>
+                            <td style="border: 1px solid var(--ghost-neon-green); padding: 8px;">Asymmetric Elliptic Curve</td>
+                            <td style="border: 1px solid var(--ghost-neon-green); padding: 8px;">Curve25519</td>
+                        </tr>
+                        <tr style="background-color: rgba(0, 77, 0, 0.1);">
+                            <td style="border: 1px solid var(--ghost-neon-green); padding: 8px;">Anonymous Routing Hashes</td>
+                            <td style="border: 1px solid var(--ghost-neon-green); padding: 8px;">HMAC-SHA256 (Specialized Blinding Salts)</td>
+                        </tr>
+                        <tr>
+                            <td style="border: 1px solid var(--ghost-neon-green); padding: 8px;">Hardware Security Layer</td>
+                            <td style="border: 1px solid var(--ghost-neon-green); padding: 8px;">TEE RSA-2048 + Google Play Integrity Attestation</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p><span class="highlight">Perfect Forward Secrecy (PFS):</span> Every message and call signaling exchange uses a unique key derived from the Double Ratchet engine.</p>
+            <p><span class="highlight">Inside-Ratchet Identity Propagation:</span> Profile changes (avatars, display names) are transmitted inside the encrypted ratchet, preventing network metadata collection.</p>
+            <p><span class="highlight">Sender ID Stripping:</span> Absender identifiers are purged from stored database records and replaced with a generic "GHOST" tag. Receiver devices identify true senders via client-side Trial Decryption.</p>
+        </section>
+
+        <section style="--order: 11;">
+            <h2>⚖️ Regulatory & Legal Compliance</h2>
+            <p>StateZerØ operates under strict zero-collection compliance standards:</p>
+            <ul>
+                <li><span class="highlight">GDPR Art. 11 & Art. 5(1)(c):</span> Fully compliant via zero personal data collection and immediate Delete-on-Delivery relay policies.</li>
+                <li><span class="highlight">EU Digital Services Act (DSA Art. 4):</span> Operates as a pure stateless conduit exempt from mandatory data retention.</li>
+                <li><span class="highlight">German TDDDG § 25:</span> Exempt from consent banner requirements; contains zero analytics cookies, tracking scripts, or telemetry pixels.</li>
+            </ul>
+        </section>
+
+        <section class="support-box">
+            <img src="/public/bear_panic.png" alt="dQuantumBear" class="bear-img">
+            <h2>Built by One. Powered by You.</h2>
+            <p>
+                StateZerØ is a project developed, designed and financed by One (1) individual with zero support from Big Tech, venture capital, or billionaire interests.
+            </p>
+            <p>
+                This project is fueled by the community. The Jar is thankful, and so am I.
+            </p>
+            <p>
+                <b>Forensic Isolation:</b> All donations are handled via external system browsers. StateZerØ never touches your financial metadata, keeping your support 100% decoupled from your identity.
+            </p>
+            <p style="margin: 25px 0;">
+                <a href="https://www.paypal.com/donate?hosted_button_id=5BFMXH6TM5ZPN" target="_blank" rel="noopener noreferrer">
+                    <img src="/public/donate.png" alt="Donate" class="donate-img">
+                </a>
+                <a href="https://www.paypal.com/donate?hosted_button_id=5BFMXH6TM5ZPN" target="_blank" rel="noopener noreferrer" style="display: inline-block; margin-top: 12px; padding: 10px 32px; background-color: #1E8449; color: #fff; font-weight: bold; letter-spacing: 3px; text-transform: uppercase; font-size: 1.1em; text-decoration: none; border-radius: 50px; box-shadow: 0 0 10px rgba(30, 132, 73, 0.5);">DONATE</a>
+            </p>
+            <p class="highlight">— dQuantumBear</p>
+        </section>
+
+        <img src="/public/playstore.png" alt="Download APK Soon" class="download-soon-img">
+
+        <section style="text-align: center; border: none; background: transparent;">
+            <div style="font-size: 0.9em; margin-bottom: 10px;">
+                <span class="highlight">NO PHONE NUMBERS</span> &bull; <span class="highlight">NO METADATA</span> &bull; <span class="highlight">NO SURVEILLANCE</span>
+            </div>
+            <div class="highlight" style="font-size: 1.1em; letter-spacing: 1px;">
+                COMPLETE PHYSICAL SOVEREIGNTY
+            </div>
+        </section>
+
+        <section id="cookie-policy" style="font-size: 0.85em; line-height: 1.6;">
+            <h2>Cookie Transparency Policy</h2>
+            <p><b>Status: Zero-Tracking Architecture</b></p>
+            <p>StateZerØ is engineered for Stateless Privacy. I do not track user behavior, utilize Google Analytics, or deploy marketing pixels. While my code is cookie-free, I utilize Cloudflare for DDoS protection; you may occasionally see a strictly necessary security cookie used solely for bot protection. This is exempt from consent under <b>§ 25 para. 2 TDDDG</b>.</p>
+        </section>
+
+        <section id="impressum" style="font-size: 0.75em; opacity: 0.6; line-height: 1.6; border-top: 1px solid var(--ghost-dark-green); padding-top: 20px;">
+            <h2 style="font-size: 1.1em;">Impressum</h2>
+            <p>Inhalte gemäß §5 DDG</p>
+            <p>Individual Entrepreneur</p>
+            <p>c/o IP-Management #9966<br>Ludwig-Erhard-Straße 18<br>20459 Hamburg</p>
+            <p><b>Kontaktdaten:</b><br>E-Mail: statezer0@proton.me<br>Telefon: 00491749385199</p>
+            <p>Quelle: Impressum-Privatschutz</p>
+        </section>
+
+    </div>
+
+    <footer>
+        <img src="/public/app_icon_bear.jpg" alt="Sovereign Bear" class="bottom-bear"><br>
+        <span class="footer-signature">🐻❤️M</span><br><br>
+        &copy; 2026 StateZerØ Project. Engineered for Privacy.
+    </footer>
+
+    <script>
+        // StateZerØ Image Reel Engine v3.0 — Smooth Interval Spin
+        const targetSequence = ['/public/s.png', '/public/t.png', '/public/a.png', '/public/t.png', '/public/e.png', '/public/z.png', '/public/e.png', '/public/r.png', '/public/0.png'];
+        const imagePool = ['/public/0.png', '/public/r.png', '/public/z.png', '/public/e.png', '/public/a.png', '/public/t.png', '/public/s.png'];
+        const row = document.getElementById('main-row');
+        const burst = document.getElementById('burst');
+        const titleContainer = document.getElementById('title-container');
+        let containers = [];
+        let spinIntervals = [];
+        let revealTimers = [];
+        let currentGen = 0;
+
+        // Preload all image assets to prevent spin-time flicker
+        const preloaded = new Set();
+        function preloadAll() {
+            const allSrcs = [...new Set([...imagePool, ...targetSequence])];
+            allSrcs.forEach(src => {
+                if (!preloaded.has(src)) {
+                    const img = new Image();
+                    img.src = src;
+                    preloaded.add(src);
+                }
+            });
+        }
+
+        function clearAllTimers() {
+            spinIntervals.forEach(clearInterval);
+            spinIntervals = [];
+            revealTimers.forEach(clearTimeout);
+            revealTimers = [];
+        }
+
+        function buildSlots() {
+            clearAllTimers();
+            containers = [];
+            const old = row.querySelectorAll('.letter-container');
+            old.forEach(el => el.remove());
+            burst.classList.remove('active');
+
+            for (let i = 0; i < targetSequence.length; i++) {
+                const container = document.createElement('div');
+                container.className = 'letter-container';
+
+                const img = document.createElement('img');
+                img.src = imagePool[Math.floor(Math.random() * imagePool.length)];
+                img.alt = '?';
+                img.draggable = false;
+                img.loading = 'eager';
+                img.decoding = 'async';
+
+                container.appendChild(img);
+                row.appendChild(container);
+
+                containers.push({
+                    element: container,
+                    imgNode: img,
+                    target: targetSequence[i],
+                    isRevealed: false
+                });
+            }
+        }
+
+        function startSequence() {
+            currentGen++;
+            const gen = currentGen;
+            buildSlots();
+
+            // Start one clean interval per slot — consistent speed, no timer pile-up
+            containers.forEach((c, i) => {
+                const speed = 55 + Math.random() * 45; // 55–100ms per slot
+                const interval = setInterval(() => {
+                    if (gen !== currentGen || c.isRevealed) {
+                        clearInterval(interval);
+                        return;
+                    }
+                    c.imgNode.src = imagePool[Math.floor(Math.random() * imagePool.length)];
+                }, speed);
+                spinIntervals.push(interval);
+            });
+
+            // Begin reveal chain after 7s
+            const revealStart = setTimeout(() => revealNext(0, gen), 7000);
+            revealTimers.push(revealStart);
+        }
+
+        function revealNext(index, gen) {
+            if (gen !== currentGen) return;
+
+            if (index >= containers.length) {
+                // All 9 buttons locked — simultaneous burst on EVERY slot
+                containers.forEach(c => c.element.classList.add('burst'));
+                return;
+            }
+
+            const c = containers[index];
+            c.isRevealed = true;
+            c.imgNode.src = c.target;
+            c.imgNode.alt = c.target.replace('.png', '').toUpperCase();
+            c.element.classList.add('revealed');
+
+            const nextTimer = setTimeout(() => revealNext(index + 1, gen), 220);
+            revealTimers.push(nextTimer);
+        }
+
+        preloadAll();
+        startSequence();
+
+        titleContainer.addEventListener('click', function() {
+            startSequence();
+        });
+
+        const cookieModal = document.getElementById('cookieModal');
+        const impressumModal = document.getElementById('impressumModal');
+        const cookiePolicyLink = document.getElementById('cookiePolicyLink');
+        const impressumLink = document.getElementById('impressumLink');
+        const closeCookieBtn = document.getElementById('closeCookieModalBtn');
+        const closeImpressumBtn = document.getElementById('closeImpressumModalBtn');
+        const closeImpressumAcceptBtn = document.getElementById('closeImpressumAcceptBtn');
+
+        function openCookieModal() { cookieModal.style.display = 'flex'; document.body.style.overflow = 'hidden'; }
+        function closeCookieModal() { cookieModal.style.display = 'none'; document.body.style.overflow = ''; }
+        function openImpressumModal() { impressumModal.style.display = 'flex'; document.body.style.overflow = 'hidden'; }
+        function closeImpressumModal() { impressumModal.style.display = 'none'; document.body.style.overflow = ''; }
+
+        if (cookiePolicyLink) cookiePolicyLink.addEventListener('click', function(e) { e.preventDefault(); openCookieModal(); });
+        if (impressumLink) impressumLink.addEventListener('click', function(e) { e.preventDefault(); openImpressumModal(); });
+        if (closeCookieBtn) closeCookieBtn.addEventListener('click', closeCookieModal);
+        if (closeImpressumBtn) closeImpressumBtn.addEventListener('click', closeImpressumModal);
+        if (closeImpressumAcceptBtn) closeImpressumAcceptBtn.addEventListener('click', closeImpressumModal);
+
+        const acceptCookieBtn = document.getElementById('acceptCookieBtn');
+        if (acceptCookieBtn) {
+            acceptCookieBtn.addEventListener('click', function() {
+                closeCookieModal();
+                localStorage.setItem('cookiePolicyAccepted', 'true');
+            });
+        }
+
+        window.addEventListener('click', function(e) {
+            if (e.target === cookieModal) closeCookieModal();
+            if (e.target === impressumModal) closeImpressumModal();
+        });
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                if (cookieModal.style.display === 'flex') closeCookieModal();
+                if (impressumModal.style.display === 'flex') closeImpressumModal();
+            }
+        });
+    </script>
+</body>
+</html>
