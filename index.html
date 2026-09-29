@@ -665,12 +665,12 @@
             display: block;
             margin: 0 auto;
             transition: 0.3s;
-            filter: drop-shadow(0 0 8px var(--ghost-neon-green));
+            animation: redToGreenGlow 3s ease-in-out infinite;
         }
 
         .donate-img:hover {
-            transform: scale(1.08);
-            filter: drop-shadow(0 0 16px var(--ghost-neon-green));
+            transform: scale(1.12);
+            animation: redToGreenGlowFast 1.5s ease-in-out infinite;
         }
     </style>
 </head>
@@ -696,8 +696,8 @@
                 <button class="close-modal" id="closeCookieModalBtn">×</button>
             </div>
             <div class="modal-body">
-                <p><b>Status: Zero-Tracking Architecture</b></p>
-                <p>StateZerØ is engineered for Stateless Privacy. I do not track user behavior, utilize Google Analytics, or deploy marketing pixels. While my code is cookie-free, I utilize Cloudflare for DDoS protection; you may occasionally see a strictly necessary security cookie used solely for bot protection. This is exempt from consent under <b>§ 25 para. 2 TDDDG</b>.</p>
+                <p><b>Status: No Behavioral Tracking</b></p>
+                <p>StateZerØ is engineered for minimal data collection. I do not track user behavior, utilize Google Analytics, or deploy marketing pixels. While my code is cookie-free, I utilize Cloudflare for DDoS protection; you may occasionally see a strictly necessary security cookie used solely for bot protection. This is exempt from consent under <b>§ 25 para. 2 TDDDG</b>.</p>
                 <button id="acceptCookieBtn" class="accept-btn">✓ I ACCEPT THE COOKIE POLICY</button>
             </div>
         </div>
@@ -714,6 +714,7 @@
                 <p>Individual Entrepreneur</p>
                 <p>c/o IP-Management #9966<br>Ludwig-Erhard-Straße 18<br>20459 Hamburg</p>
                 <p><b>Kontaktdaten:</b><br>E-Mail: statezer0@proton.me<br>Telefon: 00491749385199</p>
+                <p><b>Illegal Content (DSA):</b><br>E-Mail: legal.StateZer0@proton.me</p>
                 <p>Quelle: Impressum-Privatschutz</p>
                 <button id="closeImpressumAcceptBtn" class="accept-btn">✓ CLOSE</button>
             </div>
@@ -727,8 +728,8 @@
                 <div class="outburst-layer" id="burst"></div>
             </div>
         </div>
-        <p class="tagline">v26.2.0-STABLE (GHOST-PHOENIX-VII) | Engineered for Privacy</p>
-        <p style="text-align: center; font-size: 0.8em; opacity: 0.7; margin-top: 10px;">Updated: September 14, 2026</p>
+        <p class="tagline">v76.0.0-STABLE | Engineered for Privacy</p>
+        <p style="text-align: center; font-size: 0.8em; opacity: 0.7; margin-top: 10px;">Updated: September 29, 2026</p>
 
         <div>
             <a href="https://glokta1991.github.io/legal-docs/white_paper.html" class="ghost-btn">EXPLORE THE ARCHITECTURE</a>
@@ -744,7 +745,7 @@
         <span class="ghost-line">"To you, I am a private bridge. To the world, you are a Ghost."</span>
 
         <section>
-            <p>Most messengers still require a phone number, sync your address book, and build a central social graph. StateZerØ is built on a different principle: as the developer, I have no mechanism to read your messages, view your attachments, or access your cryptographic secrets. The server is designed to act only as a relay for encrypted payloads and short-term storage for encrypted blobs. It cannot decrypt content, and undelivered data is automatically erased after a bounded TTL. Routing identifiers and connection timestamps are the minimum metadata required for delivery; they are never content, never sold, and protected with field-level encryption at rest.</p>
+            <p>Most messengers still require a phone number, sync your address book, and build a central social graph. StateZerØ is built on a different principle: as the developer, I have no mechanism to read your messages, view your attachments, or access your cryptographic secrets. The server is designed to act only as a relay for encrypted payloads and short-term storage for encrypted blobs. It cannot decrypt content. Routing identifiers, sender/recipient pointers, and delivery timestamps are the minimum metadata required for transport; they are never content, never sold, and protected with field-level encryption at rest.</p>
             
             <h3 style="color: var(--ghost-neon-green); text-transform: uppercase; font-size: 1.1em; margin-top: 25px; border-bottom: 1px solid var(--ghost-dark-green); padding-bottom: 8px;">⚡ Feature Comparison: StateZerØ vs. Mainstream Apps</h3>
             <div style="overflow-x: auto; -webkit-overflow-scrolling: touch; margin: 15px 0; border: 1px solid var(--ghost-neon-green);">
@@ -762,25 +763,25 @@
                             <td style="border: 1px solid var(--ghost-neon-green); padding: 8px;"><b>Account Identity</b></td>
                             <td style="border: 1px solid var(--ghost-neon-green); padding: 8px;">Mandatory phone number <span class="sz-red">Phone required</span></td>
                             <td style="border: 1px solid var(--ghost-neon-green); padding: 8px;">Mandatory phone number <span class="sz-red">Phone required</span></td>
-                            <td style="border: 1px solid var(--ghost-neon-green); padding: 8px;">Username + password; no phone/email <span class="sz-green">No personal identifier required</span></td>
+                            <td style="border: 1px solid var(--ghost-neon-green); padding: 8px;">Username + password; no phone/email/SIM <span class="sz-green">No personal identifier required</span></td>
                         </tr>
                         <tr style="background-color: rgba(0, 77, 0, 0.1);">
                             <td style="border: 1px solid var(--ghost-neon-green); padding: 8px;"><b>Contact Discovery</b></td>
-                            <td style="border: 1px solid var(--ghost-neon-green); padding: 8px;">Phone contact sync <span class="sz-red">Harvests address book</span></td>
-                            <td style="border: 1px solid var(--ghost-neon-green); padding: 8px;">Phone contact sync <span class="sz-red">Harvests address book</span></td>
+                            <td style="border: 1px solid var(--ghost-neon-green); padding: 8px;">Phone contact sync <span class="sz-red">Address-book upload</span></td>
+                            <td style="border: 1px solid var(--ghost-neon-green); padding: 8px;">Phone contact sync <span class="sz-red">Address-book upload</span></td>
                             <td style="border: 1px solid var(--ghost-neon-green); padding: 8px;">Invite codes + mutual-consent requests <span class="sz-green">No address-book upload</span></td>
                         </tr>
                         <tr>
                             <td style="border: 1px solid var(--ghost-neon-green); padding: 8px;"><b>Message Content on Server</b></td>
                             <td style="border: 1px solid var(--ghost-neon-green); padding: 8px;">E2EE, but operator processes metadata <span class="sz-yellow">Content protected</span></td>
-                            <td style="border: 1px solid var(--ghost-neon-green); padding: 8px;">E2EE, minimal logs <span class="sz-yellow">Content protected</span></td>
-                            <td style="border: 1px solid var(--ghost-neon-green); padding: 8px;">E2EE payloads; encrypted blobs only <span class="sz-green">Cannot read content</span></td>
+                            <td style="border: 1px solid var(--ghost-neon-green); padding: 8px;">E2EE by default <span class="sz-green">Content protected</span></td>
+                            <td style="border: 1px solid var(--ghost-neon-green); padding: 8px;">Olm E2EE payloads; encrypted blobs only <span class="sz-green">Cannot read content</span></td>
                         </tr>
                         <tr style="background-color: rgba(0, 77, 0, 0.1);">
                             <td style="border: 1px solid var(--ghost-neon-green); padding: 8px;"><b>Stored Server Metadata</b></td>
                             <td style="border: 1px solid var(--ghost-neon-green); padding: 8px;">Rich metadata retained by Meta <span class="sz-red">Extensive</span></td>
                             <td style="border: 1px solid var(--ghost-neon-green); padding: 8px;">Minimal metadata; sealed sender <span class="sz-yellow">Reduced</span></td>
-                            <td style="border: 1px solid var(--ghost-neon-green); padding: 8px;">Routing IDs + timestamps only; encrypted at rest; TTL deletion <span class="sz-green">Minimal + auto-erased</span></td>
+                            <td style="border: 1px solid var(--ghost-neon-green); padding: 8px;">Routing IDs + timestamps; encrypted at rest; delivered 24h, acknowledged immediate, undelivered 72h <span class="sz-green">Minimal + TTL-erased</span></td>
                         </tr>
                         <tr>
                             <td style="border: 1px solid var(--ghost-neon-green); padding: 8px;"><b>Voice Call IP Exposure</b></td>
@@ -792,19 +793,19 @@
                             <td style="border: 1px solid var(--ghost-neon-green); padding: 8px;"><b>Attachment Storage</b></td>
                             <td style="border: 1px solid var(--ghost-neon-green); padding: 8px;">Device gallery / Google Drive backups <span class="sz-red">Unencrypted by default</span></td>
                             <td style="border: 1px solid var(--ghost-neon-green); padding: 8px;">Device storage; optional encrypted backup <span class="sz-yellow">Partial</span></td>
-                            <td style="border: 1px solid var(--ghost-neon-green); padding: 8px;">In-app encrypted vault + encrypted local backup <span class="sz-green">Encrypted by default</span></td>
+                            <td style="border: 1px solid var(--ghost-neon-green); padding: 8px;">In-app encrypted Vault/Enclave by default; optional gallery export is unencrypted <span class="sz-green">Encrypted by default</span></td>
                         </tr>
                         <tr>
                             <td style="border: 1px solid var(--ghost-neon-green); padding: 8px;"><b>EXIF / Media Metadata</b></td>
                             <td style="border: 1px solid var(--ghost-neon-green); padding: 8px;">Not stripped <span class="sz-red">Leaves metadata intact</span></td>
                             <td style="border: 1px solid var(--ghost-neon-green); padding: 8px;">Not stripped for all media <span class="sz-red">Leaves metadata intact</span></td>
-                            <td style="border: 1px solid var(--ghost-neon-green); padding: 8px;">EXIF stripped before encryption <span class="sz-green">Metadata removed</span></td>
+                            <td style="border: 1px solid var(--ghost-neon-green); padding: 8px;">EXIF stripped before encryption (best-effort) <span class="sz-green">Metadata reduced</span></td>
                         </tr>
                         <tr style="background-color: rgba(0, 77, 0, 0.1);">
                             <td style="border: 1px solid var(--ghost-neon-green); padding: 8px;"><b>Screenshot / Screen Security</b></td>
                             <td style="border: 1px solid var(--ghost-neon-green); padding: 8px;">No built-in blocking <span class="sz-red">None</span></td>
                             <td style="border: 1px solid var(--ghost-neon-green); padding: 8px;">Optional screen security <span class="sz-yellow">Optional</span></td>
-                            <td style="border: 1px solid var(--ghost-neon-green); padding: 8px;">FLAG_SECURE + biometric lock <span class="sz-green">Active by default</span></td>
+                            <td style="border: 1px solid var(--ghost-neon-green); padding: 8px;">FLAG_SECURE enabled with biometric lock <span class="sz-green">Active with lock</span></td>
                         </tr>
                         <tr>
                             <td style="border: 1px solid var(--ghost-neon-green); padding: 8px;"><b>Encrypted Backup</b></td>
@@ -816,42 +817,54 @@
                             <td style="border: 1px solid var(--ghost-neon-green); padding: 8px;"><b>Account Deletion from App</b></td>
                             <td style="border: 1px solid var(--ghost-neon-green); padding: 8px;">In-app delete account <span class="sz-yellow">Standard</span></td>
                             <td style="border: 1px solid var(--ghost-neon-green); padding: 8px;">In-app delete account <span class="sz-yellow">Standard</span></td>
-                            <td style="border: 1px solid var(--ghost-neon-green); padding: 8px;">Delete account + local wipe + FCM token revoke <span class="sz-green">Server + local purge</span></td>
+                            <td style="border: 1px solid var(--ghost-neon-green); padding: 8px;">Delete account + local wipe + FCM token revoke + Keystore purge via Emergency PIN <span class="sz-green">Server + local purge</span></td>
                         </tr>
                         <tr>
-                            <td style="border: 1px solid var(--ghost-neon-green); padding: 8px;"><b>Panic PIN / Duress Password</b></td>
+                            <td style="border: 1px solid var(--ghost-neon-green); padding: 8px;"><b>Emergency Account Deletion PIN</b></td>
                             <td style="border: 1px solid var(--ghost-neon-green); padding: 8px;">None <span class="sz-red">None</span></td>
                             <td style="border: 1px solid var(--ghost-neon-green); padding: 8px;">None <span class="sz-red">None</span></td>
-                            <td style="border: 1px solid var(--ghost-neon-green); padding: 8px;">Second password triggers account deletion + local wipe <span class="sz-green">Duress protection</span></td>
+                            <td style="border: 1px solid var(--ghost-neon-green); padding: 8px;">Secondary PIN triggers account deletion + local wipe <span class="sz-green">Emergency-protected deletion</span></td>
                         </tr>
                         <tr style="background-color: rgba(0, 77, 0, 0.1);">
-                            <td style="border: 1px solid var(--ghost-neon-green); padding: 8px;"><b>Stealth / Online Status Control</b></td>
+                            <td style="border: 1px solid var(--ghost-neon-green); padding: 8px;"><b>Sonar / Ghost Mode (Online Status)</b></td>
                             <td style="border: 1px solid var(--ghost-neon-green); padding: 8px;">Limited visibility settings <span class="sz-yellow">Limited</span></td>
                             <td style="border: 1px solid var(--ghost-neon-green); padding: 8px;">Limited visibility settings <span class="sz-yellow">Limited</span></td>
-                            <td style="border: 1px solid var(--ghost-neon-green); padding: 8px;">Ghost mode toggle masks online presence <span class="sz-green">Server-side offline mask</span></td>
+                            <td style="border: 1px solid var(--ghost-neon-green); padding: 8px;">Ghost Mode toggle masks online presence server-side <span class="sz-green">Server-side offline mask</span></td>
+                        </tr>
+                        <tr>
+                            <td style="border: 1px solid var(--ghost-neon-green); padding: 8px;"><b>Multi-Attachment Bundles</b></td>
+                            <td style="border: 1px solid var(--ghost-neon-green); padding: 8px;">Basic multi-file sending <span class="sz-yellow">Basic</span></td>
+                            <td style="border: 1px solid var(--ghost-neon-green); padding: 8px;">Basic multi-file sending <span class="sz-yellow">Basic</span></td>
+                            <td style="border: 1px solid var(--ghost-neon-green); padding: 8px;">Encrypted bundles with per-item Vault save and inline viewer <span class="sz-green">Native encrypted bundles</span></td>
+                        </tr>
+                        <tr style="background-color: rgba(0, 77, 0, 0.1);">
+                            <td style="border: 1px solid var(--ghost-neon-green); padding: 8px;"><b>Link Previews</b></td>
+                            <td style="border: 1px solid var(--ghost-neon-green); padding: 8px;">Server-generated or fetched by Meta <span class="sz-red">IP/metadata exposed</span></td>
+                            <td style="border: 1px solid var(--ghost-neon-green); padding: 8px;">Server-generated or proxied <span class="sz-yellow">Partial exposure</span></td>
+                            <td style="border: 1px solid var(--ghost-neon-green); padding: 8px;">Fetched locally on device; preview metadata stored inside Olm E2EE payload <span class="sz-green">Local + encrypted</span></td>
                         </tr>
                     </tbody>
                 </table>
             </div>
 
-            <h3 style="color: var(--ghost-neon-green); text-transform: uppercase; font-size: 1.1em; margin-top: 25px; border-bottom: 1px solid var(--ghost-dark-green); padding-bottom: 8px;">NO PHONE NUMBERS. NO EMAIL. MINIMAL METADATA.</h3>
-            <p>Mainstream apps build central social graphs by harvesting your contact list and binding your identity to a SIM card. StateZerØ does not require a phone number, email, or real name. Contact discovery uses single-use invite codes and mutual-consent requests, not address-book uploads. Transit payloads are held only until delivery or for a maximum 72-hour TTL, then purged. Stored sender identifiers are replaced with generic labels, and searchable fields are blinded with HMAC-SHA256. Public discoverability is off by default.</p>
+            <h3 style="color: var(--ghost-neon-green); text-transform: uppercase; font-size: 1.1em; margin-top: 25px; border-bottom: 1px solid var(--ghost-dark-green); padding-bottom: 8px;">NO PHONE NUMBERS. NO EMAIL. MINIMIZED METADATA.</h3>
+            <p>Mainstream apps build central social graphs by harvesting your contact list and binding your identity to a SIM card. StateZerØ does not require a phone number, email, or real name. Contact discovery uses single-use invite codes and mutual-consent requests, not address-book uploads. Transit payloads are retained only as long as operationally necessary: delivered messages up to 24 hours, acknowledged messages immediately, undelivered up to 72 hours. Stored routing identifiers are blinded where possible, and searchable fields are hashed. Public discoverability is off by default.</p>
         </section>
 
         <section>
-            <h2>🌟 Unrivaled Market Advantage: Integrated File Management & Vault Sharing</h2>
+            <h2>🌟 Unrivaled Market Advantage: Integrated Encrypted Space & Vault Sharing</h2>
             <p>Unlike mainstream messengers, StateZerØ ships with a dedicated, embedded encrypted file manager built directly into the application.</p>
-            <p>While other apps export sensitive attachments to your device's unencrypted public gallery or shared downloads folder, StateZerØ isolates your documents, photos, audio, and videos inside a dedicated, cryptographically protected environment. You don't need third-party vault tools or risky external apps—everything is stored, managed, processed safely, and shred-deleted natively within my platform.</p>
-            <p><span class="highlight">Direct Vault-to-User Sharing:</span> You can securely share any encrypted file stored inside your Private Vault or Encrypted Space directly with other StateZerØ users. By utilizing existing cryptographic keys, files are re-wrapped and transmitted end-to-end without ever needing to expose raw data to the network.</p>
+            <p>While other apps export sensitive attachments to your device's unencrypted public gallery or shared downloads folder, StateZerØ isolates your documents, photos, audio, and videos inside a dedicated, cryptographically protected environment — the <b>Sovereign Vault</b> and <b>Encrypted Space</b>. You do not need third-party vault tools or risky external apps: everything is stored, managed, processed safely, and shred-deleted natively within the platform.</p>
+            <p><span class="highlight">Direct Vault-to-User Sharing:</span> You can securely share any encrypted file stored inside your Vault or Encrypted Space directly with other StateZerØ users. By re-using the original encryption keys, files are re-wrapped and transmitted end-to-end without ever exposing raw data to the network.</p>
         </section>
 
         <section>
             <h2>🔑 The Master Key: Absolute Account Ownership</h2>
-            <p>Your 12-Word Mnemonic Seed is your Master Key—it is the absolute, unchallengeable proof of account ownership.</p>
+            <p>Your 12-Word Mnemonic Seed is your Master Key — it is the absolute, unchallengeable proof of account ownership.</p>
             <ul>
                 <li><span class="highlight">Developer Zero-Visibility:</span> I do not store your password, seed, or recovery details on my servers, and the relay is designed so I cannot read your messages or attachments.</li>
                 <li><span class="highlight">Absolute Authority:</span> You, and only you, hold access to your identity and data.</li>
-                <li><span class="highlight">Irrecoverable by Design:</span> Because my server is completely blind, if you lose your 12-word sequence, even I as the developer cannot retrieve or restore your account. There are no backdoor resets, no admin overrides, and no customer support recoveries. Your 12 words are your only recovery tool—keep them offline and secure.</li>
+                <li><span class="highlight">Irrecoverable by Design:</span> Because my server has no decryption capability, if you lose your 12-word sequence, even I as the developer cannot retrieve or restore your account. There are no backdoor resets, no admin overrides, and no customer-support recoveries. Your 12 words are your only recovery tool — keep them offline and secure.</li>
             </ul>
         </section>
 
@@ -861,31 +874,31 @@
             <ul>
                 <li><span class="highlight">Zero Personal Identifiers:</span> Registration requires no phone numbers, SIM cards, or email addresses.</li>
                 <li><span class="highlight">12-Word Master Key (BIP39):</span> Your 256-bit cryptographic seed generates your entire identity locally. Passwords can only be reset locally using your 12-word seed.</li>
-                <li><span class="highlight">Device-Bound Identity & Single-Seat Rule:</span> A hardware-derived fingerprint and device-bound key material bind your account to your phone, enforcing a one-account-per-device policy that blocks automated bot networks.</li>
-                <li><span class="highlight">Safety Number & Blind Discovery:</span> Users are hidden from public search indexers by default. Connect using single-use 6-digit codes, QR codes, or direct 16-character Safety Numbers. Real contact names are exchanged via post-handshake end-to-end encryption (E2EE) so my relay remains blind.</li>
+                <li><span class="highlight">Device-Bound Identity & Single-Seat Rule:</span> A device-bound Android Keystore key and hardware-derived fingerprint bind your account to your phone, enforcing a one-account-per-device policy that blocks automated bot networks.</li>
+                <li><span class="highlight">Safety Number & Blind Discovery:</span> Users are hidden from public search indexers by default. Connect using single-use 6-character codes, QR codes, or direct 16-character Safety Numbers. Real contact names are exchanged via post-handshake Olm end-to-end encryption so my relay remains blind to profile content.</li>
             </ul>
         </section>
 
         <section>
-            <h2>2. The Private Vault, Transcripts Encrypted Space & Direct Sharing</h2>
+            <h2>2. The Sovereign Vault, Encrypted Space & Direct Sharing</h2>
             <ul>
-                <li><span class="highlight">Private Vault Storage:</span> Isolated, high-security local file management for sensitive videos, audio, photos, and files—accessible directly above the main dock.</li>
-                <li><span class="highlight">Inter-User Encrypted File Sharing:</span> Send vaulted files directly to other contacts with a single tap. The platform re-uses zero-knowledge keys to deliver files seamlessly without exposing unencrypted media locally or to the network.</li>
-                <li><span class="highlight">Transcripts Encrypted Space (.transcripts_enclave):</span> Text archives are saved into an isolated encrypted space, bypassing the system clipboard to prevent keylogger interception.</li>
-                <li><span class="highlight">Secure Media Handling:</span> Media is decrypted into protected app storage for playback and wiped when no longer needed. Exported files can be shredded on demand.</li>
+                <li><span class="highlight">Sovereign Vault Storage:</span> Isolated, high-security local file management for sensitive videos, audio, photos, and files — accessible directly above the main dock.</li>
+                <li><span class="highlight">Inter-User Encrypted File Sharing:</span> Send vaulted files directly to other contacts with a single tap. The platform re-uses the original encryption keys to deliver files seamlessly without exposing unencrypted media locally or to the network.</li>
+                <li><span class="highlight">Transcripts Encrypted Space:</span> Text archives are saved into an isolated encrypted space, bypassing the system clipboard to reduce keylogger exposure.</li>
+                <li><span class="highlight">Secure Media Handling:</span> Media is decrypted into protected app memory for playback and released when no longer needed. Exported files can be shredded on demand.</li>
                 <li><span class="highlight">Automated EXIF Metadata Scrubbing:</span> File headers, GPS tags, device details, and camera timestamps are stripped locally prior to encryption.</li>
-                <li><span class="highlight">Private .ghost Encrypted Export & Reshare:</span> Export any media item as an encrypted .ghost archive. Share .ghost packages directly via chat or the Vault; my platform delivers files with zero-knowledge continuity.</li>
+                <li><span class="highlight">Private .ghost Encrypted Export & Reshare:</span> Export any media item as an encrypted .ghost archive. Share .ghost packages directly via chat or the Vault; the relay sees only opaque encrypted blobs.</li>
             </ul>
         </section>
 
         <section>
             <h2>3. Encrypted Ghost Voice (Voice-Only VoIP Protocol)</h2>
             <ul>
-                <li><span class="highlight">Encrypted Signaling:</span> Call setup messages are encrypted inside the chat ratchet, so the content of the signaling payload is not readable by the relay.</li>
+                <li><span class="highlight">Encrypted Signaling:</span> Call setup messages are encrypted inside the Olm chat ratchet, so the content of the signaling payload is not readable by the relay.</li>
                 <li><span class="highlight">Relay-Only Calls (IP Protection):</span> Calls are forced through TURN relays (IceTransportsType.RELAY), so your IP address is not exposed directly to the peer.</li>
-                <li><span class="highlight">Forensic OS Masking:</span> Integrated with the Android Telecom Framework via a Self-Managed ConnectionService. All system-facing call metadata is hard-coded to sip:anonymous@localhost, ensuring call history remains completely empty in the device's native phone dialer logs (call history is stored strictly within your encrypted local app database).</li>
-                <li><span class="highlight">Hybrid AEC & Audio Hardening:</span> Features a custom acoustic engine with Hybrid Echo Cancellation (AEC3) and automatic hardware auditing. System volume is programmatically synchronized with the communication stream to prevent hardware clipping and acoustic leakage.</li>
-                <li><span class="highlight">Visual Protection (Screen Security):</span> Voice calls respect your Screen Security settings. When enabled, the OS is physically blocked from capturing active call screens in screenshots, screen recordings, or app-switcher previews.</li>
+                <li><span class="highlight">Native Dialer Log Masking:</span> Integrated with the Android Telecom Framework via a Self-Managed ConnectionService. System-facing call metadata is masked, and call details are not written to the device's native phone dialer log; call history is stored strictly within your encrypted local app database.</li>
+                <li><span class="highlight">Hybrid AEC & Audio Hardening:</span> Features a custom acoustic engine with Hybrid Echo Cancellation (AEC3) and automatic hardware auditing. System volume is programmatically synchronized with the communication stream to reduce hardware clipping and acoustic leakage.</li>
+                <li><span class="highlight">Visual Protection (Screen Security):</span> Voice calls respect your Screen Security settings. When enabled, the OS is blocked from capturing active call screens in screenshots, screen recordings, or app-switcher previews.</li>
                 <li><span class="highlight">Encrypted Media Transport:</span> Voice streams are encoded with Opus and transmitted via DTLS-SRTP. Temporary audio buffers are kept inside the app and cleared after use.</li>
             </ul>
         </section>
@@ -893,29 +906,29 @@
         <section>
             <h2>4. Advanced Media, Link Previews & Multi-Attachment Encrypted Spaces</h2>
             <ul>
-                <li><span class="highlight">Multi-Attachment Encrypted Spaces:</span> Send bundles of images, videos, and documents within a single message. Recipients can swipe through the bundle in an isolated unit, with individual items decryptable and savable directly to their Private Vault.</li>
+                <li><span class="highlight">Multi-Attachment Encrypted Spaces:</span> Send bundles of images, videos, and documents within a single message. Recipients can swipe through the bundle in an isolated unit, with individual items decryptable and savable directly to their Sovereign Vault.</li>
                 <li><span class="highlight">Dual-Tap Interactive Video:</span> Features a dual-interaction lifecycle: a First Tap initiates secure inline playback, while a Second Tap transitions into full-screen viewing with frame position preservation.</li>
-                <li><span class="highlight">Local Forensic Link Previews:</span> Web link previews are parsed locally on your device to protect your IP address. Metadata (title, description, image) is stored within the encrypted envelope without executing external scripts or tracking cookies.</li>
+                <li><span class="highlight">Local Forensic Link Previews:</span> Web link previews are parsed locally on your device. Preview metadata (title, description, image) is stored within the Olm-encrypted envelope without executing external scripts or tracking cookies.</li>
             </ul>
         </section>
 
         <section style="--order: 8;">
-            <h2>5. Forensic Destruction, Second Password & Scorched Earth</h2>
+            <h2>5. Forensic Destruction, Emergency Account Deletion PIN & Complete Account Deletion</h2>
             <ul>
                 <li><span class="highlight">User-Controlled Local Persistence:</span> Local history remains on your device until you delete it. Individual files can be overwritten before deletion; the SQLCipher database is removed when the app is wiped.</li>
-                <li><span class="highlight">Scorched Earth Protocol:</span> Initiated from Account Settings or Logout, this deletes your account data on the server, purges active invites and keys, revokes your push token, and wipes the local app database. The device hardware fingerprint remains marked as occupied to preserve the one-account-per-device policy.</li>
-                <li><span class="highlight">The Second Password (Duress Protection):</span> Entering a pre-configured Second Password triggers a full account deletion and local wipe. The app then presents a "Network Error (503)" screen as a duress alibi.</li>
-                <li><span class="highlight">Biometric App Lock & Screen Security:</span> Automatically locks the vault when the app is minimized, operating on a strict 2-second grace period. Native screen security blocks screenshots, screen recording, and app-switcher preview caching.</li>
+                <li><span class="highlight">Complete Account Deletion:</span> Initiated from Account Settings or Logout, this deletes your account data on the server, purges active invites and keys, revokes your push token, and wipes the local app database. The device-bound identity marker remains occupied to preserve the one-account-per-device policy.</li>
+                <li><span class="highlight">Emergency Account Deletion PIN:</span> Entering a pre-configured secondary PIN triggers a full account deletion and local wipe, displaying a generic network-error screen. This feature must not be used to destroy evidence, evade legal process, or harm another person's lawful interests.</li>
+                <li><span class="highlight">Biometric App Lock & Screen Security:</span> Automatically locks the vault when the app is minimized, operating on a strict 2-second grace period. Native screen security blocks screenshots, screen recording, and app-switcher preview caching when the biometric lock is enabled.</li>
             </ul>
         </section>
 
         <section style="--order: 9;">
             <h2>6. Stealth Network Operations & Self-Healing</h2>
             <ul>
-                <li><span class="highlight">Ghost Mode (Network Invisibility):</span> Toggles a server-side stealth status and masks socket-layer presence to appear "Offline" (Red Dot). Users can send and receive messages invisibly without revealing online presence.</li>
+                <li><span class="highlight">Sonar / Ghost Mode (Network Invisibility):</span> Toggles a server-side stealth status and masks socket-layer presence to appear "Offline" (Red Dot). Users can send and receive messages without broadcasting online presence.</li>
                 <li><span class="highlight">Blacklist Quarantine Shield:</span> Blocked contacts are stored locally; messages from blocked senders are dropped inside the app before they reach your chat history.</li>
-                <li><span class="highlight">Ephemeral Transitory Relay & 72-Hour TTL:</span> Delivered payloads are purged from server staging after delivery confirmation. Undelivered transit data is automatically deleted after 72 hours.</li>
-                <li><span class="highlight">Silent Session Repair:</span> If signaling state becomes desynchronized, the background engine attempts an automated session repair handshake without requiring user intervention.</li>
+                <li><span class="highlight">Time-Limited Relay Storage:</span> Delivered payloads are retained up to 24 hours; acknowledged payloads are deleted immediately; undelivered transit data is automatically deleted after 72 hours.</li>
+                <li><span class="highlight">Silent Session Repair:</span> If the Olm signaling state becomes desynchronized, the background engine attempts an automated session repair handshake without requiring user intervention.</li>
             </ul>
         </section>
 
@@ -936,7 +949,7 @@
                         </tr>
                         <tr style="background-color: rgba(0, 77, 0, 0.1);">
                             <td style="border: 1px solid var(--ghost-neon-green); padding: 8px;">Derivation Function</td>
-                            <td style="border: 1px solid var(--ghost-neon-green); padding: 8px;">PBKDF2 with Hardened Iteration Salt</td>
+                            <td style="border: 1px solid var(--ghost-neon-green); padding: 8px;">PBKDF2-HMAC-SHA256 with hardened salt</td>
                         </tr>
                         <tr>
                             <td style="border: 1px solid var(--ghost-neon-green); padding: 8px;">Key Exchange Protocol</td>
@@ -944,7 +957,7 @@
                         </tr>
                         <tr style="background-color: rgba(0, 77, 0, 0.1);">
                             <td style="border: 1px solid var(--ghost-neon-green); padding: 8px;">Session Encryption</td>
-                            <td style="border: 1px solid var(--ghost-neon-green); padding: 8px;">Double Ratchet Algorithm (DH + Symmetric Ratchet)</td>
+                            <td style="border: 1px solid var(--ghost-neon-green); padding: 8px;">Olm Double Ratchet Algorithm (Curve25519 DH + symmetric ratchet)</td>
                         </tr>
                         <tr>
                             <td style="border: 1px solid var(--ghost-neon-green); padding: 8px;">VoIP Transport Encryption</td>
@@ -952,7 +965,7 @@
                         </tr>
                         <tr style="background-color: rgba(0, 77, 0, 0.1);">
                             <td style="border: 1px solid var(--ghost-neon-green); padding: 8px;">Payload Encryption</td>
-                            <td style="border: 1px solid var(--ghost-neon-green); padding: 8px;">AES-256-GCM / SQLCipher (AES-256-CBC)</td>
+                            <td style="border: 1px solid var(--ghost-neon-green); padding: 8px;">AES-256-GCM (media blobs); SQLCipher AES-256 (local DB)</td>
                         </tr>
                         <tr>
                             <td style="border: 1px solid var(--ghost-neon-green); padding: 8px;">Asymmetric Elliptic Curve</td>
@@ -960,26 +973,26 @@
                         </tr>
                         <tr style="background-color: rgba(0, 77, 0, 0.1);">
                             <td style="border: 1px solid var(--ghost-neon-green); padding: 8px;">Anonymous Routing Hashes</td>
-                            <td style="border: 1px solid var(--ghost-neon-green); padding: 8px;">HMAC-SHA256 (Specialized Blinding Salts)</td>
+                            <td style="border: 1px solid var(--ghost-neon-green); padding: 8px;">SHA-256 with server-side pepper (recipient blinding)</td>
                         </tr>
                         <tr>
                             <td style="border: 1px solid var(--ghost-neon-green); padding: 8px;">Hardware Security Layer</td>
-                            <td style="border: 1px solid var(--ghost-neon-green); padding: 8px;">Device-bound identity key + Google Play Integrity attestation</td>
+                            <td style="border: 1px solid var(--ghost-neon-green); padding: 8px;">Android Keystore non-exportable identity key + Google Play Integrity attestation</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
-            <p><span class="highlight">Perfect Forward Secrecy (PFS):</span> Every message and call signaling exchange uses a unique key derived from the Double Ratchet engine.</p>
-            <p><span class="highlight">Inside-Ratchet Identity Propagation:</span> Profile changes (avatars, display names) are transmitted inside the encrypted ratchet, preventing network metadata collection.</p>
-            <p><span class="highlight">Sender ID Stripping:</span> Absender identifiers are purged from stored database records and replaced with a generic "GHOST" tag. Receiver devices identify true senders via client-side Trial Decryption.</p>
+            <p><span class="highlight">Perfect Forward Secrecy (PFS):</span> Every message and call signaling exchange uses a unique key derived from the Olm Double Ratchet engine.</p>
+            <p><span class="highlight">Inside-Ratchet Identity Propagation:</span> Profile changes (avatars, display names) are transmitted inside the Olm-encrypted ratchet, limiting network metadata collection.</p>
+            <p><span class="highlight">Relay Metadata Minimization:</span> Message and attachment payloads are opaque encrypted blobs. The relay retains only the routing and delivery records necessary for operation, with automatic TTL deletion.</p>
         </section>
 
         <section style="--order: 11;">
             <h2>⚖️ Regulatory & Legal Compliance</h2>
-            <p>StateZerØ operates under strict zero-collection compliance standards:</p>
+            <p>StateZerØ operates under strict data-minimization compliance standards:</p>
             <ul>
                 <li><span class="highlight">GDPR Art. 5 & Art. 11:</span> Designed to minimize personal data to pseudonymous routing identifiers necessary for delivery, with automatic deletion policies.</li>
-                <li><span class="highlight">EU Digital Services Act (DSA Art. 4):</span> Operates as a stateless conduit with limited metadata retention.</li>
+                <li><span class="highlight">EU Digital Services Act (DSA Art. 4):</span> Operates as an encrypted relay with minimized metadata (hosting provider classification).</li>
                 <li><span class="highlight">German TDDDG § 25:</span> Exempt from consent banner requirements; contains zero analytics cookies, tracking scripts, or telemetry pixels.</li>
             </ul>
         </section>
@@ -994,7 +1007,7 @@
                 This project is fueled by the community. The Jar is thankful, and so am I.
             </p>
             <p>
-                <b>Forensic Isolation:</b> All donations are handled via external system browsers. StateZerØ never touches your financial metadata, keeping your support 100% decoupled from your identity.
+                <b>Forensic Isolation:</b> All donations are handled via external system browsers. StateZerØ never touches your financial metadata, keeping your support decoupled from your identity.
             </p>
             <p style="margin: 25px 0;">
                 <a href="https://www.paypal.com/donate?hosted_button_id=5BFMXH6TM5ZPN" target="_blank" rel="noopener noreferrer">
@@ -1009,17 +1022,17 @@
 
         <section style="text-align: center; border: none; background: transparent;">
             <div style="font-size: 0.9em; margin-bottom: 10px;">
-                <span class="highlight">NO PHONE NUMBERS</span> &bull; <span class="highlight">NO METADATA</span> &bull; <span class="highlight">NO SURVEILLANCE</span>
+                <span class="highlight">NO PHONE NUMBERS</span> &bull; <span class="highlight">MINIMIZED METADATA</span> &bull; <span class="highlight">E2EE BY DEFAULT</span>
             </div>
             <div class="highlight" style="font-size: 1.1em; letter-spacing: 1px;">
-                COMPLETE PHYSICAL SOVEREIGNTY
+                DEVICE-BOUND IDENTITY CONTROL
             </div>
         </section>
 
         <section id="cookie-policy" style="font-size: 0.85em; line-height: 1.6;">
             <h2>Cookie Transparency Policy</h2>
-            <p><b>Status: Zero-Tracking Architecture</b></p>
-            <p>StateZerØ is engineered for Stateless Privacy. I do not track user behavior, utilize Google Analytics, or deploy marketing pixels. While my code is cookie-free, I utilize Cloudflare for DDoS protection; you may occasionally see a strictly necessary security cookie used solely for bot protection. This is exempt from consent under <b>§ 25 para. 2 TDDDG</b>.</p>
+            <p><b>Status: No Behavioral Tracking</b></p>
+            <p>StateZerØ is engineered for minimal data collection. I do not track user behavior, utilize Google Analytics, or deploy marketing pixels. While my code is cookie-free, I utilize Cloudflare for DDoS protection; you may occasionally see a strictly necessary security cookie used solely for bot protection. This is exempt from consent under <b>§ 25 para. 2 TDDDG</b>.</p>
         </section>
 
         <section id="impressum" style="font-size: 0.75em; opacity: 0.6; line-height: 1.6; border-top: 1px solid var(--ghost-dark-green); padding-top: 20px;">
@@ -1028,6 +1041,7 @@
             <p>Individual Entrepreneur</p>
             <p>c/o IP-Management #9966<br>Ludwig-Erhard-Straße 18<br>20459 Hamburg</p>
             <p><b>Kontaktdaten:</b><br>E-Mail: statezer0@proton.me<br>Telefon: 00491749385199</p>
+            <p><b>Illegal Content (DSA):</b><br>E-Mail: legal.StateZer0@proton.me</p>
             <p>Quelle: Impressum-Privatschutz</p>
         </section>
 
