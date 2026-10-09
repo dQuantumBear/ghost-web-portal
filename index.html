@@ -158,6 +158,112 @@
             box-shadow: 0 0 15px var(--ghost-neon-green);
         }
 
+        /* BETA MODAL STYLES */
+        .beta-modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(10px);
+            z-index: 2500;
+        }
+
+        .beta-modal-overlay.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .beta-modal-content {
+            position: relative;
+            background-color: var(--bg-black);
+            border: 1px solid var(--ghost-red);
+            border-radius: 12px;
+            max-width: 480px;
+            width: calc(100% - 40px);
+            max-height: calc(100vh - 40px);
+            overflow-y: auto;
+            box-shadow: 0 0 30px rgba(255, 0, 0, 0.6), inset 0 0 20px rgba(255, 0, 0, 0.2);
+            animation: betaModalSlideIn 0.4s ease-out;
+            padding: 0;
+        }
+
+        @keyframes betaModalSlideIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9) translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        .beta-modal-header {
+            padding: 20px 25px;
+            border-bottom: 1px solid rgba(255, 0, 0, 0.4);
+            text-align: center;
+        }
+
+        .beta-modal-header h2 {
+            margin: 0;
+            color: var(--ghost-red);
+            text-transform: uppercase;
+            font-size: 1.2em;
+            letter-spacing: 2px;
+            font-weight: bold;
+        }
+
+        .beta-modal-body {
+            padding: 25px;
+            font-size: 0.95em;
+            line-height: 1.7;
+            color: var(--ghost-red);
+            text-align: center;
+        }
+
+        .beta-modal-body p {
+            margin: 15px 0;
+            font-weight: 500;
+        }
+
+        .beta-modal-body a {
+            color: var(--ghost-red);
+            text-decoration: underline;
+            font-weight: bold;
+            transition: 0.2s;
+        }
+
+        .beta-modal-body a:hover {
+            color: #FF5555;
+            text-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+        }
+
+        .beta-close-btn {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            margin-top: 15px;
+            background-color: transparent;
+            border: 1px solid var(--ghost-red);
+            color: var(--ghost-red);
+            font-weight: bold;
+            font-size: 0.95em;
+            cursor: pointer;
+            border-radius: 6px;
+            transition: 0.3s;
+            font-family: inherit;
+            letter-spacing: 1px;
+        }
+
+        .beta-close-btn:hover {
+            background-color: rgba(255, 0, 0, 0.1);
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
+        }
+
         /* AI-FIX: Secure Menu Navigation (v8.2.2) */
         .menu-container {
             position: absolute;
@@ -676,6 +782,20 @@
 </head>
 <body>
 
+    <!-- BETA TESTER SIGNUP MODAL -->
+    <div id="betaModal" class="beta-modal-overlay">
+        <div class="beta-modal-content">
+            <div class="beta-modal-header">
+                <h2>🔴 CLOSED BETA TESTING 🔴</h2>
+            </div>
+            <div class="beta-modal-body">
+                <p>StateZer0 is about to enter closed Beta Testing for the period of 14 days. If you are interested in participating be so kind and email me with short introduction of yourself at provided email and i will respond with details.</p>
+                <p><b>Contact:</b> <a href="mailto:statezer0@proton.me">statezer0@proton.me</a></p>
+                <button id="closeBetaModal" class="beta-close-btn">✓ I ACKNOWLEDGE</button>
+            </div>
+        </div>
+    </div>
+
     <div class="menu-container">
         <img src="/public/menu_icon.png" alt="Menu" class="menu-icon">
         <div class="dropdown-content">
@@ -746,7 +866,7 @@
 
         <section>
             <p>Most messengers still require a phone number, sync your address book, and build a central social graph. StateZerØ is built on a different principle: as the developer, I have no mechanism to read your messages, view your attachments, or access your cryptographic secrets. The server is designed to act only as a relay for encrypted payloads and short-term storage for encrypted blobs. It cannot decrypt content. Routing identifiers, sender/recipient pointers, and delivery timestamps are the minimum metadata required for transport; they are never content, never sold, and protected with field-level encryption at rest.</p>
-            
+
             <h3 style="color: var(--ghost-neon-green); text-transform: uppercase; font-size: 1.1em; margin-top: 25px; border-bottom: 1px solid var(--ghost-dark-green); padding-bottom: 8px;">⚡ Feature Comparison: StateZerØ vs. Mainstream Apps</h3>
             <div style="overflow-x: auto; -webkit-overflow-scrolling: touch; margin: 15px 0; border: 1px solid var(--ghost-neon-green);">
                 <table style="width: 100%; border-collapse: collapse; font-size: 0.85em; font-family: 'Courier New', Courier, monospace; min-width: 600px;">
@@ -1054,6 +1174,42 @@
     </footer>
 
     <script>
+        // BETA MODAL - Auto-show after 3 seconds with NO close button
+        document.addEventListener('DOMContentLoaded', function() {
+            const betaModal = document.getElementById('betaModal');
+            const closeBetaBtn = document.getElementById('closeBetaModal');
+
+            // Auto-show beta modal after 3 seconds
+            setTimeout(function() {
+                if (betaModal) {
+                    betaModal.classList.add('active');
+                }
+            }, 3000);
+
+            // Close button handler
+            if (closeBetaBtn) {
+                closeBetaBtn.addEventListener('click', function() {
+                    betaModal.classList.remove('active');
+                });
+            }
+
+            // Close when clicking outside the modal content
+            if (betaModal) {
+                betaModal.addEventListener('click', function(e) {
+                    if (e.target === betaModal) {
+                        betaModal.classList.remove('active');
+                    }
+                });
+            }
+
+            // Close on ESC key
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && betaModal) {
+                    betaModal.classList.remove('active');
+                }
+            });
+        });
+
         // StateZerØ Image Reel Engine v3.0 — Smooth Interval Spin
         const targetSequence = ['/public/s.png', '/public/t.png', '/public/a.png', '/public/t.png', '/public/e.png', '/public/z.png', '/public/e.png', '/public/r.png', '/public/0.png'];
         const imagePool = ['/public/0.png', '/public/r.png', '/public/z.png', '/public/e.png', '/public/a.png', '/public/t.png', '/public/s.png'];
