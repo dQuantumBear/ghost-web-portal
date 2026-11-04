@@ -773,16 +773,20 @@
 
     <div id="betaTesterModal" class="modal-overlay beta-modal-overlay">
         <div class="modal-content beta-modal-content">
+            <div class="modal-header" style="border-bottom: 1px solid var(--ghost-red);">
+                <h2 style="color: var(--ghost-red);">⚡ CLOSED BETA TESTING</h2>
+                <button class="close-modal" id="closeBetaModalBtn" style="color: var(--ghost-red);">×</button>
+            </div>
             <div class="modal-body beta-modal-body">
-                <p style="color: var(--ghost-red); font-weight: bold; text-align: center; font-size: 1.1em; margin-bottom: 20px;">⚡ CLOSED BETA TESTING</p>
                 <p style="color: var(--ghost-red); line-height: 1.8; text-align: center; margin: 0;">
                     StateZer0 is about to enter closed Beta Testing for the period of 14 days. If you are interested in participating be so kind and email me with short introduction of yourself at provided email and i will respond with details.
                 </p>
                 <p style="color: #FFFFFF; font-weight: bold; text-align: center; font-size: 1.05em; margin-top: 20px; letter-spacing: 0.5px;">4 more slots open for Beta Testers.</p>
-                <div style="margin-top: 25px; text-align: center;">
+                <div style="margin-top: 20px; text-align: center;">
                     <p style="color: var(--ghost-red); font-size: 0.95em; margin-bottom: 15px;">📧 Contact:</p>
                     <a href="mailto:statezer0@proton.me" style="color: var(--ghost-red); text-decoration: none; font-weight: bold; font-size: 1.1em; border: 1px solid var(--ghost-red); padding: 12px 20px; display: inline-block; transition: 0.3s; box-shadow: 0 0 20px rgba(255, 0, 0, 0.3);">statezer0@proton.me</a>
                 </div>
+                <button id="acceptBetaBtn" class="accept-btn" style="border-color: var(--ghost-red); color: var(--ghost-red); margin-top: 25px;">✓ I ACKNOWLEDGE</button>
             </div>
         </div>
     </div>
@@ -1244,12 +1248,18 @@
         function openImpressumModal() { impressumModal.style.display = 'flex'; document.body.style.overflow = 'hidden'; }
         function closeImpressumModal() { impressumModal.style.display = 'none'; document.body.style.overflow = ''; }
         function openBetaTesterModal() { if (betaTesterModal) betaTesterModal.style.display = 'flex'; }
+        function closeBetaTesterModal() { if (betaTesterModal) betaTesterModal.style.display = 'none'; document.body.style.overflow = ''; }
 
         if (cookiePolicyLink) cookiePolicyLink.addEventListener('click', function(e) { e.preventDefault(); openCookieModal(); });
         if (impressumLink) impressumLink.addEventListener('click', function(e) { e.preventDefault(); openImpressumModal(); });
         if (closeCookieBtn) closeCookieBtn.addEventListener('click', closeCookieModal);
         if (closeImpressumBtn) closeImpressumBtn.addEventListener('click', closeImpressumModal);
         if (closeImpressumAcceptBtn) closeImpressumAcceptBtn.addEventListener('click', closeImpressumModal);
+
+        const closeBetaModalBtn = document.getElementById('closeBetaModalBtn');
+        const acceptBetaBtn = document.getElementById('acceptBetaBtn');
+        if (closeBetaModalBtn) closeBetaModalBtn.addEventListener('click', closeBetaTesterModal);
+        if (acceptBetaBtn) acceptBetaBtn.addEventListener('click', closeBetaTesterModal);
 
         const acceptCookieBtn = document.getElementById('acceptCookieBtn');
         if (acceptCookieBtn) {
@@ -1262,12 +1272,14 @@
         window.addEventListener('click', function(e) {
             if (e.target === cookieModal) closeCookieModal();
             if (e.target === impressumModal) closeImpressumModal();
+            if (e.target === betaTesterModal) closeBetaTesterModal();
         });
 
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape') {
                 if (cookieModal.style.display === 'flex') closeCookieModal();
                 if (impressumModal.style.display === 'flex') closeImpressumModal();
+                if (betaTesterModal && betaTesterModal.style.display === 'flex') closeBetaTesterModal();
             }
         });
 
