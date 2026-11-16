@@ -264,6 +264,37 @@
             box-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
         }
 
+        /* NEON GREEN / PITCH BLACK BETA COUNTER */
+        .beta-counter-box {
+            display: inline-block;
+            background-color: #000000;
+            border: 2px solid #39FF14;
+            border-radius: 12px;
+            padding: 16px 36px;
+            margin: 15px 0;
+            box-shadow: 0 0 25px rgba(57, 255, 20, 0.4), inset 0 0 15px rgba(57, 255, 20, 0.15);
+        }
+
+        .beta-counter-number {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 3em;
+            font-weight: 900;
+            color: #39FF14;
+            text-shadow: 0 0 15px #39FF14;
+            line-height: 1;
+            display: block;
+        }
+
+        .beta-counter-label {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.95em;
+            font-weight: bold;
+            color: #FFFDD0;
+            letter-spacing: 3px;
+            margin-top: 8px;
+            text-transform: uppercase;
+        }
+
         /* AI-FIX: Secure Menu Navigation (v8.2.2) */
         .menu-container {
             position: absolute;
@@ -786,10 +817,14 @@
     <div id="betaModal" class="beta-modal-overlay">
         <div class="beta-modal-content">
             <div class="beta-modal-header">
-                <h2>🔴 CLOSED BETA TESTING 🔴</h2>
+                <h2>🔴 CLOSED BETA TESTING IN PROGRESS... 🔴</h2>
             </div>
             <div class="beta-modal-body">
-                <p>StateZer0 is about to enter closed Beta Testing for the period of 14 days. If you are interested in participating be so kind and email me with short introduction of yourself at provided email and i will respond with details.</p>
+                <p>StateZer0 is currently undergoing official closed Beta Testing across 178 countries and regions.</p>
+                <div class="beta-counter-box">
+                    <span id="betaDaysCount" class="beta-counter-number">14</span>
+                    <div class="beta-counter-label">DAYS TO GO</div>
+                </div>
                 <p><b>Contact:</b> <a href="mailto:grizmiboo@gmail.com">grizmiboo@gmail.com</a></p>
                 <button id="closeBetaModal" class="beta-close-btn">✓ I ACKNOWLEDGE</button>
             </div>
@@ -833,7 +868,7 @@
                 <p><b>Inhalte gemäß §5 DDG</b></p>
                 <p>Individual Entrepreneur</p>
                 <p>c/o IP-Management #9966<br>Ludwig-Erhard-Straße 18<br>20459 Hamburg</p>
-                <p><b>Kontaktdaten:</b><br>E-Mail: grizmiboo@gmail.com<br>Telefon: 00491749385199</p>
+                <p><b>Kontaktdaten:</b><br>E-Mail: statezer0@proton.me<br>Telefon: 00491749385199</p>
                 <p><b>Illegal Content (DSA):</b><br>E-Mail: legal.StateZer0@proton.me</p>
                 <p>Quelle: Impressum-Privatschutz</p>
                 <button id="closeImpressumAcceptBtn" class="accept-btn">✓ CLOSE</button>
@@ -855,7 +890,7 @@
             <a href="https://glokta1991.github.io/legal-docs/white_paper.html" class="ghost-btn">EXPLORE THE ARCHITECTURE</a>
             <div class="signature-creator" style="margin-top: 15px; font-size: 0.85em; color: var(--ghost-cream); opacity: 0.8; line-height: 1.5; padding: 0 10px;">
                 Created, financed and designed by <span class="highlight">dQuantumBear</span><br>
-                Contact: <span class="highlight" style="word-break: break-all;">grizmiboo@gmail.com</span>
+                Contact: <span class="highlight" style="word-break: break-all;">statezer0@proton.me</span>
             </div>
         </div>
     </header>
@@ -1160,7 +1195,7 @@
             <p>Inhalte gemäß §5 DDG</p>
             <p>Individual Entrepreneur</p>
             <p>c/o IP-Management #9966<br>Ludwig-Erhard-Straße 18<br>20459 Hamburg</p>
-            <p><b>Kontaktdaten:</b><br>E-Mail: grizmiboo@gmail.com<br>Telefon: 00491749385199</p>
+            <p><b>Kontaktdaten:</b><br>E-Mail: statezer0@proton.me<br>Telefon: 00491749385199</p>
             <p><b>Illegal Content (DSA):</b><br>E-Mail: legal.StateZer0@proton.me</p>
             <p>Quelle: Impressum-Privatschutz</p>
         </section>
@@ -1174,10 +1209,24 @@
     </footer>
 
     <script>
-        // BETA MODAL - Auto-show after 3 seconds with NO close button
+        // BETA MODAL - Auto-show after 3 seconds
         document.addEventListener('DOMContentLoaded', function() {
             const betaModal = document.getElementById('betaModal');
             const closeBetaBtn = document.getElementById('closeBetaModal');
+
+            function updateBetaCountdown() {
+                const startDate = new Date('2026-11-11T00:00:00Z');
+                const totalDays = 14;
+                const now = new Date();
+                const elapsedMs = now - startDate;
+                const elapsedDays = Math.floor(elapsedMs / (1000 * 60 * 60 * 24));
+                const daysRemaining = Math.max(0, totalDays - Math.max(0, elapsedDays));
+                const countElem = document.getElementById('betaDaysCount');
+                if (countElem) {
+                    countElem.textContent = daysRemaining;
+                }
+            }
+            updateBetaCountdown();
 
             // Auto-show beta modal after 3 seconds
             setTimeout(function() {
